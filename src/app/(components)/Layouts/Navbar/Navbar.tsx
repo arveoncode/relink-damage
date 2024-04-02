@@ -48,7 +48,7 @@ export const Navbar = () => {
               <NavigationMenuItem>
                 <NavigationMenuLink
                   className={navigationMenuTriggerStyle()}
-                  href="https://github.com/arveoncode/relink-dmg-calculator-app"
+                  href="https://github.com/arveoncode/relink-damage"
                   target="_blank"
                 >
                   <div className="flex gap-1">

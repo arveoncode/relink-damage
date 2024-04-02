@@ -25,7 +25,7 @@ export default function Home() {
           <Stats />
         </div>
       </div>
-      <div className="p-8">
+      <div className="p-8 bg-white">
         <SkillsTable />
       </div>
     </main>

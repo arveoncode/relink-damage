@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "./(components)/Layouts/Navbar/Navbar";
+import { Navbar } from "./(components)/layouts/navbar/Navbar";
 // import { ThemeProvider } from "./(providers)/theme-provider";
 // import { GridSmallBackground } from "@/components/ui/small-grid-background";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { Analytics } from "@vercel/analytics/react";
-import { Footer } from "./(components)/Layouts/Footer/Footer";
+import { Footer } from "./(components)/layouts/footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 

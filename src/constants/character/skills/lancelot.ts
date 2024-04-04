@@ -1,6 +1,7 @@
-import { SkillConstant } from "@/types/skill.types";
+import { SkillJsonRaw } from "@/types/skill.types";
+import { convertSkills } from "./skillConverter";
 
-const skillsConverted = [
+export const skillsConverted: SkillJsonRaw[] = [
   {
     Skill: "Auto Attack",
     Modifier: "1st Auto",
@@ -283,37 +284,8 @@ const skillsConverted = [
   },
 ];
 
-export const lancelotSkills: SkillConstant[] = skillsConverted.map((sk) => {
-    // classification: {
-    //     normal: true,
-    //     ranged: true,
-    //     charged: true,
-    //     skill: false,
-    //     skyboundArt: false,
-    //     linkAttack: false,
-    //     finisher: false,
-    //   },
-  const classification: SkillConstant["classification"] = {
-    ...(sk.Classification.includes("No") && { normal: true }),
-    ...(sk.Classification.includes("Ra") && { ranged: true }),
-    ...(sk.Classification.includes("Ch") && { charged: true }),
-    ...(sk.Classification.includes("Sk") && { skill: true }),
-    ...(sk.Classification.includes("Sb") && { skyboundArt: true }),
-    ...(sk.Classification.includes("Li") && { linkAttack: true }),
-    ...(sk.Classification.includes("Fi") && { finisher: true }),
-    ...(sk.Classification.includes("Pe") && { pet: true }),
-    ...(sk.Classification.includes("Th") && { throw: true }),
-  };
-  return {
-    skill: sk.Skill,
-    modifier: sk.Modifier,
-    dmgCap: sk["DMG Cap"],
-    skillRatio: sk["Skill Ratio"],
-    cd: 0,
-    classification: classification,
-  };
-});
 
+export const lancelotSkills = convertSkills(skillsConverted);
 
 
 

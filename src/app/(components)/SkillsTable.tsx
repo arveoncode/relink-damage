@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { SkillsDataTable } from "./skills-data-table/SkillsDataTable";
 import { skillsDataColumns } from "./skills-data-table/SkillsDataColumns";
 import { lancelotSkills } from "@/constants/character/skills/lancelot";
+import { cagliostroSkills } from "@/constants/character/skills/cagliostro";
 
 export const SkillsTable = () => {
   const selectedCharacter = useCharacterStore(
@@ -141,26 +142,56 @@ export const SkillsTable = () => {
         setCharData([]);
         break;
       case "Captain":
+        setCharData([]);
+        break;
       case "Narmaya":
+        setCharData([]);
+        break;
       case "Rosetta":
+        setCharData([]);
+        break;
       case "Cagliostro":
+        setCharData(calculateSkills(cagliostroSkills));
+        break;
       case "Ferry":
+        setCharData([]);
+        break;
       case "Lancelot":
         setCharData(calculateSkills(lancelotSkills));
         break;
       case "Rackam":
+        setCharData([]);
+        break;
       case "Vaseraga":
+        setCharData([]);
+        break;
       case "Siegfried":
+        setCharData([]);
+        break;
       case "Vane":
+        setCharData([]);
+        break;
       case "Id":
+        setCharData([]);
+        break;
       case "Charlotta":
         setCharData(calculateSkills(charlottaSkills));
         break;
       case "Ghandagoza":
+        setCharData([]);
+        break;
       case "Percival":
+        setCharData([]);
+        break;
       case "Katalina":
+        setCharData([]);
+        break;
       case "Eugen":
+        setCharData([]);
+        break;
       case "Yodarha":
+        setCharData([]);
+        break;
     }
   }, [selectedCharacter, statsStore, traitsTable, overmasteryCrit]);
   return <SkillsDataTable data={charData} columns={skillsDataColumns} />;

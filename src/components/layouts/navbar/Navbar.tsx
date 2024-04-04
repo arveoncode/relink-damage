@@ -22,7 +22,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
-import { ExportDialog } from "./(components)/ExportDialog";
+import { ExportDialog } from "./ExportDialog";
 
 export const Navbar = () => {
   const packageJson = require("@/../../package.json");

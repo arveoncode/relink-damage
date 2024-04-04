@@ -168,7 +168,7 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
                 ? "bg-orange-200"
                 : row.original.damagePotential > 20
                 ? "bg-red-200"
-                : ""
+                : "bg-rose-200"
             }`}
           >
             {row.original.damagePotential.toFixed(2)}%

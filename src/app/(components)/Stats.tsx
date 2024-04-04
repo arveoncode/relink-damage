@@ -81,7 +81,6 @@ const RawPowerBox = () => {
 
   // Calculator
   useEffect(() => {
-    console.log(traitsTable);
     const sigilsAttack = traitsTable.find(
       (trait) => trait.traitName === "Attack Power"
     )?.value;

@@ -1,32 +1,19 @@
 "use client";
-import { Badge } from "@/components/ui/badge";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+
 import { charlottaSkills } from "@/constants/character/skills/charlotta";
 import { ioSkills } from "@/constants/character/skills/io";
 import { baseStatsAtLvl100 } from "@/constants/stats/stats";
-import {
-  numberWithCommas,
-  safeDecimalAdder,
-  safeDecimalMultiplier,
-} from "@/lib/calculators";
+import { safeDecimalAdder, safeDecimalMultiplier } from "@/lib/calculators";
 import { useCharacterStore } from "@/stores/useCharacterStore";
 import { useOvermasteriesStore } from "@/stores/useOvermasteriesStore";
 import { useStatsStore } from "@/stores/useStatsStore";
 import { useTraitsStore } from "@/stores/useTraitsStore";
 import { SkillCalculatedTable, SkillConstant } from "@/types/skill.types";
 import { useEffect, useState } from "react";
+import { SkillsDataTable } from "./skills-data-table/SkillsDataTable";
+import { skillsDataColumns } from "./skills-data-table/SkillsDataColumns";
+import { lancelotSkills } from "@/constants/character/skills/lancelot";
+import { cagliostroSkills } from "@/constants/character/skills/cagliostro";
 
 export const SkillsTable = () => {
   const selectedCharacter = useCharacterStore(
@@ -155,162 +142,57 @@ export const SkillsTable = () => {
         setCharData([]);
         break;
       case "Captain":
+        setCharData([]);
+        break;
       case "Narmaya":
+        setCharData([]);
+        break;
       case "Rosetta":
+        setCharData([]);
+        break;
       case "Cagliostro":
+        setCharData(calculateSkills(cagliostroSkills));
+        break;
       case "Ferry":
+        setCharData([]);
+        break;
       case "Lancelot":
+        setCharData(calculateSkills(lancelotSkills));
+        break;
       case "Rackam":
+        setCharData([]);
+        break;
       case "Vaseraga":
+        setCharData([]);
+        break;
       case "Siegfried":
+        setCharData([]);
+        break;
       case "Vane":
+        setCharData([]);
+        break;
       case "Id":
+        setCharData([]);
+        break;
       case "Charlotta":
         setCharData(calculateSkills(charlottaSkills));
         break;
       case "Ghandagoza":
+        setCharData([]);
+        break;
       case "Percival":
+        setCharData([]);
+        break;
       case "Katalina":
+        setCharData([]);
+        break;
       case "Eugen":
+        setCharData([]);
+        break;
       case "Yodarha":
+        setCharData([]);
+        break;
     }
   }, [selectedCharacter, statsStore, traitsTable, overmasteryCrit]);
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="font-bold">Skill</TableHead>
-          <TableHead className="font-bold">Modifier</TableHead>
-          <TableHead className="font-bold text-right">Skill Ratio</TableHead>
-          <TableHead className="font-bold text-right">DMG Cap</TableHead>
-          <TableHead className="font-bold text-center">
-            Classification
-          </TableHead>
-          <TableHead className="font-bold text-right">Multi</TableHead>
-          <TableHead className="font-bold text-right">Crit Chance</TableHead>
-          <TableHead className="font-bold text-right">
-            Total Damage Cap
-          </TableHead>
-          <TableHead className="font-bold text-right">Non Crit</TableHead>
-          <TableHead className="font-bold text-right">Crit</TableHead>
-          <TableHead className="font-bold text-right">
-            Damage Potential
-          </TableHead>
-          <TableHead className="font-bold text-right">Overcap</TableHead>
-          <TableHead className="font-bold text-right">Supplemental</TableHead>
-          <TableHead className="font-bold text-right">
-            Average Total Damage
-          </TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {charData.map((skill, i) => {
-          return (
-            <TableRow key={i}>
-              <TableCell>{skill.skill}</TableCell>
-              <TableCell>{skill.modifier}</TableCell>
-              <TableCell className="text-right">
-                {safeDecimalMultiplier([skill.skillRatio, 100]).toFixed(2)}%
-              </TableCell>
-              <TableCell className="text-right">
-                {numberWithCommas(skill.dmgCap)}
-              </TableCell>
-              <TableCell className="flex gap-1 px-2">
-                {/* No = Normal
-                    Ra = Ranged
-                    Ch = Charged
-                    Sk = Skill
-                    Sb = Skybound Art
-                    Li = Link Attack */}
-                {skill.classification.normal && (
-                  <SkillClassificationBadge abrv="No" full="Normal" />
-                )}
-                {skill.classification.ranged && (
-                  <SkillClassificationBadge abrv="Ra" full="Ranged" />
-                )}
-                {skill.classification.charged && (
-                  <SkillClassificationBadge abrv="Ch" full="Charged" />
-                )}
-                {skill.classification.skill && (
-                  <SkillClassificationBadge abrv="Sk" full="Skill" />
-                )}
-                {skill.classification.skyboundArt && (
-                  <SkillClassificationBadge abrv="Sb" full="SBA" />
-                )}
-                {skill.classification.linkAttack && (
-                  <SkillClassificationBadge abrv="Li" full="Link Attack" />
-                )}
-                {skill.classification.finisher && (
-                  <SkillClassificationBadge abrv="Fi" full="Combo Finisher" />
-                )}
-                {skill.classification.pet && (
-                  <SkillClassificationBadge abrv="Pe" full="Pet" />
-                )}
-              </TableCell>
-              <TableCell className="text-right">
-                {safeDecimalMultiplier([skill.multi, 100]).toFixed(2)}%
-              </TableCell>
-              <TableCell className="text-right">
-                {safeDecimalMultiplier([skill.critChance, 100]).toFixed(2)}%
-              </TableCell>
-              <TableCell className="text-right bg-green-50">
-                {numberWithCommas(Math.round(skill.totalDamageCap))}
-              </TableCell>
-              <TableCell className="text-right">
-                {numberWithCommas(skill.nonCrit)}
-              </TableCell>
-              <TableCell className="text-right">
-                {numberWithCommas(skill.crit)}
-              </TableCell>
-              <TableCell
-                className={`text-right ${
-                  skill.damagePotential === 100
-                    ? "bg-green-200"
-                    : skill.damagePotential > 85
-                    ? "bg-lime-200"
-                    : skill.damagePotential > 65
-                    ? "bg-yellow-200"
-                    : skill.damagePotential > 50
-                    ? "bg-amber-200"
-                    : skill.damagePotential > 35
-                    ? "bg-orange-200"
-                    : skill.damagePotential > 20
-                    ? "bg-red-200"
-                    : ""
-                }`}
-              >
-                {skill.damagePotential.toFixed(2)}%
-              </TableCell>
-              <TableCell className="text-right">
-                {skill.overcap.toFixed(2)}%
-              </TableCell>
-              <TableCell className="text-right">{skill.supplemental}</TableCell>
-              <TableCell className="text-right">
-                {skill.averageTotalDmg}
-              </TableCell>
-            </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
-  );
-};
-
-const SkillClassificationBadge = ({
-  abrv,
-  full,
-}: {
-  abrv: string;
-  full: string;
-}) => {
-  return (
-    <HoverCard>
-      <HoverCardTrigger>
-        <Badge variant="outline">{abrv}</Badge>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-full">
-        <p>{full}</p>
-      </HoverCardContent>
-    </HoverCard>
-  );
+  return <SkillsDataTable data={charData} columns={skillsDataColumns} />;
 };

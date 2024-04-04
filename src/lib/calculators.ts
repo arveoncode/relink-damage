@@ -16,5 +16,24 @@ export function safeDecimalMultiplier(_nums: number[]) {
 }
 
 export function numberWithCommas(x: number) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// this is not even a calculator anymore lmao
+export function csvJSON(csv: string) {
+  const lines = csv.split("\n");
+  const result = [];
+  const headers = lines[0].split(",");
+
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i]) continue;
+    const obj = {} as any;
+    const currentline = lines[i].split(",");
+
+    for (let j = 0; j < headers.length; j++) {
+      obj[headers[j]] = currentline[j];
+    }
+    result.push(obj);
+  }
+  return result;
 }

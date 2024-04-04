@@ -15,9 +15,9 @@ export interface SkillConstant {
 
     //Unique
     //Ferry
-    pet?: boolean
+    pet?: boolean;
     //Eugen
-    throw?: boolean
+    throw?: boolean;
   };
 }
 
@@ -32,4 +32,13 @@ export interface SkillCalculatedTable extends SkillConstant {
   overcap: number;
   supplemental: number;
   averageTotalDmg: number;
+}
+
+export interface SkillJsonRaw {
+  Skill: string;
+  Modifier: string;
+  "Skill Ratio": number;
+  "DMG Cap": number;
+  CD: string | number;
+  Classification: string;
 }

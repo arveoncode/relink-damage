@@ -111,9 +111,7 @@ export const OtherInputs = () => {
                 {otherInputsStore.currentHp * 100}%
               </Label>
             </div>
-            <p className="text-sm text-gray-600">*currently disabled</p>
             <Slider
-              disabled
               max={1}
               step={0.05}
               value={[otherInputsStore.currentHp]}

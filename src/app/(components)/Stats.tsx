@@ -267,12 +267,22 @@ const StaminaModBox = () => {
 
     // This needs to be fixed
     setStaminaMod(
-      safeDecimalAdder([
-        1,
-        sigilsStamina
-          ? sigilsStamina * ((currentHp > 0.25 ? currentHp - 0.25 : 0) / 0.75)
-          : 0,
-        sigilsEnmity ? 1 * (sigilsEnmity * (1 - currentHp)) : 0,
+      safeDecimalMultiplier([
+        safeDecimalAdder([
+          1,
+          sigilsStamina
+            ? safeDecimalMultiplier([
+                sigilsStamina,
+                Math.max(0.15, (currentHp - 0.25) / 0.75),
+              ])
+            : 0,
+        ]),
+        safeDecimalAdder([
+          1,
+          sigilsEnmity
+            ? safeDecimalMultiplier([sigilsEnmity, 1 - currentHp])
+            : 0,
+        ]),
       ])
     );
   }, [traitsTable, currentHp, setStaminaMod]);

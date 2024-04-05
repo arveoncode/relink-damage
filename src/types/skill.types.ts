@@ -18,6 +18,8 @@ export interface SkillConstant {
     pet?: boolean;
     //Eugen
     throw?: boolean;
+    //otehrs:
+    special?: boolean;
   };
 }
 

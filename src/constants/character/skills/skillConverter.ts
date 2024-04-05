@@ -23,6 +23,7 @@ export const convertSkills = (
       ...(sk.Classification.includes("Fi") && { finisher: true }),
       ...(sk.Classification.includes("Pe") && { pet: true }),
       ...(sk.Classification.includes("Th") && { throw: true }),
+      ...(sk.Classification.includes("Sp") && {special: true}),
     };
     return {
       skill: sk.Skill,

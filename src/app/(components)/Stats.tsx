@@ -69,6 +69,8 @@ const RawPowerBox = () => {
   const selectedCharacter = useCharacterStore(
     (state) => state.selectedCharacter
   );
+  const artsLevel = useCharacterStore((state) => state.artsLevel);
+  const highestLvlRose = useCharacterStore((state) => state.highestLvlRose);
   const setRawPower = useStatsStore((state) => state.setRawPower);
   const attackOvermastery = useOvermasteriesStore((state) => state.attack);
   const staminaMod = useStatsStore((state) => state.staminaMod);
@@ -76,6 +78,7 @@ const RawPowerBox = () => {
   const defDebuffs = useOtherInputsStore((state) => state.defDebuffs);
   const comboActive = useOtherInputsStore((state) => state.comboActive);
   const numberOfSkills = useOtherInputsStore((state) => state.numberOfSkills);
+  const isAwakening = useStatsStore((state) => state.isAwakening);
   // Value Read in component
   const rawPower = useStatsStore((state) => state.rawPower);
 
@@ -96,6 +99,9 @@ const RawPowerBox = () => {
     )?.value;
     const sigilsLessIsMore = traitsTable.find(
       (trait) => trait.traitName === "Less is More"
+    )?.value;
+    const sigilsLifeOnTheLine = traitsTable.find(
+      (trait) => trait.traitName === "Life on the Line"
     )?.value;
     const sigilsInjury = traitsTable.find(
       (trait) => trait.traitName === "Injury to Insult"
@@ -136,6 +142,18 @@ const RawPowerBox = () => {
           sigilsLessIsMore
             ? safeDecimalMultiplier([4 - numberOfSkills, sigilsLessIsMore])
             : 0,
+          sigilsLifeOnTheLine ? sigilsLifeOnTheLine : 0,
+          // Character specific
+          selectedCharacter === "Captain" && isAwakening && artsLevel >= 2
+            ? Math.min(artsLevel, 4) * 0.05
+            : 0,
+          selectedCharacter === "Yodarha" && isAwakening ? 0.3 : 0,
+          selectedCharacter === "Rosetta"
+            ? safeDecimalAdder([
+                isAwakening ? 0.13 : 0.3,
+                Math.min(highestLvlRose, 4) * 0.03,
+              ])
+            : 0,
         ]),
         sigilsInjury ? 1 + sigilsInjury : 1,
         // Glass Cannon Modifier
@@ -151,6 +169,9 @@ const RawPowerBox = () => {
     );
   }, [
     numberOfSkills,
+    artsLevel,
+    highestLvlRose,
+    isAwakening,
     traitsTable,
     attackOvermastery,
     isTermimus,

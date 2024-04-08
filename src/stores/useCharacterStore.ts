@@ -1,5 +1,6 @@
 import { Character } from "@/types/character.types";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface CharacterStore {
   //   Selected Character
@@ -24,25 +25,33 @@ interface CharacterStore {
   setHighestLvlRose: (highestLvlRose: number) => void;
 }
 
-export const useCharacterStore = create<CharacterStore>()((set) => ({
-  selectedCharacter: "Io",
-  setSelectedCharacter: (character: Character) =>
-    set(() => ({ selectedCharacter: character })),
-  gravityWell: false,
-  setGravityWell: (gravityWell: boolean) =>
-    set(() => ({ gravityWell: gravityWell })),
-  arvessFermare: false,
-  setArvessFermare: (arvessFermare: boolean) =>
-    set(() => ({ arvessFermare: arvessFermare })),
-  artsLevel: 0,
-  setArtsLevel: (artsLevel: number) => set(() => ({ artsLevel: artsLevel })),
-  butterflies: 0,
-  setButterflies: (butterflies: number) =>
-    set(() => ({ butterflies: butterflies })),
-  highestLvlRose: 0,
-  setHighestLvlRose: (highestLvlRose: number) =>
-    set(() => ({ highestLvlRose: highestLvlRose })),
-}));
+export const useCharacterStore = create<CharacterStore>()(
+  persist(
+    (set) => ({
+      selectedCharacter: "Io",
+      setSelectedCharacter: (character: Character) =>
+        set(() => ({ selectedCharacter: character })),
+      gravityWell: false,
+      setGravityWell: (gravityWell: boolean) =>
+        set(() => ({ gravityWell: gravityWell })),
+      arvessFermare: false,
+      setArvessFermare: (arvessFermare: boolean) =>
+        set(() => ({ arvessFermare: arvessFermare })),
+      artsLevel: 0,
+      setArtsLevel: (artsLevel: number) =>
+        set(() => ({ artsLevel: artsLevel })),
+      butterflies: 0,
+      setButterflies: (butterflies: number) =>
+        set(() => ({ butterflies: butterflies })),
+      highestLvlRose: 0,
+      setHighestLvlRose: (highestLvlRose: number) =>
+        set(() => ({ highestLvlRose: highestLvlRose })),
+    }),
+    {
+      name: "character",
+    }
+  )
+);
 
 // export function getCharacterInput(): CharacterInput {
 //   const selectedCharacter = useCharacterStore(

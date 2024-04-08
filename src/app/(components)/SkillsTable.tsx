@@ -31,16 +31,17 @@ export const SkillsTable = () => {
 
   useEffect(() => {
     function calculateSkills(_skills: SkillConstant[]): SkillCalculatedTable[] {
+      const sigilsCrit = traitsTable.find(
+        (sigil) => sigil.traitName === "Critical Hit Rate"
+      )?.value;
+      const sigilsLuckyCharge = traitsTable.find(
+        (sigil) => sigil.traitName === "Lucky Charge"
+      )?.value;
+      const sigilsTyranny = traitsTable.find(
+        (sigil) => sigil.traitName === "Tyranny"
+      )?.value as number;
+
       return _skills.map((skill) => {
-        const sigilsCrit = traitsTable.find(
-          (sigil) => sigil.traitName === "Critical Hit Rate"
-        )?.value;
-        const sigilsLuckyCharge = traitsTable.find(
-          (sigil) => sigil.traitName === "Lucky Charge"
-        )?.value;
-        const sigilsTyranny = traitsTable.find(
-          (sigil) => sigil.traitName === "Tyranny"
-        )?.value as number;
         const multi = safeDecimalAdder([
           // 1,
           safeDecimalMultiplier([

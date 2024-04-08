@@ -16,11 +16,20 @@ import {
   getCharacterImage,
 } from "@/constants/character/characters";
 import Image from "next/image";
+import { useEffect } from "react";
 
 export const CharacterPicker = () => {
-  const characterStoreState = useCharacterStore((state) => state);
+  const selectedCharacter = useCharacterStore(
+    (state) => state.selectedCharacter
+  );
+  const setSelectedCharacter = useCharacterStore(
+    (state) => state.setSelectedCharacter
+  );
+  const arvessFermare = useCharacterStore((state) => state.arvessFermare);
+  const setArvessFermare = useCharacterStore((state) => state.setArvessFermare);
+
   function characterSpecificRenderSwitch() {
-    switch (characterStoreState.selectedCharacter) {
+    switch (selectedCharacter) {
       // case "Io":
       //
       //   );
@@ -34,10 +43,8 @@ export const CharacterPicker = () => {
               </p>
             </div>
             <Switch
-              checked={characterStoreState.arvessFermare}
-              onCheckedChange={(value) =>
-                characterStoreState.setArvessFermare(value as boolean)
-              }
+              checked={arvessFermare}
+              onCheckedChange={(value) => setArvessFermare(value as boolean)}
             />
           </div>
         );
@@ -92,10 +99,8 @@ export const CharacterPicker = () => {
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
           <Select
-            onValueChange={(value) =>
-              characterStoreState.setSelectedCharacter(value as Character)
-            }
-            value={characterStoreState.selectedCharacter}
+            onValueChange={(value) => setSelectedCharacter(value as Character)}
+            value={selectedCharacter}
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Character" />
@@ -113,11 +118,7 @@ export const CharacterPicker = () => {
               <Image
                 alt=""
                 fill
-                src={
-                  getCharacterImage(
-                    characterStoreState.selectedCharacter
-                  ) as string
-                }
+                src={getCharacterImage(selectedCharacter) as string}
                 objectFit="cover"
               />
             </div>

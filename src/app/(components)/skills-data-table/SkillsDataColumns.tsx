@@ -14,7 +14,7 @@ import { ColumnDef } from "@tanstack/react-table";
 export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
   {
     id: "calculations",
-    header: () => <div>Calculations</div>,
+    header: () => <div className="px-2">Calculations</div>,
     columns: [
       {
         id: "select",

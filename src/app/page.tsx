@@ -6,6 +6,7 @@ import { Sigils } from "./(components)/Sigils";
 import { Stats } from "./(components)/Stats";
 import { OtherInputs } from "./(components)/OtherInputs";
 import { SkillsTable } from "./(components)/SkillsTable";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -22,11 +23,15 @@ export default function Home() {
         </div>
         <div className="col-span-4 flex flex-col gap-4">
           <Traits />
-          <Stats />
+          <Suspense>
+            <Stats />
+          </Suspense>
         </div>
       </div>
       <div className="p-8 bg-white">
-        <SkillsTable />
+        <Suspense>
+          <SkillsTable />
+        </Suspense>
       </div>
     </main>
   );

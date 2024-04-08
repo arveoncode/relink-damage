@@ -108,12 +108,14 @@ export const OtherInputs = () => {
             <div className="flex justify-between align-middle h-8">
               <Label className="my-auto">Current HP</Label>
               <Label className="my-auto">
-                {otherInputsStore.currentHp * 100}%
+                {safeDecimalMultiplier([
+                  otherInputsStore.currentHp,
+                  100,
+                ]).toFixed(2)}
+                %
               </Label>
             </div>
-            <p className="text-sm text-gray-600">*currently disabled</p>
             <Slider
-              disabled
               max={1}
               step={0.05}
               value={[otherInputsStore.currentHp]}

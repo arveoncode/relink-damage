@@ -36,24 +36,7 @@ interface SigilsPickerProps {
 }
 const SigilsPicker = ({ index, sigilSet }: SigilsPickerProps) => {
   const updateSigilSet = useTraitsStore((state) => state.updateSigilSet);
-  // const [secondSigilsOptions, setSecondSigilsOptions] = useState<string[]>([]);
-  // useEffect(() => {
-  //   allSigilObjects.map((sigil) => {
-  //     if (sigilSet.sigil1 === sigil.name) {
-  //       if (
-  //         sigil.type === "Opus" ||
-  //         sigil.type === "BaseStat" ||
-  //         sigil.type === "Attack" ||
-  //         sigil.type === "Defensive" ||
-  //         sigil.type === "Awakening"
-  //       ) {
-  //         setSecondSigilsOptions(sigil.allowedSecondaryTraits);
-  //       } else {
-  //         setSecondSigilsOptions([]);
-  //       }
-  //     }
-  //   });
-  // }, [sigilSet]);
+
   const options: SelectOptionsProp[] = sigilConstants.map((sigil) => {
     return {
       value: sigil.sigilName,

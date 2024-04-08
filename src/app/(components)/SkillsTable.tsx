@@ -14,11 +14,16 @@ import { SkillsDataTable } from "./skills-data-table/SkillsDataTable";
 import { skillsDataColumns } from "./skills-data-table/SkillsDataColumns";
 import { lancelotSkills } from "@/constants/character/skills/lancelot";
 import { cagliostroSkills } from "@/constants/character/skills/cagliostro";
+import { zetaSkills } from "@/constants/character/skills/zeta";
+import { useOtherInputsStore } from "@/stores/useOtherInputsStore";
 
 export const SkillsTable = () => {
   const selectedCharacter = useCharacterStore(
     (state) => state.selectedCharacter
   );
+  const arvessFermare = useCharacterStore((state) => state.arvessFermare);
+  const butterflies = useCharacterStore((state) => state.butterflies);
+  const comboActive = useOtherInputsStore((state) => state.comboActive);
   const statsStore = useStatsStore((state) => state);
   const overmasteryCrit = useOvermasteriesStore((state) => state.critHitRate);
   const traitsTable = useTraitsStore((state) => state.traitsTable);
@@ -26,16 +31,17 @@ export const SkillsTable = () => {
 
   useEffect(() => {
     function calculateSkills(_skills: SkillConstant[]): SkillCalculatedTable[] {
+      const sigilsCrit = traitsTable.find(
+        (sigil) => sigil.traitName === "Critical Hit Rate"
+      )?.value;
+      const sigilsLuckyCharge = traitsTable.find(
+        (sigil) => sigil.traitName === "Lucky Charge"
+      )?.value;
+      const sigilsTyranny = traitsTable.find(
+        (sigil) => sigil.traitName === "Tyranny"
+      )?.value as number;
+
       return _skills.map((skill) => {
-        const sigilsCrit = traitsTable.find(
-          (sigil) => sigil.traitName === "Critical Hit Rate"
-        )?.value;
-        const sigilsLuckyCharge = traitsTable.find(
-          (sigil) => sigil.traitName === "Lucky Charge"
-        )?.value;
-        const sigilsTyranny = traitsTable.find(
-          (sigil) => sigil.traitName === "Tyranny"
-        )?.value as number;
         const multi = safeDecimalAdder([
           // 1,
           safeDecimalMultiplier([
@@ -48,6 +54,30 @@ export const SkillsTable = () => {
             skill.classification.skill ? statsStore.skillBonus + 1 : 1,
             skill.classification.finisher ? statsStore.finisherBonus + 1 : 1,
             !skill.classification.skyboundArt ? statsStore.weakPoint + 1 : 1,
+            //Character specific multipliers
+            selectedCharacter === "Ferry" &&
+            statsStore.isAwakening &&
+            skill.classification.pet
+              ? 1.3
+              : 1,
+            selectedCharacter === "Lancelot" &&
+            statsStore.isAwakening &&
+            skill.skill === "Twin Blade Dance"
+              ? safeDecimalMultiplier([1.5, 1 + (comboActive ? 0.5 : 0)])
+              : 1,
+            selectedCharacter === "Yodarha" &&
+            statsStore.isAwakening &&
+            comboActive
+              ? 1.3
+              : 1,
+            selectedCharacter === "Zeta" && arvessFermare
+              ? safeDecimalAdder([1.3, statsStore.isAwakening ? 0.25 : 0])
+              : 1,
+            selectedCharacter === "Narmaya" &&
+            butterflies >= 1 &&
+            skill.classification.special
+              ? safeDecimalMultiplier([1.05 ^ Math.min(butterflies, 5)])
+              : 1,
           ]),
         ]);
 
@@ -139,7 +169,7 @@ export const SkillsTable = () => {
         setCharData(calculateSkills(ioSkills));
         break;
       case "Zeta":
-        setCharData([]);
+        setCharData(calculateSkills(zetaSkills));
         break;
       case "Captain":
         setCharData([]);
@@ -193,6 +223,14 @@ export const SkillsTable = () => {
         setCharData([]);
         break;
     }
-  }, [selectedCharacter, statsStore, traitsTable, overmasteryCrit]);
+  }, [
+    selectedCharacter,
+    statsStore,
+    traitsTable,
+    overmasteryCrit,
+    arvessFermare,
+    butterflies,
+    comboActive,
+  ]);
   return <SkillsDataTable data={charData} columns={skillsDataColumns} />;
 };

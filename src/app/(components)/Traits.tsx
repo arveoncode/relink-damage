@@ -73,8 +73,7 @@ export const Traits = () => {
           ? levels.reduce((partialSum, lvl) => partialSum + lvl, 0) + 5
           : levels.reduce((partialSum, lvl) => partialSum + lvl, 0);
       // prevent actualUseableLevel from exceeding maximum allowed level
-      const actualUseableLevel =
-        level >= sigil.sigilMaxLevel ? sigil.sigilMaxLevel : level;
+      const actualUseableLevel = Math.min(level, sigil.sigilMaxLevel);
       // returns value from sigilLevels taken from maygi's sheet. Also prevents non-sigils from having a value added to it
       const traitValue = sigilLevelLiteral.includes(
         sigil.sigilName as SigilLevelLiteral

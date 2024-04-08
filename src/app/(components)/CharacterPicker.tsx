@@ -1,13 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { useCharacterStore } from "@/stores/useCharacterStore";
 import { Character } from "@/types/character.types";
 import { Switch } from "@/components/ui/switch";
@@ -16,11 +10,20 @@ import {
   getCharacterImage,
 } from "@/constants/character/characters";
 import Image from "next/image";
+import { ComboBox, SelectOptionsProp } from "@/components/ui/combo-box";
 
 export const CharacterPicker = () => {
-  const characterStoreState = useCharacterStore((state) => state);
+  const selectedCharacter = useCharacterStore(
+    (state) => state.selectedCharacter
+  );
+  const setSelectedCharacter = useCharacterStore(
+    (state) => state.setSelectedCharacter
+  );
+  const arvessFermare = useCharacterStore((state) => state.arvessFermare);
+  const setArvessFermare = useCharacterStore((state) => state.setArvessFermare);
+
   function characterSpecificRenderSwitch() {
-    switch (characterStoreState.selectedCharacter) {
+    switch (selectedCharacter) {
       // case "Io":
       //
       //   );
@@ -34,10 +37,8 @@ export const CharacterPicker = () => {
               </p>
             </div>
             <Switch
-              checked={characterStoreState.arvessFermare}
-              onCheckedChange={(value) =>
-                characterStoreState.setArvessFermare(value as boolean)
-              }
+              checked={arvessFermare}
+              onCheckedChange={(value) => setArvessFermare(value as boolean)}
             />
           </div>
         );
@@ -80,6 +81,13 @@ export const CharacterPicker = () => {
     }
   }
 
+  const options: SelectOptionsProp[] = characters.map((character) => {
+    return {
+      value: character,
+      label: character,
+    };
+  });
+
   return (
     <div>
       <Card>
@@ -91,45 +99,24 @@ export const CharacterPicker = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <Select
-            onValueChange={(value) =>
-              characterStoreState.setSelectedCharacter(value as Character)
-            }
-            value={characterStoreState.selectedCharacter}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Character" />
-            </SelectTrigger>
-            <SelectContent>
-              {characters.map((character) => {
-                return (
-                  <SelectItem value={character} key={character}>
-                    {character}
-                  </SelectItem>
-                );
-              })}
-            </SelectContent>
-            <div className="aspect-square w-full bg-black relative">
-              <Image
-                alt=""
-                fill
-                src={
-                  getCharacterImage(
-                    characterStoreState.selectedCharacter
-                  ) as string
-                }
-                objectFit="cover"
-              />
-            </div>
-          </Select>
-          {/* {characterStoreState.selectedCharacter !== undefined &&
-            (characterStoreState.selectedCharacter === "Zeta" ||
-              characterStoreState.selectedCharacter === "Captain" ||
-              characterStoreState.selectedCharacter === "Io" ||
-              characterStoreState.selectedCharacter === "Narmaya" ||
-              characterStoreState.selectedCharacter === "Rosetta") && ( */}
+          <ComboBox
+            commandEmptyText="None"
+            options={options}
+            placeHolder="Input Character"
+            value={selectedCharacter as string}
+            setValue={(value) => {
+              setSelectedCharacter(value as Character);
+            }}
+          />
+          <div className="relative aspect-square">
+            <Image
+              alt=""
+              fill
+              style={{ objectFit: "cover" }}
+              src={getCharacterImage(selectedCharacter as Character) as string}
+            />
+          </div>
           <>{characterSpecificRenderSwitch()}</>
-          {/* // )} */}
         </CardContent>
       </Card>
     </div>

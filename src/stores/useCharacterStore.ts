@@ -2,26 +2,28 @@ import { Character } from "@/types/character.types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface CharacterStore {
-  //   Selected Character
+export interface CharacterStates {
   selectedCharacter: Character;
-  setSelectedCharacter: (character: Character) => void;
+  gravityWell: boolean;
+  arvessFermare: boolean;
+  artsLevel: number;
+  butterflies: number;
+  highestLvlRose: number;
+}
 
+interface CharacterStore extends CharacterStates {
+  //   Selected Character
+  setSelectedCharacter: (character: Character) => void;
   // Character Specific Criteria
   // Io
-  gravityWell: boolean;
   setGravityWell: (gravityWell: boolean) => void;
   // Zeta
-  arvessFermare: boolean;
   setArvessFermare: (arvessFermare: boolean) => void;
   // Captain
-  artsLevel: number;
   setArtsLevel: (artsLevel: number) => void;
   // Narmaya
-  butterflies: number;
   setButterflies: (butterflies: number) => void;
   //Rosetta
-  highestLvlRose: number;
   setHighestLvlRose: (highestLvlRose: number) => void;
 }
 

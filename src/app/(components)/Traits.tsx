@@ -58,7 +58,6 @@ export const Traits = () => {
         level: trait.level,
       });
     });
-    // O^n FUNCTION LETS GOOOOOOOOOO >W<
     const calculatedTraits: CalculatedTrait[] = sigilConstants.map((sigil) => {
       const levels: number[] = selectedTraits.map((trait) => {
         if (trait.traitName === sigil.sigilName) {

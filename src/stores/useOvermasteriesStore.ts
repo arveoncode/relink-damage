@@ -2,7 +2,7 @@ import { Overmasteries } from "@/types/overmasteries.types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface OvermasteriesStore extends Overmasteries {
+export interface OvermasteriesStore extends Overmasteries {
   setAttack: (attack: number) => void;
   setNormalDamageCapUp: (normalDamageCapUp: number) => void;
   setSkillDamageCapUp: (skillDamageCapUp: number) => void;

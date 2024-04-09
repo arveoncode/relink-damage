@@ -40,6 +40,9 @@ export const SkillsTable = () => {
       const sigilsTyranny = traitsTable.find(
         (sigil) => sigil.traitName === "Tyranny"
       )?.value as number;
+      const sigilsSupplementary = traitsTable.find(
+        (sigil) => sigil.traitName === "Supplementary Damage"
+      )?.actualUseableLevel;
 
       return _skills.map((skill) => {
         const multi = safeDecimalAdder([
@@ -144,6 +147,22 @@ export const SkillsTable = () => {
             ? (critChance * crit + (1 - critChance) * nonCrit) /
                 totalDamageCap -
               1
+            : 0;
+
+        // TODO: Supplemental
+        const supplemental =
+          skill.classification.normal || skill.classification.skill
+            ? sigilsSupplementary
+              ? Math.min(
+                  safeDecimalMultiplier([
+                    statsStore.rawPowerCrit,
+                    skill.skillRatio,
+                    multi,
+                    statsStore.isWarElemental ? 1.2 : 1,
+                  ]),
+                  totalDamageCap
+                ) * Math.min(1)
+              : 0
             : 0;
         return {
           skill: skill.skill,

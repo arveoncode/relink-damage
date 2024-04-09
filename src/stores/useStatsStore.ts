@@ -83,5 +83,5 @@ export const useStatsStore = create<StatsStore>()((set) => ({
   isFoF: false,
   setIsFoF: (_fof: boolean) => set(() => ({ isFoF: _fof })),
   // tyrannyMod: 0,
-  // setTyrannyMod: 
+  // setTyrannyMod:
 }));

@@ -1,20 +1,23 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface OtherInputsStore {
+export interface OtherInputsStates {
   numberOfSkills: number;
-  setNumberOfSkills: (_numberOfSkills: number) => void;
   attackBuffs: number;
-  setAttackBuffs: (_buffs: number) => void;
   defDebuffs: number;
-  setDefDebuffs: (_buffs: number) => void;
   comboActive: boolean;
-  setComboActive: (_comboActive: boolean) => void;
   currentHp: number;
-  setCurrentHp: (_hp: number) => void;
   backAttack: boolean;
-  setBackAttack: (_backAttack: boolean) => void;
   weakPointAttack: boolean;
+}
+
+interface OtherInputsStore extends OtherInputsStates {
+  setNumberOfSkills: (_numberOfSkills: number) => void;
+  setAttackBuffs: (_buffs: number) => void;
+  setDefDebuffs: (_buffs: number) => void;
+  setComboActive: (_comboActive: boolean) => void;
+  setCurrentHp: (_hp: number) => void;
+  setBackAttack: (_backAttack: boolean) => void;
   setWeakpointAttack: (_weakPointAttack: boolean) => void;
 }
 

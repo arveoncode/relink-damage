@@ -8,16 +8,19 @@ import { persist } from "zustand/middleware";
 //   maxLevel: number;
 // }
 
-interface TraitsStore {
+export interface TraitsStates {
   sigilsEquipped: SigilSet[];
   isTerminus: boolean;
   isMaxAwakening: boolean;
   weaponImbues: Trait[];
+  traitsTable: CalculatedTrait[];
+}
+
+interface TraitsStore extends TraitsStates {
   updateSigilSet: (_index: number, _sigilSet: SigilSet) => void;
   updateWeaponImbues: (_index: number, _weaponImbues: Trait) => void;
   setisMaxAwakening: (_isMaxAwakening: boolean) => void;
   setIsTerminus: (_isTerminus: boolean) => void;
-  traitsTable: CalculatedTrait[];
   setTraitsTable: (_traitsTable: CalculatedTrait[]) => void;
 }
 export const useTraitsStore = create<TraitsStore>()(

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CharacterStates, useCharacterStore } from "./useCharacterStore";
+import { CharacterStates } from "./useCharacterStore";
 import { TraitsStates } from "./useTraitsStore";
 import { OtherInputsStates } from "./useOtherInputsStore";
 import { persist } from "zustand/middleware";

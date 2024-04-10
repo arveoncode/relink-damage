@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { ExportDialog } from "./ExportDialog";
+import { ImportDialog } from "./ImportDialog";
 
 export const Navbar = () => {
   const packageJson = require("@/../../package.json");
@@ -111,11 +112,8 @@ export const Navbar = () => {
                   </Select>
                 </div>
                 <hr />
-                <Button variant="outline">
-                  <Import className="mr-2 h-4 w-4" />
-                  Import Build
-                </Button>
-                <ExportDialog />
+                <ImportDialog />
+                {/* <ExportDialog /> */}
               </div>
             </PopoverContent>
           </Popover>

@@ -153,15 +153,53 @@ export const SkillsTable = () => {
         const supplemental =
           skill.classification.normal || skill.classification.skill
             ? sigilsSupplementary
-              ? Math.min(
-                  safeDecimalMultiplier([
-                    statsStore.rawPowerCrit,
-                    skill.skillRatio,
-                    multi,
-                    statsStore.isWarElemental ? 1.2 : 1,
-                  ]),
-                  totalDamageCap
-                ) * Math.min(1)
+              ? safeDecimalMultiplier([
+                  0.2,
+                  Math.min(
+                    safeDecimalMultiplier([
+                      statsStore.rawPowerCrit,
+                      skill.skillRatio,
+                      multi,
+                      statsStore.isWarElemental ? 1.2 : 1,
+                    ]),
+                    totalDamageCap
+                  ) *
+                    Math.min(
+                      1,
+                      safeDecimalAdder([
+                        baseStatsAtLvl100.critHitRate,
+                        overmasteryCrit,
+                        sigilsCrit ? sigilsCrit : 0,
+                      ])
+                    ) +
+                    Math.min(
+                      totalDamageCap,
+                      safeDecimalMultiplier([
+                        statsStore.rawPower,
+                        skill.skillRatio,
+                        multi,
+                        statsStore.isWarElemental ? 1.2 : 1,
+                      ])
+                    ) *
+                      (1 -
+                        Math.min(
+                          1,
+                          safeDecimalAdder([
+                            baseStatsAtLvl100.critHitRate,
+                            sigilsCrit ? sigilsCrit : 0,
+                          ])
+                        )) *
+                      Math.min(
+                        1,
+                        safeDecimalMultiplier([
+                          safeDecimalAdder([
+                            0.12,
+                            sigilsSupplementary ? sigilsSupplementary : 0,
+                          ]),
+                          0.02,
+                        ])
+                      ),
+                ])
               : 0
             : 0;
         return {
@@ -178,7 +216,7 @@ export const SkillsTable = () => {
           crit: crit,
           damagePotential: Math.round(damagePotential * 10000) / 100,
           overcap: Math.round(overcap * 10000) / 100,
-          supplemental: 0,
+          supplemental: supplemental,
           averageTotalDmg: 0,
         };
       });

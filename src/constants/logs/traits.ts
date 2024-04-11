@@ -785,7 +785,7 @@ export const logsTraits = {
   },
 };
 
-const logsTraitsIDs = [
+export const logsTraitsIDs = [
   "0053599e",
   "05f2ecdc",
   "05fa4599",

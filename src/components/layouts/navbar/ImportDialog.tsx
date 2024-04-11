@@ -1,3 +1,4 @@
+"use client";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,7 +41,6 @@ export const ImportDialog = () => {
   const setTraitsStates = useTraitsStore((state) => state.setTraitsStates);
   const [logsInput, setLogsInput] = useState("");
   const [logsInputError, setLogsInputError] = useState<null | string>(null);
-  const [logsInputParseError, setLogsInputParseError] = useState<string[]>([]);
   // TBI -> To be imported
   const [characterTBI, setCharacterTBI] = useState<CharacterStates | undefined>(
     undefined
@@ -142,10 +142,6 @@ export const ImportDialog = () => {
           skillDamageUp: safeDecimalMultiplier([skillDamageUp, 0.01]),
           sbaDamageUp: safeDecimalMultiplier([sbaDamageUp, 0.01]),
           critHitRate: safeDecimalMultiplier([critHitRate, 0.01]),
-        });
-      } else {
-        setLogsInputParseError((curr) => {
-          return [...curr, "Invalid Character Type"];
         });
       }
     } catch (e) {

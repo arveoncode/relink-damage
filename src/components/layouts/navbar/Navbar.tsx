@@ -1,19 +1,11 @@
 "use client";
-import { Cog, Import, SquareArrowOutUpRight } from "lucide-react";
+import { Cog, SquareArrowOutUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-  SelectItem,
-} from "@/components/ui/select";
 import {
   NavigationMenu,
   NavigationMenuItem,

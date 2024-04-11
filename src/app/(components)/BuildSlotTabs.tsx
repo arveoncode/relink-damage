@@ -11,9 +11,9 @@ import { Ellipsis, PencilIcon, Plus, Save, Trash } from "lucide-react";
 
 export const BuildSlotTabs = () => {
   const slots = useBuildSlotsStore((state) => state.slots);
-  const setCurrentSlotIndex = useBuildSlotsStore(
-    (state) => state.setCurrentSlotIndex
-  );
+  // const setCurrentSlotIndex = useBuildSlotsStore(
+  //   (state) => state.setCurrentSlotIndex
+  // );
   const addSlot = useBuildSlotsStore((state) => state.addSlot);
   const characterState = useCharacterStore((state) => state);
   const traitsState = useTraitsStore((state) => state);
@@ -36,7 +36,6 @@ export const BuildSlotTabs = () => {
         isTerminus: traitsState.isTerminus,
         isMaxAwakening: traitsState.isMaxAwakening,
         weaponImbues: traitsState.weaponImbues,
-        traitsTable: traitsState.traitsTable,
       },
       otherInputs: {
         numberOfSkills: otherInputsState.numberOfSkills,
@@ -82,9 +81,9 @@ const BuildSlotTab = ({
     (state) => state.currentSlotIndex
   );
   const characterState = useCharacterStore((state) => state);
-  const traitsState = useTraitsStore((state) => state);
-  const otherInputsState = useOtherInputsStore((state) => state);
-  const overmasteriesState = useOvermasteriesStore((state) => state);
+  // const traitsState = useTraitsStore((state) => state);
+  // const otherInputsState = useOtherInputsStore((state) => state);
+  // const overmasteriesState = useOvermasteriesStore((state) => state);
   const deleteSlot = useBuildSlotsStore((state) => state.deleteSlot);
   function loadSlot() {
     characterState.setSelectedCharacter(buildSlot.character.selectedCharacter);

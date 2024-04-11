@@ -52,20 +52,22 @@ export const OtherInputs = () => {
             </Select>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Label className="my-auto">Attack Buffs</Label>
+            <Label className="my-auto">Attack Buffs (%)</Label>
             <Input
               type="number"
               className=""
               min={0}
               step={0.01}
               onInput={(e) => {
-                otherInputsStore.setAttackBuffs(Number(e.currentTarget.value));
+                otherInputsStore.setAttackBuffs(
+                  Number(e.currentTarget.value) / 100
+                );
               }}
-              value={otherInputsStore.attackBuffs}
+              value={safeDecimalMultiplier([otherInputsStore.attackBuffs, 100])}
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Label className="my-auto">Defense Debuffs</Label>
+            <Label className="my-auto">Defense Debuffs (%)</Label>
             <Input
               type="number"
               className=""

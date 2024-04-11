@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { safeDecimalMultiplier } from "@/lib/calculators";
 import { useOvermasteriesStore } from "@/stores/useOvermasteriesStore";
 
 export const Overmasteries = () => {
@@ -32,79 +33,95 @@ export const Overmasteries = () => {
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">Normal DMG Cap Up</Label>
+          <Label className="my-auto col-span-2">Normal DMG Cap Up (%)</Label>
           <Input
             type="number"
             className=""
             min={0}
-            max={0.2}
-            step={0.04}
+            max={20}
+            step={4}
             onInput={(e) =>
               overmasteriesStore.setNormalDamageCapUp(
-                Number(e.currentTarget.value)
+                safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
               )
             }
-            value={overmasteriesStore.normalDamageCapUp}
+            value={safeDecimalMultiplier([
+              overmasteriesStore.normalDamageCapUp,
+              100,
+            ])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">Skill DMG Cap Up</Label>
+          <Label className="my-auto col-span-2">Skill DMG Cap Up (%)</Label>
           <Input
             type="number"
             className=""
             min={0}
-            max={0.2}
-            step={0.04}
+            max={20}
+            step={4}
             onInput={(e) =>
               overmasteriesStore.setSkillDamageCapUp(
-                Number(e.currentTarget.value)
+                safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
               )
             }
-            value={overmasteriesStore.skillDamageCapUp}
+            value={safeDecimalMultiplier([
+              overmasteriesStore.skillDamageCapUp,
+              100,
+            ])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">SBA DMG Cap Up</Label>
+          <Label className="my-auto col-span-2">SBA DMG Cap Up (%)</Label>
           <Input
             type="number"
             className=""
             min={0}
-            max={0.2}
-            step={0.04}
+            max={20}
+            step={4}
             onInput={(e) =>
               overmasteriesStore.setSbaDamageCapUp(
-                Number(e.currentTarget.value)
+                safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
               )
             }
-            value={overmasteriesStore.sbaDamageCapUp}
+            value={safeDecimalMultiplier([
+              overmasteriesStore.sbaDamageCapUp,
+              100,
+            ])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">Skill DMG Up</Label>
+          <Label className="my-auto col-span-2">Skill DMG Up (%)</Label>
           <Input
             type="number"
             className=""
             min={0}
-            max={0.2}
-            step={0.04}
+            max={20}
+            step={4}
             onInput={(e) =>
-              overmasteriesStore.setSkillDamageUp(Number(e.currentTarget.value))
+              overmasteriesStore.setSkillDamageUp(
+                safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
+              )
             }
-            value={overmasteriesStore.skillDamageUp}
+            value={safeDecimalMultiplier([
+              overmasteriesStore.skillDamageUp,
+              100,
+            ])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">SBA Damage Up</Label>
+          <Label className="my-auto col-span-2">SBA Damage Up (%)</Label>
           <Input
             type="number"
             className=""
             min={0}
-            max={0.2}
-            step={0.04}
+            max={20}
+            step={4}
             onInput={(e) =>
-              overmasteriesStore.setSbaDamageUp(Number(e.currentTarget.value))
+              overmasteriesStore.setSbaDamageUp(
+                safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
+              )
             }
-            value={overmasteriesStore.sbaDamageUp}
+            value={safeDecimalMultiplier([overmasteriesStore.sbaDamageUp, 100])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
@@ -113,12 +130,14 @@ export const Overmasteries = () => {
             type="number"
             className=""
             min={0}
-            max={0.2}
-            step={0.04}
+            max={20}
+            step={4}
             onInput={(e) =>
-              overmasteriesStore.setCritHitRate(Number(e.currentTarget.value))
+              overmasteriesStore.setCritHitRate(
+                safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
+              )
             }
-            value={overmasteriesStore.critHitRate}
+            value={safeDecimalMultiplier([overmasteriesStore.critHitRate, 100])}
           />
         </div>
       </CardContent>

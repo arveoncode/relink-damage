@@ -25,6 +25,14 @@ interface CharacterStore extends CharacterStates {
   setButterflies: (butterflies: number) => void;
   //Rosetta
   setHighestLvlRose: (highestLvlRose: number) => void;
+  setCharacterStates: ({
+    selectedCharacter,
+    gravityWell,
+    arvessFermare,
+    artsLevel,
+    butterflies,
+    highestLvlRose,
+  }: CharacterStates) => void;
 }
 
 export const useCharacterStore = create<CharacterStore>()(
@@ -48,6 +56,22 @@ export const useCharacterStore = create<CharacterStore>()(
       highestLvlRose: 0,
       setHighestLvlRose: (highestLvlRose: number) =>
         set(() => ({ highestLvlRose: highestLvlRose })),
+      setCharacterStates: ({
+        selectedCharacter,
+        gravityWell,
+        arvessFermare,
+        artsLevel,
+        butterflies,
+        highestLvlRose,
+      }: CharacterStates) =>
+        set(() => ({
+          selectedCharacter: selectedCharacter,
+          gravityWell: gravityWell,
+          arvessFermare: arvessFermare,
+          artsLevel: artsLevel,
+          butterflies: butterflies,
+          highestLvlRose: highestLvlRose,
+        })),
     }),
     {
       name: "character",

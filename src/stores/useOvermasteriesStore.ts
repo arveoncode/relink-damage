@@ -10,6 +10,15 @@ export interface OvermasteriesStore extends Overmasteries {
   setSkillDamageUp: (skillDamage: number) => void;
   setSbaDamageUp: (sbaDamage: number) => void;
   setCritHitRate: (critHitRate: number) => void;
+  setOvermasteriesStates: ({
+    attack,
+    normalDamageCapUp,
+    skillDamageCapUp,
+    sbaDamageCapUp,
+    skillDamageUp,
+    sbaDamageUp,
+    critHitRate,
+  }: Overmasteries) => void;
 }
 
 export const useOvermasteriesStore = create<OvermasteriesStore>()(
@@ -35,6 +44,24 @@ export const useOvermasteriesStore = create<OvermasteriesStore>()(
       critHitRate: 0.2,
       setCritHitRate: (critHitRate: number) =>
         set(() => ({ critHitRate: critHitRate })),
+      setOvermasteriesStates: ({
+        attack,
+        normalDamageCapUp,
+        skillDamageCapUp,
+        sbaDamageCapUp,
+        skillDamageUp,
+        sbaDamageUp,
+        critHitRate,
+      }: Overmasteries) =>
+        set(() => ({
+          attack: attack,
+          normalDamageCapUp: normalDamageCapUp,
+          skillDamageCapUp: skillDamageCapUp,
+          sbaDamageCapUp: sbaDamageCapUp,
+          skillDamageUp: skillDamageUp,
+          sbaDamageUp: sbaDamageUp,
+          critHitRate: critHitRate,
+        })),
     }),
     { name: "overmasteries" }
   )

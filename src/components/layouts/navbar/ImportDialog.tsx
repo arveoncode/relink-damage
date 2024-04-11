@@ -78,10 +78,14 @@ export const ImportDialog = () => {
           sigilsEquipped: logsData.sigils.map((ldSigils) => {
             return {
               sigil1: convertLogsToCalculatorTrait(
-                ldSigils.firstTraitId.toString(16) as LogsTraitsIDs
+                ldSigils.firstTraitId.toString(16).length === 8
+                  ? (ldSigils.firstTraitId.toString(16) as LogsTraitsIDs)
+                  : (`0${ldSigils.firstTraitId.toString(16)}` as LogsTraitsIDs)
               ),
               sigil2: convertLogsToCalculatorTrait(
-                ldSigils.secondTraitId.toString(16) as LogsTraitsIDs
+                ldSigils.secondTraitId.toString(16).length === 8
+                  ? (ldSigils.secondTraitId.toString(16) as LogsTraitsIDs)
+                  : (`0${ldSigils.secondTraitId.toString(16)}` as LogsTraitsIDs)
               ),
               level: ldSigils.sigilLevel,
             };

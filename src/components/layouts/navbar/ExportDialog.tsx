@@ -27,7 +27,7 @@ export const ExportDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">
+        <Button variant="outline" disabled>
           <FolderOutput className="mr-2 h-4 w-4" />
           Export Build
         </Button>

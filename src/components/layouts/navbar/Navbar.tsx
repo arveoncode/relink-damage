@@ -95,12 +95,12 @@ export const Navbar = () => {
                 <div className="space-y-2">
                   <h4 className="font-medium leading-none">Settings</h4>
                 </div>
-                <hr />
+                {/* <hr /> */}
                 {/* <div className="flex justify-between align-middle">
                   <Label className="col-span-2 my-auto">Dark Mode</Label>
                   <ThemeSwitcher />
                 </div> */}
-                <div className="flex gap-4 justify-between align-middle">
+                {/* <div className="flex gap-4 justify-between align-middle">
                   <Label className="col-span-2 my-auto">Locale</Label>
                   <Select>
                     <SelectTrigger className="w-full">
@@ -110,10 +110,10 @@ export const Navbar = () => {
                       <SelectItem value="en">En</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
+                </div> */}
                 <hr />
                 <ImportDialog />
-                {/* <ExportDialog /> */}
+                <ExportDialog />
               </div>
             </PopoverContent>
           </Popover>

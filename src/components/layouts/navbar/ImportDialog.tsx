@@ -205,6 +205,10 @@ export const ImportDialog = () => {
                 </Button>
               </div>
               <div className="py-4 flex flex-col gap-4">
+                <div className="text-xs ">
+                  If the correct character image appears here, it means the data
+                  has been validated lol.
+                </div>
                 {characterTBI ? (
                   <div className="relative aspect-square">
                     <Image

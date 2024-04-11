@@ -8,17 +8,26 @@ import { persist } from "zustand/middleware";
 //   maxLevel: number;
 // }
 
-interface TraitsStore {
+export interface TraitsStates {
   sigilsEquipped: SigilSet[];
   isTerminus: boolean;
   isMaxAwakening: boolean;
   weaponImbues: Trait[];
+}
+
+interface TraitsStore extends TraitsStates {
+  traitsTable: CalculatedTrait[];
   updateSigilSet: (_index: number, _sigilSet: SigilSet) => void;
   updateWeaponImbues: (_index: number, _weaponImbues: Trait) => void;
   setisMaxAwakening: (_isMaxAwakening: boolean) => void;
   setIsTerminus: (_isTerminus: boolean) => void;
-  traitsTable: CalculatedTrait[];
   setTraitsTable: (_traitsTable: CalculatedTrait[]) => void;
+  setTraitsStates: ({
+    sigilsEquipped,
+    isTerminus,
+    isMaxAwakening,
+    weaponImbues,
+  }: TraitsStates) => void;
 }
 export const useTraitsStore = create<TraitsStore>()(
   persist(
@@ -120,6 +129,18 @@ export const useTraitsStore = create<TraitsStore>()(
           sigilsEquippedCopy[_index] = _sigilSet;
           return { sigilsEquipped: sigilsEquippedCopy };
         }),
+      setTraitsStates: ({
+        sigilsEquipped,
+        isTerminus,
+        isMaxAwakening,
+        weaponImbues,
+      }: TraitsStates) =>
+        set(() => ({
+          sigilsEquipped: sigilsEquipped,
+          isTerminus: isTerminus,
+          isMaxAwakening: isMaxAwakening,
+          weaponImbues: weaponImbues,
+        })),
     }),
     { name: "traits" }
   )

@@ -1,19 +1,11 @@
 "use client";
-import { Cog, Import, SquareArrowOutUpRight } from "lucide-react";
+import { Cog, SquareArrowOutUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-  SelectItem,
-} from "@/components/ui/select";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -23,6 +15,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { ExportDialog } from "./ExportDialog";
+import { ImportDialog } from "./ImportDialog";
 
 export const Navbar = () => {
   const packageJson = require("@/../../package.json");
@@ -94,12 +87,12 @@ export const Navbar = () => {
                 <div className="space-y-2">
                   <h4 className="font-medium leading-none">Settings</h4>
                 </div>
-                <hr />
+                {/* <hr /> */}
                 {/* <div className="flex justify-between align-middle">
                   <Label className="col-span-2 my-auto">Dark Mode</Label>
                   <ThemeSwitcher />
                 </div> */}
-                <div className="flex gap-4 justify-between align-middle">
+                {/* <div className="flex gap-4 justify-between align-middle">
                   <Label className="col-span-2 my-auto">Locale</Label>
                   <Select>
                     <SelectTrigger className="w-full">
@@ -109,12 +102,9 @@ export const Navbar = () => {
                       <SelectItem value="en">En</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
+                </div> */}
                 <hr />
-                <Button variant="outline">
-                  <Import className="mr-2 h-4 w-4" />
-                  Import Build
-                </Button>
+                <ImportDialog />
                 <ExportDialog />
               </div>
             </PopoverContent>

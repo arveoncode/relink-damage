@@ -7,10 +7,16 @@ import { Stats } from "./(components)/Stats";
 import { OtherInputs } from "./(components)/OtherInputs";
 import { SkillsTable } from "./(components)/SkillsTable";
 import { Suspense } from "react";
+import { ImportDialog } from "@/components/layouts/navbar/ImportDialog";
+// import { BuildSlotTabs } from "./(components)/BuildSlotTabs";
 
 export default function Home() {
   return (
     <main className="flex flex-col relative">
+      <div className="px-8">
+        {/* <BuildSlotTabs /> */}
+        <ImportDialog />
+      </div>
       <div className="grid grid-cols-10 gap-4 p-8">
         <div className="flex flex-col gap-4 col-span-2">
           <CharacterPicker />

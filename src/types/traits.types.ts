@@ -18,7 +18,7 @@ export interface SigilSet {
 }
 
 export interface Trait {
-  traitName: TraitLiterals;
+  traitName: TraitLiterals | "None";
   level: number;
 }
 

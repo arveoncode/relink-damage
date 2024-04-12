@@ -149,59 +149,51 @@ export const SkillsTable = () => {
               1
             : 0;
 
-        // TODO: Supplemental
         const supplemental =
           skill.classification.normal || skill.classification.skill
             ? sigilsSupplementary
-              ? safeDecimalMultiplier([
-                  0.2,
-                  Math.min(
-                    safeDecimalMultiplier([
-                      statsStore.rawPowerCrit,
-                      skill.skillRatio,
-                      multi,
-                      statsStore.isWarElemental ? 1.2 : 1,
-                    ]),
-                    totalDamageCap
-                  ) *
+              ? //(MIN(rawPowerCrit*$C35*$H35*IF(warElemental,1.2,1),$J35)*MIN(1,crit+masteryCrit+INDIRECT("Sigils!$D"&(offset+levelCrit)))+MIN(rawPower*$C35*$H35*IF(warElemental,1.2,1),$J35)*(1-MIN(1,crit+masteryCrit+INDIRECT("Sigils!$D"&(offset+levelCrit)))))*0.2*MIN(1,0.12+levelSupplementary*0.02)
+                Math.round(
+                  safeDecimalMultiplier([
                     Math.min(
-                      1,
-                      safeDecimalAdder([
-                        baseStatsAtLvl100.critHitRate,
-                        overmasteryCrit,
-                        sigilsCrit ? sigilsCrit : 0,
-                      ])
-                    ) +
-                    Math.min(
-                      totalDamageCap,
-                      safeDecimalMultiplier([
-                        statsStore.rawPower,
-                        skill.skillRatio,
-                        multi,
-                        statsStore.isWarElemental ? 1.2 : 1,
-                      ])
+                      statsStore.rawPowerCrit *
+                        skill.skillRatio *
+                        multi *
+                        (statsStore.isWarElemental ? 1.2 : 1),
+                      totalDamageCap
                     ) *
-                      (1 -
-                        Math.min(
-                          1,
-                          safeDecimalAdder([
-                            baseStatsAtLvl100.critHitRate,
-                            sigilsCrit ? sigilsCrit : 0,
-                          ])
-                        )) *
                       Math.min(
                         1,
-                        safeDecimalMultiplier([
-                          safeDecimalAdder([
-                            0.12,
-                            sigilsSupplementary ? sigilsSupplementary : 0,
-                          ]),
-                          0.02,
-                        ])
-                      ),
-                ])
+                        baseStatsAtLvl100.critHitRate +
+                          overmasteryCrit +
+                          (sigilsCrit ? sigilsCrit : 0)
+                      ) +
+                      Math.min(
+                        totalDamageCap,
+                        statsStore.rawPower *
+                          skill.skillRatio *
+                          multi *
+                          (statsStore.isWarElemental ? 1.2 : 1)
+                      ) *
+                        (1 -
+                          Math.min(
+                            1,
+                            baseStatsAtLvl100.critHitRate +
+                              overmasteryCrit +
+                              (sigilsCrit ? sigilsCrit : 0)
+                          )),
+                    0.2,
+                    Math.min(1, 0.12 + sigilsSupplementary * 0.2),
+                  ])
+                )
               : 0
             : 0;
+
+        const avgTotalDmg = Math.round(
+          critChance * Math.min(totalDamageCap, crit) +
+            (1 - critChance) * Math.min(totalDamageCap, nonCrit) +
+            supplemental
+        );
         return {
           skill: skill.skill,
           modifier: skill.modifier,
@@ -217,7 +209,7 @@ export const SkillsTable = () => {
           damagePotential: Math.round(damagePotential * 10000) / 100,
           overcap: Math.round(overcap * 10000) / 100,
           supplemental: supplemental,
-          averageTotalDmg: 0,
+          averageTotalDmg: avgTotalDmg,
         };
       });
     }

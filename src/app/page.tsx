@@ -10,6 +10,7 @@ import { ImportDialog } from "@/components/layouts/navbar/ImportDialog";
 import { BuildSlotTabs } from "./(components)/BuildSlotTabs";
 import { ExportDialog } from "@/components/layouts/navbar/ExportDialog";
 import { LogsImporter } from "./(components)/LogsImporter";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -39,7 +40,9 @@ export default function Home() {
       <div className="p-8 bg-white">
         <SkillsTable />
       </div>
-      <LogsImporter />
+      <Suspense>
+        <LogsImporter />
+      </Suspense>
     </main>
   );
 }

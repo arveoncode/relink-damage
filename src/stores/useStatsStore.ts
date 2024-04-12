@@ -1,6 +1,10 @@
+import { CalculatedTrait } from "@/types/traits.types";
 import { create } from "zustand";
 
 interface StatsStore {
+  // Everything pre-calculated before skill data
+  traitsTable: CalculatedTrait[];
+  setTraitsTable: (_traitsTable: CalculatedTrait[]) => void;
   damageCap: number;
   setDamageCap: (_setNum: number) => void;
   rawPower: number;
@@ -40,6 +44,9 @@ interface StatsStore {
 }
 
 export const useStatsStore = create<StatsStore>()((set) => ({
+  traitsTable: [],
+  setTraitsTable: (_traitsTable: CalculatedTrait[]) =>
+    set(() => ({ traitsTable: _traitsTable })),
   //stats as shown and calculated on sheets
   damageCap: 0,
   setDamageCap: (_setNum: number) => set(() => ({ damageCap: _setNum })),

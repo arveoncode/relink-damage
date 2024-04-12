@@ -21,7 +21,8 @@ import {
   sigilLevelValues,
 } from "@/constants/gear/sigilLevels";
 import { getSigilImage, sigilConstants } from "@/constants/gear/sigils";
-import { useTraitsStore } from "@/stores/useTraitsStore";
+import { useBuildStore } from "@/stores/useBuildStore";
+import { useStatsStore } from "@/stores/useStatsStore";
 import { CalculatedTrait, Trait, TraitLiterals } from "@/types/traits.types";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -29,13 +30,13 @@ import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export const Traits = () => {
-  const sigilsEquipped = useTraitsStore((state) => state.sigilsEquipped);
-  const weaponImbues = useTraitsStore((state) => state.weaponImbues);
-  const isTermimus = useTraitsStore((state) => state.isTerminus);
-  const isMaxAwakening = useTraitsStore((state) => state.isMaxAwakening);
+  const sigilsEquipped = useBuildStore((state) => state.sigilsEquipped);
+  const weaponImbues = useBuildStore((state) => state.weaponImbues);
+  const isTermimus = useBuildStore((state) => state.isTerminus);
+  const isMaxAwakening = useBuildStore((state) => state.isMaxAwakening);
 
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
-  const setTraitsTable = useTraitsStore((state) => state.setTraitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const setTraitsTable = useStatsStore((state) => state.setTraitsTable);
 
   const [showZeroLvlTraits, setShowZeroLvlTraits] = useState(false);
 

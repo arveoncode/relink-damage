@@ -1,8 +1,6 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-import { useCharacterStore } from "@/stores/useCharacterStore";
 import { Character } from "@/types/character.types";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -11,16 +9,15 @@ import {
 } from "@/constants/character/characters";
 import Image from "next/image";
 import { ComboBox, SelectOptionsProp } from "@/components/ui/combo-box";
+import { useBuildStore } from "@/stores/useBuildStore";
 
 export const CharacterPicker = () => {
-  const selectedCharacter = useCharacterStore(
-    (state) => state.selectedCharacter
-  );
-  const setSelectedCharacter = useCharacterStore(
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
+  const setSelectedCharacter = useBuildStore(
     (state) => state.setSelectedCharacter
   );
-  const arvessFermare = useCharacterStore((state) => state.arvessFermare);
-  const setArvessFermare = useCharacterStore((state) => state.setArvessFermare);
+  const arvessFermare = useBuildStore((state) => state.arvessFermare);
+  const setArvessFermare = useBuildStore((state) => state.setArvessFermare);
 
   function characterSpecificRenderSwitch() {
     switch (selectedCharacter) {

@@ -11,20 +11,17 @@ import { GridSmallBackground } from "@/components/ui/small-grid-background";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getCharacterImage } from "@/constants/character/characters";
 import { getSigilImage } from "@/constants/gear/sigils";
-import { useCharacterStore } from "@/stores/useCharacterStore";
-import { useOtherInputsStore } from "@/stores/useOtherInputsStore";
-import { useOvermasteriesStore } from "@/stores/useOvermasteriesStore";
-import { useTraitsStore } from "@/stores/useTraitsStore";
+import { useBuildStore } from "@/stores/useBuildStore";
 import { buildShareableUrl } from "@/stores/zustandHelpers/buildURLSuffix";
+// import { buildShareableUrl } from "@/stores/zustandHelpers/buildURLSuffix";
 import { TraitLiterals } from "@/types/traits.types";
-import { FolderOutput } from "lucide-react";
+import { ClipboardCopy, FolderOutput } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 export const ExportDialog = () => {
-  const characterState = useCharacterStore((state) => state);
-  const traits = useTraitsStore((state) => state);
-  const overmasteries = useOvermasteriesStore((state) => state);
-  const otherInputs = useOtherInputsStore((state) => state);
+  const buildState = useBuildStore((state) => state);
+  console.log(buildShareableUrl(buildState, 0));
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -45,7 +42,23 @@ export const ExportDialog = () => {
             </div>
           </DialogHeader>
           <TabsContent value="link">
-            <Input type="text" value="" />
+            <div className="flex gap-4">
+              <Input
+                type="text"
+                value={window !== undefined ? window.location.href : ""}
+                readOnly
+              />
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  toast("Link has been copied.");
+                }}
+              >
+                <ClipboardCopy className="h-4 w-4" />
+              </Button>
+            </div>
           </TabsContent>
           <TabsContent value="image">
             <div className="shadow-inner rounded-md overflow-hidden">
@@ -58,7 +71,7 @@ export const ExportDialog = () => {
                         fill
                         src={
                           getCharacterImage(
-                            characterState.selectedCharacter
+                            buildState.selectedCharacter
                           ) as string
                         }
                         objectFit="cover"
@@ -67,7 +80,7 @@ export const ExportDialog = () => {
                     <div className="flex gap-2">
                       <hr className="flex-1 my-auto" />
                       <p className="font-bold">
-                        {characterState.selectedCharacter}
+                        {buildState.selectedCharacter}
                       </p>
                       <hr className="flex-1 my-auto" />
                     </div>
@@ -75,7 +88,7 @@ export const ExportDialog = () => {
                   <div></div>
                   <div className="col-span-2">
                     <h6>Sigils</h6>
-                    {traits.sigilsEquipped.map((sigil, i) => {
+                    {buildState.sigilsEquipped.map((sigil, i) => {
                       return (
                         <div key={i} className="flex justify-between">
                           <div className="grid grid-cols-2 flex-1 gap-2">

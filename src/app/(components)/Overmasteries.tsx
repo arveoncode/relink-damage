@@ -4,10 +4,27 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { safeDecimalMultiplier } from "@/lib/calculators";
-import { useOvermasteriesStore } from "@/stores/useOvermasteriesStore";
+import { useBuildStore } from "@/stores/useBuildStore";
 
 export const Overmasteries = () => {
-  const overmasteriesStore = useOvermasteriesStore((state) => state);
+  const attack = useBuildStore((state) => state.attack);
+  const normalDamageCapUp = useBuildStore((state) => state.normalDamageCapUp);
+  const skillDamageCapUp = useBuildStore((state) => state.skillDamageCapUp);
+  const sbaDamageCapUp = useBuildStore((state) => state.sbaDamageCapUp);
+  const skillDamageUp = useBuildStore((state) => state.skillDamageUp);
+  const sbaDamageUp = useBuildStore((state) => state.sbaDamageUp);
+  const critHitRate = useBuildStore((state) => state.critHitRate);
+  const setAttack = useBuildStore((state) => state.setAttack);
+  const setNormalDamageCapUp = useBuildStore(
+    (state) => state.setNormalDamageCapUp
+  );
+  const setSkillDamageCapUp = useBuildStore(
+    (state) => state.setSkillDamageCapUp
+  );
+  const setSbaDamageCapUp = useBuildStore((state) => state.setSbaDamageCapUp);
+  const setSkillDamageUp = useBuildStore((state) => state.setSkillDamageUp);
+  const setSbaDamageUp = useBuildStore((state) => state.setSbaDamageUp);
+  const setCritHitRate = useBuildStore((state) => state.setCritHitRate);
   return (
     <Card>
       <CardHeader>
@@ -26,10 +43,8 @@ export const Overmasteries = () => {
             min={0}
             max={1000}
             step={100}
-            onInput={(e) =>
-              overmasteriesStore.setAttack(Number(e.currentTarget.value))
-            }
-            value={overmasteriesStore.attack}
+            onInput={(e) => setAttack(Number(e.currentTarget.value))}
+            value={attack}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
@@ -41,14 +56,11 @@ export const Overmasteries = () => {
             max={20}
             step={4}
             onInput={(e) =>
-              overmasteriesStore.setNormalDamageCapUp(
+              setNormalDamageCapUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
               )
             }
-            value={safeDecimalMultiplier([
-              overmasteriesStore.normalDamageCapUp,
-              100,
-            ])}
+            value={safeDecimalMultiplier([normalDamageCapUp, 100])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
@@ -60,14 +72,11 @@ export const Overmasteries = () => {
             max={20}
             step={4}
             onInput={(e) =>
-              overmasteriesStore.setSkillDamageCapUp(
+              setSkillDamageCapUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
               )
             }
-            value={safeDecimalMultiplier([
-              overmasteriesStore.skillDamageCapUp,
-              100,
-            ])}
+            value={safeDecimalMultiplier([skillDamageCapUp, 100])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
@@ -79,14 +88,11 @@ export const Overmasteries = () => {
             max={20}
             step={4}
             onInput={(e) =>
-              overmasteriesStore.setSbaDamageCapUp(
+              setSbaDamageCapUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
               )
             }
-            value={safeDecimalMultiplier([
-              overmasteriesStore.sbaDamageCapUp,
-              100,
-            ])}
+            value={safeDecimalMultiplier([sbaDamageCapUp, 100])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
@@ -98,14 +104,11 @@ export const Overmasteries = () => {
             max={20}
             step={4}
             onInput={(e) =>
-              overmasteriesStore.setSkillDamageUp(
+              setSkillDamageUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
               )
             }
-            value={safeDecimalMultiplier([
-              overmasteriesStore.skillDamageUp,
-              100,
-            ])}
+            value={safeDecimalMultiplier([skillDamageUp, 100])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
@@ -117,11 +120,11 @@ export const Overmasteries = () => {
             max={20}
             step={4}
             onInput={(e) =>
-              overmasteriesStore.setSbaDamageUp(
+              setSbaDamageUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
               )
             }
-            value={safeDecimalMultiplier([overmasteriesStore.sbaDamageUp, 100])}
+            value={safeDecimalMultiplier([sbaDamageUp, 100])}
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
@@ -133,11 +136,11 @@ export const Overmasteries = () => {
             max={20}
             step={4}
             onInput={(e) =>
-              overmasteriesStore.setCritHitRate(
+              setCritHitRate(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
               )
             }
-            value={safeDecimalMultiplier([overmasteriesStore.critHitRate, 100])}
+            value={safeDecimalMultiplier([critHitRate, 100])}
           />
         </div>
       </CardContent>

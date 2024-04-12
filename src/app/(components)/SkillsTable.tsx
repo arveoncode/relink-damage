@@ -4,10 +4,7 @@ import { charlottaSkills } from "@/constants/character/skills/charlotta";
 import { ioSkills } from "@/constants/character/skills/io";
 import { baseStatsAtLvl100 } from "@/constants/stats/stats";
 import { safeDecimalAdder, safeDecimalMultiplier } from "@/lib/calculators";
-import { useCharacterStore } from "@/stores/useCharacterStore";
-import { useOvermasteriesStore } from "@/stores/useOvermasteriesStore";
 import { useStatsStore } from "@/stores/useStatsStore";
-import { useTraitsStore } from "@/stores/useTraitsStore";
 import { SkillCalculatedTable, SkillConstant } from "@/types/skill.types";
 import { useEffect, useState } from "react";
 import { SkillsDataTable } from "./skills-data-table/SkillsDataTable";
@@ -15,33 +12,31 @@ import { skillsDataColumns } from "./skills-data-table/SkillsDataColumns";
 import { lancelotSkills } from "@/constants/character/skills/lancelot";
 import { cagliostroSkills } from "@/constants/character/skills/cagliostro";
 import { zetaSkills } from "@/constants/character/skills/zeta";
-import { useOtherInputsStore } from "@/stores/useOtherInputsStore";
 import { narmayaSkills } from "@/constants/character/skills/narmaya";
+import { useBuildStore } from "@/stores/useBuildStore";
 
 export const SkillsTable = () => {
-  const selectedCharacter = useCharacterStore(
-    (state) => state.selectedCharacter
-  );
-  const arvessFermare = useCharacterStore((state) => state.arvessFermare);
-  const butterflies = useCharacterStore((state) => state.butterflies);
-  const comboActive = useOtherInputsStore((state) => state.comboActive);
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
+  const arvessFermare = useBuildStore((state) => state.arvessFermare);
+  const butterflies = useBuildStore((state) => state.butterflies);
+  const comboActive = useBuildStore((state) => state.comboActive);
   const statsStore = useStatsStore((state) => state);
-  const overmasteryCrit = useOvermasteriesStore((state) => state.critHitRate);
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const overmasteryCrit = useBuildStore((state) => state.critHitRate);
+  // const traitsTable = useStatsStore((state) => state.traitsTable);
   const [charData, setCharData] = useState<SkillCalculatedTable[]>([]);
 
   useEffect(() => {
     function calculateSkills(_skills: SkillConstant[]): SkillCalculatedTable[] {
-      const sigilsCrit = traitsTable.find(
+      const sigilsCrit = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Critical Hit Rate"
       )?.value;
-      const sigilsLuckyCharge = traitsTable.find(
+      const sigilsLuckyCharge = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Lucky Charge"
       )?.value;
-      const sigilsTyranny = traitsTable.find(
+      const sigilsTyranny = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Tyranny"
       )?.value as number;
-      const sigilsSupplementary = traitsTable.find(
+      const sigilsSupplementary = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Supplementary Damage"
       )?.actualUseableLevel;
 
@@ -276,7 +271,6 @@ export const SkillsTable = () => {
   }, [
     selectedCharacter,
     statsStore,
-    traitsTable,
     overmasteryCrit,
     arvessFermare,
     butterflies,

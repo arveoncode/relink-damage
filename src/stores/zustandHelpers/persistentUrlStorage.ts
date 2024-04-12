@@ -19,11 +19,11 @@ export const persistentStorage: StateStorage = {
   },
   setItem: (key, newValue): void => {
     // Check if query params exist at all, can remove check if always want to set URL
-    if (getUrlSearch()) {
-      const searchParams = new URLSearchParams(getUrlSearch());
-      searchParams.set(key, JSON.stringify(newValue));
-      window.history.replaceState(null, "", `?${searchParams.toString()}`);
-    }
+    // if (getUrlSearch()) {
+    const searchParams = new URLSearchParams(getUrlSearch());
+    searchParams.set(key, JSON.stringify(newValue));
+    window.history.replaceState(null, "", `?${searchParams.toString()}`);
+    // }
 
     localStorage.setItem(key, JSON.stringify(newValue));
   },

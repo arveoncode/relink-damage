@@ -1,15 +1,12 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { baseStatsAtLvl100, masteryCap } from "@/constants/stats/stats";
-import { useOvermasteriesStore } from "@/stores/useOvermasteriesStore";
 import { useStatsStore } from "@/stores/useStatsStore";
-import { useTraitsStore } from "@/stores/useTraitsStore";
 import { useEffect } from "react";
-import { useCharacterStore } from "@/stores/useCharacterStore";
-import { useOtherInputsStore } from "@/stores/useOtherInputsStore";
 import { sigilLevelValues } from "@/constants/gear/sigilLevels";
 import { safeDecimalAdder, safeDecimalMultiplier } from "@/lib/calculators";
 import { CheckCircle, XCircle } from "lucide-react";
+import { useBuildStore } from "@/stores/useBuildStore";
 
 // You've heard of monorepos, get ready for the monofile OwO
 
@@ -64,20 +61,18 @@ export const Stats = () => {
 
 const RawPowerBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
-  const isTermimus = useTraitsStore((state) => state.isTerminus);
-  const selectedCharacter = useCharacterStore(
-    (state) => state.selectedCharacter
-  );
-  const artsLevel = useCharacterStore((state) => state.artsLevel);
-  const highestLvlRose = useCharacterStore((state) => state.highestLvlRose);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const isTermimus = useBuildStore((state) => state.isTerminus);
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
+  const artsLevel = useBuildStore((state) => state.artsLevel);
+  const highestLvlRose = useBuildStore((state) => state.highestLvlRose);
   const setRawPower = useStatsStore((state) => state.setRawPower);
-  const attackOvermastery = useOvermasteriesStore((state) => state.attack);
+  const attackOvermastery = useBuildStore((state) => state.attack);
   const staminaMod = useStatsStore((state) => state.staminaMod);
-  const attackBuffs = useOtherInputsStore((state) => state.attackBuffs);
-  const defDebuffs = useOtherInputsStore((state) => state.defDebuffs);
-  const comboActive = useOtherInputsStore((state) => state.comboActive);
-  const numberOfSkills = useOtherInputsStore((state) => state.numberOfSkills);
+  const attackBuffs = useBuildStore((state) => state.attackBuffs);
+  const defDebuffs = useBuildStore((state) => state.defDebuffs);
+  const comboActive = useBuildStore((state) => state.comboActive);
+  const numberOfSkills = useBuildStore((state) => state.numberOfSkills);
   const isAwakening = useStatsStore((state) => state.isAwakening);
   // Value Read in component
   const rawPower = useStatsStore((state) => state.rawPower);
@@ -189,7 +184,7 @@ const RawPowerCritBox = () => {
   // Dependencies for calculation
   const rawPower = useStatsStore((state) => state.rawPower);
   const setRawPowerCrit = useStatsStore((state) => state.setRawPowerCrit);
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   // Value Read in component
   const rawPowerCrit = useStatsStore((state) => state.rawPowerCrit);
   useEffect(() => {
@@ -212,8 +207,8 @@ const RawPowerCritBox = () => {
 
 const DamageCapBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
-  const isTermimus = useTraitsStore((state) => state.isTerminus);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const isTermimus = useBuildStore((state) => state.isTerminus);
   const setDamageCap = useStatsStore((state) => state.setDamageCap);
 
   // Value Read in component
@@ -246,15 +241,15 @@ const DamageCapBox = () => {
 
 // const TyrannyModBox = () => {
 //   // Dependencies for calculation
-//   const traitsTable = useTraitsStore((state) => state.traitsTable);
+//   const traitsTable = useStatsStore((state) => state.traitsTable);
 //   const setDamageCap = useStatsStore((state) => state.setDamageCap);
 // };
 
 const StaminaModBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   const setStaminaMod = useStatsStore((state) => state.setStaminaMod);
-  const currentHp = useOtherInputsStore((state) => state.currentHp);
+  const currentHp = useBuildStore((state) => state.currentHp);
   // Value read in component
   const staminaMod = useStatsStore((state) => state.staminaMod);
   useEffect(() => {
@@ -291,9 +286,9 @@ const StaminaModBox = () => {
 
 const NormalDamageCapBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
-  const isTermimus = useTraitsStore((state) => state.isTerminus);
-  const overmasteryNormalCapUp = useOvermasteriesStore(
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const isTermimus = useBuildStore((state) => state.isTerminus);
+  const overmasteryNormalCapUp = useBuildStore(
     (state) => state.normalDamageCapUp
   );
   const setNormalDamageCap = useStatsStore((state) => state.setNormalDamageCap);
@@ -319,10 +314,10 @@ const NormalDamageCapBox = () => {
 
 const SkillDamageCapBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
-  const isTermimus = useTraitsStore((state) => state.isTerminus);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const isTermimus = useBuildStore((state) => state.isTerminus);
   const setSkillDamageCap = useStatsStore((state) => state.setSkillDamageCap);
-  const overmasterySkillCapUp = useOvermasteriesStore(
+  const overmasterySkillCapUp = useBuildStore(
     (state) => state.skillDamageCapUp
   );
   // Value Read in component
@@ -345,11 +340,9 @@ const SkillDamageCapBox = () => {
 
 const SbaDamageCapBox = () => {
   // Dependencies for calculation
-  const isTermimus = useTraitsStore((state) => state.isTerminus);
+  const isTermimus = useBuildStore((state) => state.isTerminus);
   const setSbaDamageCap = useStatsStore((state) => state.setSbaDamageCap);
-  const overmasterySbaCapUp = useOvermasteriesStore(
-    (state) => state.sbaDamageCapUp
-  );
+  const overmasterySbaCapUp = useBuildStore((state) => state.sbaDamageCapUp);
   // Value Read in component
   const sbaDamageCap = useStatsStore((state) => state.sbaDamageCap);
   useEffect(() => {
@@ -362,7 +355,7 @@ const SbaDamageCapBox = () => {
 
 const LinkBonusBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   const setLinkBonus = useStatsStore((state) => state.setLinkBonus);
   // Value Read in component
   const linkBonus = useStatsStore((state) => state.linkBonus);
@@ -382,7 +375,7 @@ const LinkBonusBox = () => {
 
 const ThrowBonusBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   const setThrowBonus = useStatsStore((state) => state.setThrowBonus);
   // Value Read in component
   const throwBonus = useStatsStore((state) => state.throwBonus);
@@ -399,7 +392,7 @@ const ThrowBonusBox = () => {
 
 const FinisherBonusBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   const setFinisherBonus = useStatsStore((state) => state.setFinisherBonus);
   // Value Read in component
   const finisherBonus = useStatsStore((state) => state.finisherBonus);
@@ -416,7 +409,7 @@ const FinisherBonusBox = () => {
 
 const ChargedBonusBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   const setChargedBonus = useStatsStore((state) => state.setChargedBonus);
   // Value Read in component
   const chargedBonus = useStatsStore((state) => state.chargedBonus);
@@ -433,7 +426,7 @@ const ChargedBonusBox = () => {
 
 const RangedBonusBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   const setRangedBonus = useStatsStore((state) => state.setRangedBonus);
   // Value Read in component
   const rangedBonus = useStatsStore((state) => state.rangedBonus);
@@ -451,8 +444,8 @@ const RangedBonusBox = () => {
 const SBABonusBox = () => {
   // NEED TO FIX THIS
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
-  const sbaDamageUp = useOvermasteriesStore((state) => state.sbaDamageUp);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const sbaDamageUp = useBuildStore((state) => state.sbaDamageUp);
   const setSbaBonus = useStatsStore((state) => state.setSbaBonus);
   // Value Read in component
   const sbaBonus = useStatsStore((state) => state.sbaBonus);
@@ -480,8 +473,8 @@ const SBABonusBox = () => {
 
 const SkillBonusBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
-  const skillDamageUp = useOvermasteriesStore((state) => state.skillDamageUp);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const skillDamageUp = useBuildStore((state) => state.skillDamageUp);
   const setSkillBonus = useStatsStore((state) => state.setSkillBonus);
   // Value Read in component
   const skillBonus = useStatsStore((state) => state.skillBonus);
@@ -502,11 +495,11 @@ const SkillBonusBox = () => {
 
 const WeakpointBox = () => {
   // Dependencies for calculation
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
-  const skillDamageUp = useOvermasteriesStore((state) => state.skillDamageUp);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const skillDamageUp = useBuildStore((state) => state.skillDamageUp);
   const setWeakpoint = useStatsStore((state) => state.setWeakPoint);
-  const backAttack = useOtherInputsStore((state) => state.backAttack);
-  const weakpointAttack = useOtherInputsStore((state) => state.weakPointAttack);
+  const backAttack = useBuildStore((state) => state.backAttack);
+  const weakpointAttack = useBuildStore((state) => state.weakPointAttack);
   // Value Read in component
   const weakpointBonus = useStatsStore((state) => state.weakPoint);
   useEffect(() => {
@@ -529,7 +522,7 @@ const WeakpointBox = () => {
 
 const WarElementalBox = () => {
   const isWarElemental = useStatsStore((state) => state.isWarElemental);
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   const setIsWarElemental = useStatsStore((state) => state.setIsWarElemental);
   useEffect(() => {
     const sigilLvl = traitsTable.find(
@@ -547,7 +540,7 @@ const WarElementalBox = () => {
 
 const AwakeningBox = () => {
   const isAwakening = useStatsStore((state) => state.isAwakening);
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   const setIsAwakening = useStatsStore((state) => state.setIsAwakening);
   useEffect(() => {
     const sigilLvl = traitsTable.find(
@@ -560,7 +553,7 @@ const AwakeningBox = () => {
 
 const FlightOverFightBox = () => {
   const isFoF = useStatsStore((state) => state.isFoF);
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
   const setIsFoF = useStatsStore((state) => state.setIsFoF);
   useEffect(() => {
     const sigilLvl = traitsTable.find(

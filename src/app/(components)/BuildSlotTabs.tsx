@@ -19,16 +19,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Popover, PopoverContent } from "@/components/ui/popover";
 import { BuildSlot, useBuildSlotsStore } from "@/stores/useBuildSlotsStore";
-import { useCharacterStore } from "@/stores/useCharacterStore";
-import { useOtherInputsStore } from "@/stores/useOtherInputsStore";
-import { useOvermasteriesStore } from "@/stores/useOvermasteriesStore";
-import { useTraitsStore } from "@/stores/useTraitsStore";
 import { DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
 import { PopoverTrigger } from "@radix-ui/react-popover";
 import { Ellipsis, PencilIcon, Plus, Save, Trash } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { useBuildStore } from "@/stores/useBuildStore";
 var hash = require("object-hash");
 export const BuildSlotTabs = () => {
   const slots = useBuildSlotsStore((state) => state.slots);
@@ -36,45 +33,42 @@ export const BuildSlotTabs = () => {
   //   (state) => state.setCurrentSlotIndex
   // );
   const addSlot = useBuildSlotsStore((state) => state.addSlot);
-  const characterState = useCharacterStore((state) => state);
-  const traitsState = useTraitsStore((state) => state);
-  const otherInputsState = useOtherInputsStore((state) => state);
-  const overmasteriesState = useOvermasteriesStore((state) => state);
+  const buildState = useBuildStore((state) => state);
 
   function saveSlot() {
     addSlot({
       name: `Slot ${slots.length + 1}`,
       character: {
-        selectedCharacter: characterState.selectedCharacter,
-        gravityWell: characterState.gravityWell,
-        arvessFermare: characterState.arvessFermare,
-        artsLevel: characterState.artsLevel,
-        butterflies: characterState.butterflies,
-        highestLvlRose: characterState.highestLvlRose,
+        selectedCharacter: buildState.selectedCharacter,
+        gravityWell: buildState.gravityWell,
+        arvessFermare: buildState.arvessFermare,
+        artsLevel: buildState.artsLevel,
+        butterflies: buildState.butterflies,
+        highestLvlRose: buildState.highestLvlRose,
       },
       traits: {
-        sigilsEquipped: traitsState.sigilsEquipped,
-        isTerminus: traitsState.isTerminus,
-        isMaxAwakening: traitsState.isMaxAwakening,
-        weaponImbues: traitsState.weaponImbues,
+        sigilsEquipped: buildState.sigilsEquipped,
+        isTerminus: buildState.isTerminus,
+        isMaxAwakening: buildState.isMaxAwakening,
+        weaponImbues: buildState.weaponImbues,
       },
       otherInputs: {
-        numberOfSkills: otherInputsState.numberOfSkills,
-        attackBuffs: otherInputsState.attackBuffs,
-        defDebuffs: otherInputsState.defDebuffs,
-        comboActive: otherInputsState.comboActive,
-        currentHp: otherInputsState.currentHp,
-        backAttack: otherInputsState.backAttack,
-        weakPointAttack: otherInputsState.weakPointAttack,
+        numberOfSkills: buildState.numberOfSkills,
+        attackBuffs: buildState.attackBuffs,
+        defDebuffs: buildState.defDebuffs,
+        comboActive: buildState.comboActive,
+        currentHp: buildState.currentHp,
+        backAttack: buildState.backAttack,
+        weakPointAttack: buildState.weakPointAttack,
       },
       overmasteries: {
-        attack: overmasteriesState.attack,
-        normalDamageCapUp: overmasteriesState.normalDamageCapUp,
-        skillDamageCapUp: overmasteriesState.skillDamageCapUp,
-        sbaDamageCapUp: overmasteriesState.sbaDamageCapUp,
-        skillDamageUp: overmasteriesState.skillDamageUp,
-        sbaDamageUp: overmasteriesState.sbaDamageUp,
-        critHitRate: overmasteriesState.critHitRate,
+        attack: buildState.attack,
+        normalDamageCapUp: buildState.normalDamageCapUp,
+        skillDamageCapUp: buildState.skillDamageCapUp,
+        sbaDamageCapUp: buildState.sbaDamageCapUp,
+        skillDamageUp: buildState.skillDamageUp,
+        sbaDamageUp: buildState.sbaDamageUp,
+        critHitRate: buildState.critHitRate,
       },
     });
   }
@@ -98,27 +92,9 @@ const BuildSlotTab = ({
   buildSlot: BuildSlot;
   index: number;
 }) => {
-  const currentSlotIndex = useBuildSlotsStore(
-    (state) => state.currentSlotIndex
-  );
-  const characterState = useCharacterStore((state) => state);
-  // const traitsState = useTraitsStore((state) => state);
-  // const otherInputsState = useOtherInputsStore((state) => state);
-  // const overmasteriesState = useOvermasteriesStore((state) => state);
-
-  function loadSlot() {
-    characterState.setSelectedCharacter(buildSlot.character.selectedCharacter);
-  }
   return (
     <div className="flex">
-      <Button
-        className="rounded-r-none"
-        variant="outline"
-        disabled={currentSlotIndex === index}
-        onClick={() => loadSlot()}
-      >
-        {buildSlot.name}
-      </Button>
+      <LoadSlotAlertDialog buildSlot={buildSlot} />
       <Popover>
         <PopoverTrigger asChild>
           <Button className="rounded-l-none" variant="outline" size="icon">
@@ -127,16 +103,153 @@ const BuildSlotTab = ({
         </PopoverTrigger>
         <PopoverContent className="w-48">
           <div className="flex flex-col gap-2">
-            <Button variant="default" className="flex gap-2">
-              <Save className="my-auto h-4 w-4" />
-              <div>Save Build</div>
-            </Button>
+            <SaveSlotAlertDialog index={index} slotName={buildSlot.name} />
             <RenameSlotDialog index={index} slot={buildSlot} />
             <DeleteSlotAlertDialog index={index} />
           </div>
         </PopoverContent>
       </Popover>
     </div>
+  );
+};
+
+const LoadSlotAlertDialog = ({ buildSlot }: { buildSlot: BuildSlot }) => {
+  const buildStore = useBuildStore((state) => state);
+  function loadSlot() {
+    //slected character
+    buildStore.setCharacterStates({
+      selectedCharacter: buildSlot.character.selectedCharacter,
+      gravityWell: buildSlot.character.gravityWell,
+      arvessFermare: buildSlot.character.arvessFermare,
+      artsLevel: buildSlot.character.artsLevel,
+      butterflies: buildSlot.character.butterflies,
+      highestLvlRose: buildSlot.character.highestLvlRose,
+    });
+    //sigils && weapons
+    buildStore.setTraitsStates({
+      sigilsEquipped: buildSlot.traits.sigilsEquipped,
+      isTerminus: buildSlot.traits.isTerminus,
+      isMaxAwakening: buildSlot.traits.isMaxAwakening,
+      weaponImbues: buildSlot.traits.weaponImbues,
+    });
+    //other inputs
+    buildStore.setNumberOfSkills(buildSlot.otherInputs.numberOfSkills);
+    buildStore.setAttackBuffs(buildSlot.otherInputs.attackBuffs);
+    buildStore.setDefDebuffs(buildSlot.otherInputs.defDebuffs);
+    buildStore.setComboActive(buildSlot.otherInputs.comboActive);
+    buildStore.setCurrentHp(buildSlot.otherInputs.currentHp);
+    buildStore.setBackAttack(buildSlot.otherInputs.backAttack);
+    buildStore.setWeakpointAttack(buildSlot.otherInputs.weakPointAttack);
+    //overmasteries
+    buildStore.setOvermasteriesStates({
+      attack: buildSlot.overmasteries.attack,
+      normalDamageCapUp: buildSlot.overmasteries.normalDamageCapUp,
+      skillDamageCapUp: buildSlot.overmasteries.skillDamageCapUp,
+      sbaDamageCapUp: buildSlot.overmasteries.sbaDamageCapUp,
+      skillDamageUp: buildSlot.overmasteries.skillDamageUp,
+      sbaDamageUp: buildSlot.overmasteries.sbaDamageUp,
+      critHitRate: buildSlot.overmasteries.critHitRate,
+    });
+  }
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button className="rounded-r-none" variant="outline">
+          {buildSlot.name}
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>Load Slot</AlertDialogHeader>
+        <AlertDialogDescription>
+          Do you want to load build slot: {buildSlot.name}?
+        </AlertDialogDescription>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={() => loadSlot()}>
+            Load Slot
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};
+
+const SaveSlotAlertDialog = ({
+  index,
+  slotName,
+}: {
+  index: number;
+  slotName: string;
+}) => {
+  const updateSlot = useBuildSlotsStore((state) => state.updateSlot);
+  const buildState = useBuildStore((state) => state);
+
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="default" className="flex gap-2">
+          <Save className="my-auto h-4 w-4" />
+          <div>Save Build</div>
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Overwrite Slot</AlertDialogTitle>
+        </AlertDialogHeader>
+        <AlertDialogDescription>
+          Are you overwrite this slot with the current build?
+        </AlertDialogDescription>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction asChild>
+            <Button
+              variant="destructive"
+              className="flex gap-2"
+              onClick={() =>
+                updateSlot(index, {
+                  name: slotName,
+                  character: {
+                    selectedCharacter: buildState.selectedCharacter,
+                    gravityWell: buildState.gravityWell,
+                    arvessFermare: buildState.arvessFermare,
+                    artsLevel: buildState.artsLevel,
+                    butterflies: buildState.butterflies,
+                    highestLvlRose: buildState.highestLvlRose,
+                  },
+                  traits: {
+                    sigilsEquipped: buildState.sigilsEquipped,
+                    isTerminus: buildState.isTerminus,
+                    isMaxAwakening: buildState.isMaxAwakening,
+                    weaponImbues: buildState.weaponImbues,
+                  },
+                  otherInputs: {
+                    numberOfSkills: buildState.numberOfSkills,
+                    attackBuffs: buildState.attackBuffs,
+                    defDebuffs: buildState.defDebuffs,
+                    comboActive: buildState.comboActive,
+                    currentHp: buildState.currentHp,
+                    backAttack: buildState.backAttack,
+                    weakPointAttack: buildState.weakPointAttack,
+                  },
+                  overmasteries: {
+                    attack: buildState.attack,
+                    normalDamageCapUp: buildState.normalDamageCapUp,
+                    skillDamageCapUp: buildState.skillDamageCapUp,
+                    sbaDamageCapUp: buildState.sbaDamageCapUp,
+                    skillDamageUp: buildState.skillDamageUp,
+                    sbaDamageUp: buildState.sbaDamageUp,
+                    critHitRate: buildState.critHitRate,
+                  },
+                })
+              }
+            >
+              <Save className="my-auto h-4 w-4" />
+              Save Slot
+            </Button>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 

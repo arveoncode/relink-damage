@@ -197,7 +197,7 @@ const SaveSlotAlertDialog = ({
           <AlertDialogTitle>Overwrite Slot</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogDescription>
-          Are you overwrite this slot with the current build?
+          Do you wish to overwrite this slot with the current build?
         </AlertDialogDescription>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

@@ -4,10 +4,7 @@ import { charlottaSkills } from "@/constants/character/skills/charlotta";
 import { ioSkills } from "@/constants/character/skills/io";
 import { baseStatsAtLvl100 } from "@/constants/stats/stats";
 import { safeDecimalAdder, safeDecimalMultiplier } from "@/lib/calculators";
-import { useCharacterStore } from "@/stores/useCharacterStore";
-import { useOvermasteriesStore } from "@/stores/useOvermasteriesStore";
 import { useStatsStore } from "@/stores/useStatsStore";
-import { useTraitsStore } from "@/stores/useTraitsStore";
 import { SkillCalculatedTable, SkillConstant } from "@/types/skill.types";
 import { useEffect, useState } from "react";
 import { SkillsDataTable } from "./skills-data-table/SkillsDataTable";
@@ -15,32 +12,31 @@ import { skillsDataColumns } from "./skills-data-table/SkillsDataColumns";
 import { lancelotSkills } from "@/constants/character/skills/lancelot";
 import { cagliostroSkills } from "@/constants/character/skills/cagliostro";
 import { zetaSkills } from "@/constants/character/skills/zeta";
-import { useOtherInputsStore } from "@/stores/useOtherInputsStore";
+import { narmayaSkills } from "@/constants/character/skills/narmaya";
+import { useBuildStore } from "@/stores/useBuildStore";
 
 export const SkillsTable = () => {
-  const selectedCharacter = useCharacterStore(
-    (state) => state.selectedCharacter
-  );
-  const arvessFermare = useCharacterStore((state) => state.arvessFermare);
-  const butterflies = useCharacterStore((state) => state.butterflies);
-  const comboActive = useOtherInputsStore((state) => state.comboActive);
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
+  const arvessFermare = useBuildStore((state) => state.arvessFermare);
+  const butterflies = useBuildStore((state) => state.butterflies);
+  const comboActive = useBuildStore((state) => state.comboActive);
   const statsStore = useStatsStore((state) => state);
-  const overmasteryCrit = useOvermasteriesStore((state) => state.critHitRate);
-  const traitsTable = useTraitsStore((state) => state.traitsTable);
+  const overmasteryCrit = useBuildStore((state) => state.critHitRate);
+  // const traitsTable = useStatsStore((state) => state.traitsTable);
   const [charData, setCharData] = useState<SkillCalculatedTable[]>([]);
 
   useEffect(() => {
     function calculateSkills(_skills: SkillConstant[]): SkillCalculatedTable[] {
-      const sigilsCrit = traitsTable.find(
+      const sigilsCrit = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Critical Hit Rate"
       )?.value;
-      const sigilsLuckyCharge = traitsTable.find(
+      const sigilsLuckyCharge = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Lucky Charge"
       )?.value;
-      const sigilsTyranny = traitsTable.find(
+      const sigilsTyranny = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Tyranny"
       )?.value as number;
-      const sigilsSupplementary = traitsTable.find(
+      const sigilsSupplementary = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Supplementary Damage"
       )?.actualUseableLevel;
 
@@ -149,59 +145,51 @@ export const SkillsTable = () => {
               1
             : 0;
 
-        // TODO: Supplemental
         const supplemental =
           skill.classification.normal || skill.classification.skill
             ? sigilsSupplementary
-              ? safeDecimalMultiplier([
-                  0.2,
-                  Math.min(
-                    safeDecimalMultiplier([
-                      statsStore.rawPowerCrit,
-                      skill.skillRatio,
-                      multi,
-                      statsStore.isWarElemental ? 1.2 : 1,
-                    ]),
-                    totalDamageCap
-                  ) *
+              ? //(MIN(rawPowerCrit*$C35*$H35*IF(warElemental,1.2,1),$J35)*MIN(1,crit+masteryCrit+INDIRECT("Sigils!$D"&(offset+levelCrit)))+MIN(rawPower*$C35*$H35*IF(warElemental,1.2,1),$J35)*(1-MIN(1,crit+masteryCrit+INDIRECT("Sigils!$D"&(offset+levelCrit)))))*0.2*MIN(1,0.12+levelSupplementary*0.02)
+                Math.round(
+                  safeDecimalMultiplier([
                     Math.min(
-                      1,
-                      safeDecimalAdder([
-                        baseStatsAtLvl100.critHitRate,
-                        overmasteryCrit,
-                        sigilsCrit ? sigilsCrit : 0,
-                      ])
-                    ) +
-                    Math.min(
-                      totalDamageCap,
-                      safeDecimalMultiplier([
-                        statsStore.rawPower,
-                        skill.skillRatio,
-                        multi,
-                        statsStore.isWarElemental ? 1.2 : 1,
-                      ])
+                      statsStore.rawPowerCrit *
+                        skill.skillRatio *
+                        multi *
+                        (statsStore.isWarElemental ? 1.2 : 1),
+                      totalDamageCap
                     ) *
-                      (1 -
-                        Math.min(
-                          1,
-                          safeDecimalAdder([
-                            baseStatsAtLvl100.critHitRate,
-                            sigilsCrit ? sigilsCrit : 0,
-                          ])
-                        )) *
                       Math.min(
                         1,
-                        safeDecimalMultiplier([
-                          safeDecimalAdder([
-                            0.12,
-                            sigilsSupplementary ? sigilsSupplementary : 0,
-                          ]),
-                          0.02,
-                        ])
-                      ),
-                ])
+                        baseStatsAtLvl100.critHitRate +
+                          overmasteryCrit +
+                          (sigilsCrit ? sigilsCrit : 0)
+                      ) +
+                      Math.min(
+                        totalDamageCap,
+                        statsStore.rawPower *
+                          skill.skillRatio *
+                          multi *
+                          (statsStore.isWarElemental ? 1.2 : 1)
+                      ) *
+                        (1 -
+                          Math.min(
+                            1,
+                            baseStatsAtLvl100.critHitRate +
+                              overmasteryCrit +
+                              (sigilsCrit ? sigilsCrit : 0)
+                          )),
+                    0.2,
+                    Math.min(1, 0.12 + sigilsSupplementary * 0.2),
+                  ])
+                )
               : 0
             : 0;
+
+        const avgTotalDmg = Math.round(
+          critChance * Math.min(totalDamageCap, crit) +
+            (1 - critChance) * Math.min(totalDamageCap, nonCrit) +
+            supplemental
+        );
         return {
           skill: skill.skill,
           modifier: skill.modifier,
@@ -217,7 +205,7 @@ export const SkillsTable = () => {
           damagePotential: Math.round(damagePotential * 10000) / 100,
           overcap: Math.round(overcap * 10000) / 100,
           supplemental: supplemental,
-          averageTotalDmg: 0,
+          averageTotalDmg: avgTotalDmg,
         };
       });
     }
@@ -232,7 +220,7 @@ export const SkillsTable = () => {
         setCharData([]);
         break;
       case "Narmaya":
-        setCharData([]);
+        setCharData(calculateSkills(narmayaSkills));
         break;
       case "Rosetta":
         setCharData([]);
@@ -283,7 +271,6 @@ export const SkillsTable = () => {
   }, [
     selectedCharacter,
     statsStore,
-    traitsTable,
     overmasteryCrit,
     arvessFermare,
     butterflies,

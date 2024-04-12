@@ -14,7 +14,7 @@ import { ColumnDef } from "@tanstack/react-table";
 export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
   {
     id: "calculations",
-    header: () => <div className="px-2">Calculations</div>,
+    header: () => <div className="px-2">Calculations (2.6.7)</div>,
     columns: [
       {
         id: "select",
@@ -183,12 +183,16 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
       {
         accessorKey: "supplemental",
         header: "Supplemental",
-        cell: ({ row }) => <div>{row.original.supplemental}</div>,
+        cell: ({ row }) => (
+          <div>{numberWithCommas(row.original.supplemental)}</div>
+        ),
       },
       {
         accessorKey: "averageTotalDmg",
         header: "Average Total Damage",
-        cell: ({ row }) => <div>{row.original.averageTotalDmg}</div>,
+        cell: ({ row }) => (
+          <div>{numberWithCommas(row.original.averageTotalDmg)}</div>
+        ),
       },
     ],
     meta: { colspan: 15 },

@@ -4,20 +4,18 @@ import { ComboBox, SelectOptionsProp } from "@/components/ui/combo-box";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { getSigilImage, sigilConstants } from "@/constants/gear/sigils";
-import { useTraitsStore } from "@/stores/useTraitsStore";
+import { useBuildStore } from "@/stores/useBuildStore";
 import { TraitLiterals } from "@/types/traits.types";
 import Image from "next/image";
 
 export const Weapon = () => {
-  const isTerminus = useTraitsStore((state) => state.isTerminus);
-  const isMaxAwakening = useTraitsStore((state) => state.isMaxAwakening);
-  const setIsTerminus = useTraitsStore((state) => state.setIsTerminus);
-  const setisMaxAwakening = useTraitsStore((state) => state.setisMaxAwakening);
+  const isTerminus = useBuildStore((state) => state.isTerminus);
+  const isMaxAwakening = useBuildStore((state) => state.isMaxAwakening);
+  const setIsTerminus = useBuildStore((state) => state.setIsTerminus);
+  const setisMaxAwakening = useBuildStore((state) => state.setisMaxAwakening);
 
-  const weaponImbues = useTraitsStore((state) => state.weaponImbues);
-  const updateWeaponImbues = useTraitsStore(
-    (state) => state.updateWeaponImbues
-  );
+  const weaponImbues = useBuildStore((state) => state.weaponImbues);
+  const updateWeaponImbues = useBuildStore((state) => state.updateWeaponImbues);
 
   const allOptions: SelectOptionsProp[] = sigilConstants.map((sigil) => {
     return {

@@ -1,6 +1,7 @@
 import { Character } from "@/types/character.types";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+// import { create } from "zustand";
+// import { createJSONStorage, persist } from "zustand/middleware";
+// import { persistentStorage } from "./zustandHelpers/persistentUrlStorage";
 
 export interface CharacterStates {
   selectedCharacter: Character;
@@ -11,7 +12,7 @@ export interface CharacterStates {
   highestLvlRose: number;
 }
 
-interface CharacterStore extends CharacterStates {
+export interface CharacterStore extends CharacterStates {
   //   Selected Character
   setSelectedCharacter: (character: Character) => void;
   // Character Specific Criteria
@@ -35,49 +36,51 @@ interface CharacterStore extends CharacterStates {
   }: CharacterStates) => void;
 }
 
-export const useCharacterStore = create<CharacterStore>()(
-  persist(
-    (set) => ({
-      selectedCharacter: "Io",
-      setSelectedCharacter: (character: Character) =>
-        set(() => ({ selectedCharacter: character })),
-      gravityWell: false,
-      setGravityWell: (gravityWell: boolean) =>
-        set(() => ({ gravityWell: gravityWell })),
-      arvessFermare: false,
-      setArvessFermare: (arvessFermare: boolean) =>
-        set(() => ({ arvessFermare: arvessFermare })),
-      artsLevel: 0,
-      setArtsLevel: (artsLevel: number) =>
-        set(() => ({ artsLevel: artsLevel })),
-      butterflies: 0,
-      setButterflies: (butterflies: number) =>
-        set(() => ({ butterflies: butterflies })),
-      highestLvlRose: 0,
-      setHighestLvlRose: (highestLvlRose: number) =>
-        set(() => ({ highestLvlRose: highestLvlRose })),
-      setCharacterStates: ({
-        selectedCharacter,
-        gravityWell,
-        arvessFermare,
-        artsLevel,
-        butterflies,
-        highestLvlRose,
-      }: CharacterStates) =>
-        set(() => ({
-          selectedCharacter: selectedCharacter,
-          gravityWell: gravityWell,
-          arvessFermare: arvessFermare,
-          artsLevel: artsLevel,
-          butterflies: butterflies,
-          highestLvlRose: highestLvlRose,
-        })),
-    }),
-    {
-      name: "character",
-    }
-  )
-);
+// migrated to buildstore
+// export const useCharacterStore = create(
+//   persist<CharacterStore>(
+//     (set) => ({
+//       selectedCharacter: "Io",
+//       setSelectedCharacter: (character: Character) =>
+//         set(() => ({ selectedCharacter: character })),
+//       gravityWell: false,
+//       setGravityWell: (gravityWell: boolean) =>
+//         set(() => ({ gravityWell: gravityWell })),
+//       arvessFermare: false,
+//       setArvessFermare: (arvessFermare: boolean) =>
+//         set(() => ({ arvessFermare: arvessFermare })),
+//       artsLevel: 0,
+//       setArtsLevel: (artsLevel: number) =>
+//         set(() => ({ artsLevel: artsLevel })),
+//       butterflies: 0,
+//       setButterflies: (butterflies: number) =>
+//         set(() => ({ butterflies: butterflies })),
+//       highestLvlRose: 0,
+//       setHighestLvlRose: (highestLvlRose: number) =>
+//         set(() => ({ highestLvlRose: highestLvlRose })),
+//       setCharacterStates: ({
+//         selectedCharacter,
+//         gravityWell,
+//         arvessFermare,
+//         artsLevel,
+//         butterflies,
+//         highestLvlRose,
+//       }: CharacterStates) =>
+//         set(() => ({
+//           selectedCharacter: selectedCharacter,
+//           gravityWell: gravityWell,
+//           arvessFermare: arvessFermare,
+//           artsLevel: artsLevel,
+//           butterflies: butterflies,
+//           highestLvlRose: highestLvlRose,
+//         })),
+//     }),
+//     {
+//       name: "character",
+//       storage: createJSONStorage<CharacterStore>(() => persistentStorage),
+//     }
+//   )
+// );
 
 // export function getCharacterInput(): CharacterInput {
 //   const selectedCharacter = useCharacterStore(

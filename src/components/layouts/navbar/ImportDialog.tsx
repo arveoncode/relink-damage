@@ -22,9 +22,9 @@ import {
   convertLogsToCalculatorTrait,
 } from "@/constants/logs/traits";
 import { safeDecimalAdder, safeDecimalMultiplier } from "@/lib/calculators";
-import { CharacterStates, useCharacterStore } from "@/stores/useCharacterStore";
-import { useOvermasteriesStore } from "@/stores/useOvermasteriesStore";
-import { TraitsStates, useTraitsStore } from "@/stores/useTraitsStore";
+import { useBuildStore } from "@/stores/useBuildStore";
+import { CharacterStates } from "@/stores/useCharacterStore";
+import { TraitsStates } from "@/stores/useTraitsStore";
 import { LogsData } from "@/types/logs.types";
 import { Overmasteries } from "@/types/overmasteries.types";
 import { Import } from "lucide-react";
@@ -32,13 +32,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export const ImportDialog = () => {
-  const setCharacterStates = useCharacterStore(
-    (state) => state.setCharacterStates
-  );
-  const setOvermasteriesStates = useOvermasteriesStore(
+  const setCharacterStates = useBuildStore((state) => state.setCharacterStates);
+  const setOvermasteriesStates = useBuildStore(
     (state) => state.setOvermasteriesStates
   );
-  const setTraitsStates = useTraitsStore((state) => state.setTraitsStates);
+  const setTraitsStates = useBuildStore((state) => state.setTraitsStates);
   const [logsInput, setLogsInput] = useState("");
   const [logsInputError, setLogsInputError] = useState<null | string>(null);
   // TBI -> To be imported
@@ -78,10 +76,14 @@ export const ImportDialog = () => {
           sigilsEquipped: logsData.sigils.map((ldSigils) => {
             return {
               sigil1: convertLogsToCalculatorTrait(
-                ldSigils.firstTraitId.toString(16) as LogsTraitsIDs
+                ldSigils.firstTraitId.toString(16).length === 8
+                  ? (ldSigils.firstTraitId.toString(16) as LogsTraitsIDs)
+                  : (`0${ldSigils.firstTraitId.toString(16)}` as LogsTraitsIDs)
               ),
               sigil2: convertLogsToCalculatorTrait(
-                ldSigils.secondTraitId.toString(16) as LogsTraitsIDs
+                ldSigils.secondTraitId.toString(16).length === 8
+                  ? (ldSigils.secondTraitId.toString(16) as LogsTraitsIDs)
+                  : (`0${ldSigils.secondTraitId.toString(16)}` as LogsTraitsIDs)
               ),
               level: ldSigils.sigilLevel,
             };

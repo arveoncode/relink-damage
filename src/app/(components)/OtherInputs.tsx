@@ -13,10 +13,23 @@ import {
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { safeDecimalMultiplier } from "@/lib/calculators";
-import { useOtherInputsStore } from "@/stores/useOtherInputsStore";
+import { useBuildStore } from "@/stores/useBuildStore";
 
 export const OtherInputs = () => {
-  const otherInputsStore = useOtherInputsStore((state) => state);
+  const numberOfSkills = useBuildStore((state) => state.numberOfSkills);
+  const attackBuffs = useBuildStore((state) => state.attackBuffs);
+  const defDebuffs = useBuildStore((state) => state.defDebuffs);
+  const comboActive = useBuildStore((state) => state.comboActive);
+  const currentHp = useBuildStore((state) => state.currentHp);
+  const backAttack = useBuildStore((state) => state.backAttack);
+  const weakPointAttack = useBuildStore((state) => state.weakPointAttack);
+  const setNumberOfSkills = useBuildStore((state) => state.setNumberOfSkills);
+  const setAttackBuffs = useBuildStore((state) => state.setAttackBuffs);
+  const setDefDebuffs = useBuildStore((state) => state.setDefDebuffs);
+  const setComboActive = useBuildStore((state) => state.setComboActive);
+  const setCurrentHp = useBuildStore((state) => state.setCurrentHp);
+  const setBackAttack = useBuildStore((state) => state.setBackAttack);
+  const setWeakpointAttack = useBuildStore((state) => state.setWeakpointAttack);
   return (
     <Card>
       <CardHeader>
@@ -33,9 +46,9 @@ export const OtherInputs = () => {
             <Select
               onValueChange={(value) => {
                 // setFirstSigil(value);
-                otherInputsStore.setNumberOfSkills(Number(value));
+                setNumberOfSkills(Number(value));
               }}
-              value={otherInputsStore.numberOfSkills.toString()}
+              value={numberOfSkills.toString()}
             >
               <SelectTrigger className="">
                 <SelectValue />
@@ -59,11 +72,9 @@ export const OtherInputs = () => {
               min={0}
               step={0.01}
               onInput={(e) => {
-                otherInputsStore.setAttackBuffs(
-                  Number(e.currentTarget.value) / 100
-                );
+                setAttackBuffs(Number(e.currentTarget.value) / 100);
               }}
-              value={safeDecimalMultiplier([otherInputsStore.attackBuffs, 100])}
+              value={safeDecimalMultiplier([attackBuffs, 100])}
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -73,36 +84,30 @@ export const OtherInputs = () => {
               className=""
               min={0}
               onInput={(e) => {
-                otherInputsStore.setDefDebuffs(
-                  Number(e.currentTarget.value) / 100
-                );
+                setDefDebuffs(Number(e.currentTarget.value) / 100);
               }}
-              value={safeDecimalMultiplier([otherInputsStore.defDebuffs, 100])}
+              value={safeDecimalMultiplier([defDebuffs, 100])}
             />
           </div>
           <div className="flex justify-between">
             <Label className="my-auto">Combo Active?</Label>
             <Switch
-              checked={otherInputsStore.comboActive}
-              onCheckedChange={(value) =>
-                otherInputsStore.setComboActive(value)
-              }
+              checked={comboActive}
+              onCheckedChange={(value) => setComboActive(value)}
             />
           </div>
           <div className="flex justify-between">
             <Label className="my-auto">Back Attack?</Label>
             <Switch
-              checked={otherInputsStore.backAttack}
-              onCheckedChange={(value) => otherInputsStore.setBackAttack(value)}
+              checked={backAttack}
+              onCheckedChange={(value) => setBackAttack(value)}
             />
           </div>
           <div className="flex justify-between">
             <Label className="my-auto">Weak Point Attack?</Label>
             <Switch
-              checked={otherInputsStore.weakPointAttack}
-              onCheckedChange={(value) =>
-                otherInputsStore.setWeakpointAttack(value)
-              }
+              checked={weakPointAttack}
+              onCheckedChange={(value) => setWeakpointAttack(value)}
             />
           </div>
           <hr />
@@ -110,18 +115,14 @@ export const OtherInputs = () => {
             <div className="flex justify-between align-middle h-8">
               <Label className="my-auto">Current HP</Label>
               <Label className="my-auto">
-                {safeDecimalMultiplier([
-                  otherInputsStore.currentHp,
-                  100,
-                ]).toFixed(2)}
-                %
+                {safeDecimalMultiplier([currentHp, 100]).toFixed(2)}%
               </Label>
             </div>
             <Slider
               max={1}
               step={0.05}
-              value={[otherInputsStore.currentHp]}
-              onValueChange={(value) => otherInputsStore.setCurrentHp(value[0])}
+              value={[currentHp]}
+              onValueChange={(value) => setCurrentHp(value[0])}
             />
           </div>
         </div>

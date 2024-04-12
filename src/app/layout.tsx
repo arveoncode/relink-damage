@@ -5,6 +5,7 @@ import { AuroraBackground } from "@/components/ui/aurora-background";
 import { Analytics } from "@vercel/analytics/react";
 import { Footer } from "@/components/layouts/footer/Footer";
 import { Navbar } from "@/components/layouts/navbar/Navbar";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           <Footer />
         </>
         {/* </ThemeProvider> */}
+        <Toaster />
         <Analytics />
       </body>
     </html>

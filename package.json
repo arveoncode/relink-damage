@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
@@ -35,9 +36,11 @@
     "next": "14.1.4",
     "next-i18next": "^15.2.0",
     "next-themes": "^0.3.0",
+    "object-hash": "^3.0.0",
     "react": "^18",
     "react-dom": "^18",
     "react-i18next": "^14.1.0",
+    "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4",

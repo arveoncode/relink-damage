@@ -4,12 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComboBox, SelectOptionsProp } from "@/components/ui/combo-box";
 import { Input } from "@/components/ui/input";
 import { getSigilImage, sigilConstants } from "@/constants/gear/sigils";
-import { useTraitsStore } from "@/stores/useTraitsStore";
+import { useBuildStore } from "@/stores/useBuildStore";
 import { SigilSet, TraitLiterals } from "@/types/traits.types";
 import Image from "next/image";
 
 export const Sigils = () => {
-  const sigilsEquipped = useTraitsStore((state) => state.sigilsEquipped);
+  const sigilsEquipped = useBuildStore((state) => state.sigilsEquipped);
   return (
     <Card>
       <CardHeader>
@@ -35,7 +35,7 @@ interface SigilsPickerProps {
   sigilSet: SigilSet;
 }
 const SigilsPicker = ({ index, sigilSet }: SigilsPickerProps) => {
-  const updateSigilSet = useTraitsStore((state) => state.updateSigilSet);
+  const updateSigilSet = useBuildStore((state) => state.updateSigilSet);
 
   const options: SelectOptionsProp[] = sigilConstants.map((sigil) => {
     return {

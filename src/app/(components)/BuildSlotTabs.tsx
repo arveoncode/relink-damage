@@ -45,6 +45,7 @@ export const BuildSlotTabs = () => {
         artsLevel: buildState.artsLevel,
         butterflies: buildState.butterflies,
         highestLvlRose: buildState.highestLvlRose,
+        rageLevel: buildState.rageLevel,
       },
       traits: {
         sigilsEquipped: buildState.sigilsEquipped,
@@ -60,6 +61,7 @@ export const BuildSlotTabs = () => {
         currentHp: buildState.currentHp,
         backAttack: buildState.backAttack,
         weakPointAttack: buildState.weakPointAttack,
+        isLinkTime: buildState.isLinkTime,
       },
       overmasteries: {
         attack: buildState.attack,
@@ -124,6 +126,7 @@ const LoadSlotAlertDialog = ({ buildSlot }: { buildSlot: BuildSlot }) => {
       artsLevel: buildSlot.character.artsLevel,
       butterflies: buildSlot.character.butterflies,
       highestLvlRose: buildSlot.character.highestLvlRose,
+      rageLevel: buildSlot.character.rageLevel,
     });
     //sigils && weapons
     buildStore.setTraitsStates({
@@ -215,6 +218,7 @@ const SaveSlotAlertDialog = ({
                     artsLevel: buildState.artsLevel,
                     butterflies: buildState.butterflies,
                     highestLvlRose: buildState.highestLvlRose,
+                    rageLevel: buildState.rageLevel,
                   },
                   traits: {
                     sigilsEquipped: buildState.sigilsEquipped,
@@ -230,6 +234,7 @@ const SaveSlotAlertDialog = ({
                     currentHp: buildState.currentHp,
                     backAttack: buildState.backAttack,
                     weakPointAttack: buildState.weakPointAttack,
+                    isLinkTime: buildState.isLinkTime,
                   },
                   overmasteries: {
                     attack: buildState.attack,

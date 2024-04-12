@@ -9,6 +9,7 @@ export interface OtherInputsStates {
   currentHp: number;
   backAttack: boolean;
   weakPointAttack: boolean;
+  isLinkTime: boolean;
 }
 
 export interface OtherInputsStore extends OtherInputsStates {
@@ -19,6 +20,7 @@ export interface OtherInputsStore extends OtherInputsStates {
   setCurrentHp: (_hp: number) => void;
   setBackAttack: (_backAttack: boolean) => void;
   setWeakpointAttack: (_weakPointAttack: boolean) => void;
+  setIsLinkTime: (_isLinkTime: boolean) => void;
 }
 
 // export const useOtherInputsStore = create<OtherInputsStore>()(

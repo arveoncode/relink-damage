@@ -74,6 +74,8 @@ const RawPowerBox = () => {
   const comboActive = useBuildStore((state) => state.comboActive);
   const numberOfSkills = useBuildStore((state) => state.numberOfSkills);
   const isAwakening = useStatsStore((state) => state.isAwakening);
+  const isLinkTime = useBuildStore((state) => state.isLinkTime);
+  const rageLevel = useBuildStore((state) => state.rageLevel);
   // Value Read in component
   const rawPower = useStatsStore((state) => state.rawPower);
 
@@ -98,21 +100,72 @@ const RawPowerBox = () => {
     const sigilsLifeOnTheLine = traitsTable.find(
       (trait) => trait.traitName === "Life on the Line"
     )?.value;
+
     const sigilsInjury = traitsTable.find(
       (trait) => trait.traitName === "Injury to Insult"
     )?.value;
-    // TODO: Head Start
-    // TODO: Dodge Payback
-    // TODO: Power Hungry
+    const sigilsHeadStart = traitsTable.find(
+      (trait) => trait.traitName === "Head Start"
+    )?.value;
+    const sigilsDodgePayback = traitsTable.find(
+      (trait) => trait.traitName === "Dodge Payback"
+    )?.value;
+    const sigilsPowerHungry = traitsTable.find(
+      (trait) => trait.traitName === "Power Hungry"
+    )?.value;
     const sigilsGlassCannon = traitsTable.find(
       (trait) => trait.traitName === "Glass Cannon"
     )?.value;
-    // TODO: Berserker
+    const sigilsBerserker = traitsTable.find(
+      (trait) => trait.traitName === "Berserker"
+    )?.value;
 
     // FoF doesn't contain any useable values in constants
     const sigilsFoF = traitsTable.find(
       (trait) => trait.traitName === "Flight Over Fight"
     )?.actualUseableLevel;
+
+    // as per damage calc 2.6.8
+    // raw power =
+    //  (attack + base overmastery attack + attack power sigils)
+    //  * tyranny
+    //  * stamina modifier (based on stamina and enmity sigils and HP)
+    //  * Glass Cannon
+    //  * Dodge Payback
+    //  * Berserker
+    //  * Flight over fight
+    //  * Injury to Insult
+    //  * (
+    //    additive modifiers:
+    //    Combo Booster
+    //    + Less Is More
+    //    + Life on the Line
+    //    + Quick Charge
+    //    + Power Hungry
+    //    + Head Start
+    //    + Character Specific stuff
+    //    )
+    //  * terminus
+    //  * attack buffs
+    //  * defense debuffs
+    //  * link time modifier
+    // raw power crit = (raw power * (1 + base crit damage(100% at lvl 100 and full masteries + crit damage sigils)))
+    // each skill has a skill ratio (constant in the game) that is multiplied by
+    // multiplier = skill type specific sigils such as
+    //    linked together (for Link attacks and SBA)
+    //    concentrated fire (for ranged attacks)
+    //    charged attack... etc...
+    //  and character specific sigils
+    //    then multiplied again to tyranny sigil
+    //    and bonus weakpoint (20% for back attacks, 70% for weak point attacks, + exploiter sigil)
+    //
+    // when a skill doesn't crit, the damage calculation is
+    //    noncrit damage = raw power * skill ratio * multiplier * war elemental
+    // when a skill crits, the damage calculation is
+    //    crit damage = raw power crit * skill ratio * multiplier * war elemental
+    // the damage you will do is
+    //    skill damage cap = skill's damage cap (another constant in the game multiplied by damage cap sigils)
+    // whatever is lower(skill damage cap||(noncrit damage||crit damage))
 
     setRawPower(
       safeDecimalMultiplier([
@@ -126,18 +179,41 @@ const RawPowerBox = () => {
         staminaMod,
         // Tyranny Modifier
         sigilsTyranny ? 1 + sigilsTyranny : 1,
-        // Combo Booster Modifier
-        comboActive ? (sigilsComboBooster ? sigilsComboBooster : 0) + 1 : 1,
-        // Quick Charge Modifier
-        sigilsQuickCharge ? 1 + sigilsQuickCharge : 1,
+        // Berserker Modifier
+        sigilsBerserker ? 1 + sigilsBerserker : 1,
+        // Injury to insult modifier
+        sigilsInjury ? 1 + sigilsInjury : 1,
+        // Glass Cannon Modifier
+        sigilsGlassCannon ? 1 + sigilsGlassCannon : 1,
+        // Dodge Payback Modifier
+        sigilsDodgePayback ? 1 + sigilsDodgePayback : 1,
+        // Terminus Modifier
+        isTermimus ? 1.5 : 1,
+        // Defense Debuffs Modifier
+        1 + defDebuffs,
+        // Attack buffs Modifier
+        1 + attackBuffs,
+        // Flight over Fight Modifier
+        sigilsFoF ? 0.5 : 1,
+        // Link Time Modifier
+        isLinkTime ? 1.2 : 1,
         // Aditive Modifiers
         safeDecimalAdder([
           1,
+          // Quick Charge Modifier
+          sigilsQuickCharge ? sigilsQuickCharge : 0,
+          // Combo Booster Modifier
+          comboActive ? (sigilsComboBooster ? sigilsComboBooster : 0) : 0,
           // Less Is More Modifier
           sigilsLessIsMore
             ? safeDecimalMultiplier([4 - numberOfSkills, sigilsLessIsMore])
             : 0,
+          // Life on the line modifier
           sigilsLifeOnTheLine ? sigilsLifeOnTheLine : 0,
+          // Power Hungry Modifier
+          sigilsPowerHungry ? sigilsPowerHungry : 0,
+          // Head Start Modifier
+          sigilsHeadStart ? sigilsHeadStart : 0,
           // Character specific
           selectedCharacter === "Captain" && isAwakening && artsLevel >= 2
             ? Math.min(artsLevel, 4) * 0.05
@@ -149,20 +225,14 @@ const RawPowerBox = () => {
                 Math.min(highestLvlRose, 4) * 0.03,
               ])
             : 0,
+          selectedCharacter === "Ghandagoza" && rageLevel >= 1
+            ? 1 + Math.min(10, rageLevel) * 0.035
+            : 0,
         ]),
-        sigilsInjury ? 1 + sigilsInjury : 1,
-        // Glass Cannon Modifier
-        sigilsGlassCannon ? 1 + sigilsGlassCannon : 1,
-        // Terminus Modifier
-        isTermimus ? 1.5 : 1,
-        // Defense Debuffs Modifier
-        1 + defDebuffs,
-        // Attack buffs Modifier
-        1 + attackBuffs,
-        sigilsFoF ? 0.5 : 1,
       ])
     );
   }, [
+    isLinkTime,
     numberOfSkills,
     artsLevel,
     highestLvlRose,
@@ -176,6 +246,7 @@ const RawPowerBox = () => {
     staminaMod,
     comboActive,
     setRawPower,
+    rageLevel,
   ]);
   return <StatBox title="Raw Power" value={rawPower} />;
 };
@@ -260,12 +331,11 @@ const StaminaModBox = () => {
       (trait) => trait.traitName === "Enmity"
     )?.value;
 
-    // This needs to be fixed
     setStaminaMod(
       safeDecimalMultiplier([
         safeDecimalAdder([
           1,
-          sigilsStamina
+          sigilsStamina //stamina multiplier based on level
             ? safeDecimalMultiplier([
                 sigilsStamina,
                 Math.max(0.15, (currentHp - 0.25) / 0.75),
@@ -274,7 +344,7 @@ const StaminaModBox = () => {
         ]),
         safeDecimalAdder([
           1,
-          sigilsEnmity
+          sigilsEnmity //enmity multiplier based on level
             ? safeDecimalMultiplier([sigilsEnmity, 1 - currentHp])
             : 0,
         ]),

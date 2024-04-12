@@ -37,6 +37,9 @@ export const useBuildStore = create(
       highestLvlRose: 0,
       setHighestLvlRose: (highestLvlRose: number) =>
         set(() => ({ highestLvlRose: highestLvlRose })),
+      rageLevel: 0,
+      setRageLevel: (rageLevel: number) =>
+        set(() => ({ rageLevel: rageLevel })),
       setCharacterStates: ({
         selectedCharacter,
         gravityWell,
@@ -44,6 +47,7 @@ export const useBuildStore = create(
         artsLevel,
         butterflies,
         highestLvlRose,
+        rageLevel,
       }: CharacterStates) =>
         set(() => ({
           selectedCharacter: selectedCharacter,
@@ -52,6 +56,7 @@ export const useBuildStore = create(
           artsLevel: artsLevel,
           butterflies: butterflies,
           highestLvlRose: highestLvlRose,
+          rageLevel: rageLevel,
         })),
       // Other Inputs State
       numberOfSkills: 4,
@@ -73,6 +78,9 @@ export const useBuildStore = create(
       weakPointAttack: false,
       setWeakpointAttack: (_weakPointAttack: boolean) =>
         set(() => ({ weakPointAttack: _weakPointAttack })),
+      isLinkTime: false,
+      setIsLinkTime: (_isLinkTime: boolean) =>
+        set(() => ({ isLinkTime: _isLinkTime })),
       // Overmasteries State
       attack: 0,
       setAttack: (attack: number) => set(() => ({ attack: attack })),

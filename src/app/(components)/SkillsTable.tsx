@@ -64,11 +64,6 @@ export const SkillsTable = () => {
             skill.skill === "Twin Blade Dance"
               ? safeDecimalMultiplier([1.5, 1 + (comboActive ? 0.5 : 0)])
               : 1,
-            selectedCharacter === "Yodarha" &&
-            statsStore.isAwakening &&
-            comboActive
-              ? 1.3
-              : 1,
             selectedCharacter === "Zeta" && arvessFermare
               ? safeDecimalAdder([1.3, statsStore.isAwakening ? 0.25 : 0])
               : 1,
@@ -77,25 +72,36 @@ export const SkillsTable = () => {
             skill.classification.special
               ? safeDecimalMultiplier([1.05 ^ Math.min(butterflies, 5)])
               : 1,
+            selectedCharacter === "Eugen" &&
+            statsStore.isAwakening &&
+            skill.skill === "Grenade"
+              ? 2
+              : 1,
           ]),
         ]);
 
         const nonCrit = Math.floor(
-          safeDecimalMultiplier([
-            multi,
-            skill.skillRatio,
-            statsStore.rawPower,
-            statsStore.isWarElemental ? 1.2 : 1,
-          ])
+          statsStore.rawPower *
+            (skill.skillRatio +
+              (selectedCharacter === "Yodarha" &&
+              statsStore.isAwakening &&
+              comboActive
+                ? 0.3
+                : 0)) *
+            multi *
+            (statsStore.isWarElemental ? 1.2 : 1)
         );
 
         const crit = Math.floor(
-          safeDecimalMultiplier([
-            multi,
-            skill.skillRatio,
-            statsStore.rawPowerCrit,
-            statsStore.isWarElemental ? 1.2 : 1,
-          ])
+          statsStore.rawPowerCrit *
+            (skill.skillRatio +
+              (selectedCharacter === "Yodarha" &&
+              statsStore.isAwakening &&
+              comboActive
+                ? 0.3
+                : 0)) *
+            multi *
+            (statsStore.isWarElemental ? 1.2 : 1)
         );
 
         const critChance = safeDecimalAdder([

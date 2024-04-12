@@ -1,6 +1,7 @@
 import { Character } from "@/types/character.types";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
+import { persistentStorage } from "./zustandHelpers/persistentUrlStorage";
 
 export interface CharacterStates {
   selectedCharacter: Character;
@@ -35,8 +36,8 @@ interface CharacterStore extends CharacterStates {
   }: CharacterStates) => void;
 }
 
-export const useCharacterStore = create<CharacterStore>()(
-  persist(
+export const useCharacterStore = create(
+  persist<CharacterStore>(
     (set) => ({
       selectedCharacter: "Io",
       setSelectedCharacter: (character: Character) =>
@@ -75,6 +76,7 @@ export const useCharacterStore = create<CharacterStore>()(
     }),
     {
       name: "character",
+      storage: createJSONStorage<CharacterStore>(() => persistentStorage),
     }
   )
 );

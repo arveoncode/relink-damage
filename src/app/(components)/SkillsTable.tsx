@@ -16,6 +16,7 @@ import { lancelotSkills } from "@/constants/character/skills/lancelot";
 import { cagliostroSkills } from "@/constants/character/skills/cagliostro";
 import { zetaSkills } from "@/constants/character/skills/zeta";
 import { useOtherInputsStore } from "@/stores/useOtherInputsStore";
+import { narmayaSkills } from "@/constants/character/skills/narmaya";
 
 export const SkillsTable = () => {
   const selectedCharacter = useCharacterStore(
@@ -224,7 +225,7 @@ export const SkillsTable = () => {
         setCharData([]);
         break;
       case "Narmaya":
-        setCharData([]);
+        setCharData(calculateSkills(narmayaSkills));
         break;
       case "Rosetta":
         setCharData([]);

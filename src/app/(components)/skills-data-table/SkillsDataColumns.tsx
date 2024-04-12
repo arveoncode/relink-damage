@@ -183,12 +183,16 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
       {
         accessorKey: "supplemental",
         header: "Supplemental",
-        cell: ({ row }) => <div>{row.original.supplemental}</div>,
+        cell: ({ row }) => (
+          <div>{numberWithCommas(row.original.supplemental)}</div>
+        ),
       },
       {
         accessorKey: "averageTotalDmg",
         header: "Average Total Damage",
-        cell: ({ row }) => <div>{row.original.averageTotalDmg}</div>,
+        cell: ({ row }) => (
+          <div>{numberWithCommas(row.original.averageTotalDmg)}</div>
+        ),
       },
     ],
     meta: { colspan: 15 },

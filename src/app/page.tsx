@@ -6,10 +6,10 @@ import { Sigils } from "./(components)/Sigils";
 import { Stats } from "./(components)/Stats";
 import { OtherInputs } from "./(components)/OtherInputs";
 import { SkillsTable } from "./(components)/SkillsTable";
-import { Suspense } from "react";
 import { ImportDialog } from "@/components/layouts/navbar/ImportDialog";
 import { BuildSlotTabs } from "./(components)/BuildSlotTabs";
 import { ExportDialog } from "@/components/layouts/navbar/ExportDialog";
+import { LogsImporter } from "./(components)/LogsImporter";
 
 export default function Home() {
   return (
@@ -33,16 +33,13 @@ export default function Home() {
         </div>
         <div className="col-span-4 flex flex-col gap-4">
           <Traits />
-          <Suspense>
-            <Stats />
-          </Suspense>
+          <Stats />
         </div>
       </div>
       <div className="p-8 bg-white">
-        <Suspense>
-          <SkillsTable />
-        </Suspense>
+        <SkillsTable />
       </div>
+      <LogsImporter />
     </main>
   );
 }

@@ -23,6 +23,7 @@ export const OtherInputs = () => {
   const currentHp = useBuildStore((state) => state.currentHp);
   const backAttack = useBuildStore((state) => state.backAttack);
   const weakPointAttack = useBuildStore((state) => state.weakPointAttack);
+  const isLinkTime = useBuildStore((state) => state.isLinkTime);
   const setNumberOfSkills = useBuildStore((state) => state.setNumberOfSkills);
   const setAttackBuffs = useBuildStore((state) => state.setAttackBuffs);
   const setDefDebuffs = useBuildStore((state) => state.setDefDebuffs);
@@ -30,6 +31,7 @@ export const OtherInputs = () => {
   const setCurrentHp = useBuildStore((state) => state.setCurrentHp);
   const setBackAttack = useBuildStore((state) => state.setBackAttack);
   const setWeakpointAttack = useBuildStore((state) => state.setWeakpointAttack);
+  const setIsLinkTime = useBuildStore((state) => state.setIsLinkTime);
   return (
     <Card>
       <CardHeader>
@@ -108,6 +110,13 @@ export const OtherInputs = () => {
             <Switch
               checked={weakPointAttack}
               onCheckedChange={(value) => setWeakpointAttack(value)}
+            />
+          </div>
+          <div className="flex justify-between">
+            <Label className="my-auto">Link Time?</Label>
+            <Switch
+              checked={isLinkTime}
+              onCheckedChange={(value) => setIsLinkTime(value)}
             />
           </div>
           <hr />

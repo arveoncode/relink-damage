@@ -32,8 +32,6 @@ export const logsCharacters = {
 export function convertLogsToCalculatorCharacter(
   _characterType: LogsCharacterTypes
 ) {
-  console.log(_characterType);
-  console.log(logsCharacters[_characterType]);
   switch (_characterType) {
     case "Pl0000":
     case "Pl0100":

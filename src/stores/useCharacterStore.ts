@@ -10,6 +10,7 @@ export interface CharacterStates {
   artsLevel: number;
   butterflies: number;
   highestLvlRose: number;
+  rageLevel: number;
 }
 
 export interface CharacterStore extends CharacterStates {
@@ -26,6 +27,8 @@ export interface CharacterStore extends CharacterStates {
   setButterflies: (butterflies: number) => void;
   //Rosetta
   setHighestLvlRose: (highestLvlRose: number) => void;
+  // Ghandagoza
+  setRageLevel: (rageLevel: number) => void;
   setCharacterStates: ({
     selectedCharacter,
     gravityWell,
@@ -33,6 +36,7 @@ export interface CharacterStore extends CharacterStates {
     artsLevel,
     butterflies,
     highestLvlRose,
+    rageLevel,
   }: CharacterStates) => void;
 }
 

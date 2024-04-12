@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getCharacterImage } from "@/constants/character/characters";
 import { getSigilImage } from "@/constants/gear/sigils";
 import { useBuildStore } from "@/stores/useBuildStore";
-import { TraitLiterals } from "@/types/traits.types";
+import { Trait, TraitLiterals } from "@/types/traits.types";
 import { ClipboardCopy, FolderOutput } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -40,6 +40,7 @@ export const ExportDialog = () => {
             <div className="flex">
               <TabsList>
                 <TabsTrigger value="link">Link</TabsTrigger>
+                <TabsTrigger value="image">Image</TabsTrigger>
               </TabsList>
             </div>
           </DialogHeader>
@@ -61,7 +62,7 @@ export const ExportDialog = () => {
           <TabsContent value="image">
             <div className="shadow-inner rounded-md overflow-hidden">
               <GridSmallBackground>
-                <div className="grid grid-cols-4 gap-4 p-4">
+                <div className="grid grid-cols-5 gap-4 p-4">
                   <div className=" flex flex-col gap-4">
                     <div className="relative aspect-square w-full">
                       <Image
@@ -83,20 +84,39 @@ export const ExportDialog = () => {
                       <hr className="flex-1 my-auto" />
                     </div>
                   </div>
-                  <div></div>
-                  <div className="col-span-2">
-                    <h6>Sigils</h6>
-                    {buildState.sigilsEquipped.map((sigil, i) => {
-                      return (
-                        <div key={i} className="flex justify-between">
-                          <div className="grid grid-cols-2 flex-1 gap-2">
-                            <TraitBox sigil={sigil.sigil1 as TraitLiterals} />
-                            <TraitBox sigil={sigil.sigil2 as TraitLiterals} />
+                  <div className="col-span-2 flex flex-col gap-4">
+                    <div className="flex flex-col gap-4">
+                      <div className="flex gap-4">
+                        <hr className="flex-1 my-auto" />
+                        <h6>Weapon Imbues</h6>
+                        <hr className="flex-1 my-auto" />
+                      </div>
+                      <div>
+                        {buildState.weaponImbues.map((trait, i) => {
+                          return <WeaponImbueBox key={i} trait={trait} />;
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-span-2 flex flex-col gap-4">
+                    <div className="flex gap-4">
+                      <hr className="flex-1 my-auto" />
+                      <h6>Sigils</h6>
+                      <hr className="flex-1 my-auto" />
+                    </div>
+                    <div>
+                      {buildState.sigilsEquipped.map((sigil, i) => {
+                        return (
+                          <div key={i} className="flex justify-between">
+                            <div className="grid grid-cols-2 flex-1 gap-2">
+                              <TraitBox sigil={sigil.sigil1 as TraitLiterals} />
+                              <TraitBox sigil={sigil.sigil2 as TraitLiterals} />
+                            </div>
+                            <div className="my-auto">{sigil.level}</div>
                           </div>
-                          <div className="my-auto">{sigil.level}</div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </GridSmallBackground>
@@ -109,18 +129,34 @@ export const ExportDialog = () => {
   );
 };
 
+const WeaponImbueBox = ({ trait }: { trait: Trait }) => {
+  return (
+    <div className="flex gap-2">
+      <div className="aspect-square h-6 w-6 bg-black rounded-md relative">
+        <Image
+          alt=""
+          height={24}
+          width={24}
+          src={getSigilImage(trait.traitName as TraitLiterals) as string}
+        />
+      </div>
+      <p className="my-auto text-xs flex-1">{trait.traitName}</p>
+    </div>
+  );
+};
+
 const TraitBox = ({ sigil }: { sigil: TraitLiterals }) => {
   return (
     <div className="flex gap-2">
-      <div className="aspect-square h-8 bg-black rounded-md relative">
+      <div className="aspect-square h-6 w-6 bg-black rounded-md relative">
         <Image
           alt=""
-          height={32}
-          width={32}
+          height={24}
+          width={24}
           src={getSigilImage(sigil as TraitLiterals) as string}
         />
       </div>
-      <p className="my-auto">{sigil}</p>
+      <p className="my-auto text-xs flex-1">{sigil}</p>
     </div>
   );
 };

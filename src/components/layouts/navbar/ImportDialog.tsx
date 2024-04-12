@@ -29,7 +29,7 @@ import { LogsData } from "@/types/logs.types";
 import { Overmasteries } from "@/types/overmasteries.types";
 import { Import } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const ImportDialog = () => {
   const setCharacterStates = useBuildStore((state) => state.setCharacterStates);
@@ -71,6 +71,7 @@ export const ImportDialog = () => {
           arvessFermare: true,
           butterflies: 6,
           gravityWell: true,
+          rageLevel: 0,
         });
         setTraitsTBI({
           sigilsEquipped: logsData.sigils.map((ldSigils) => {
@@ -159,10 +160,6 @@ export const ImportDialog = () => {
       setOvermasteriesStates(overmasteriesTBI);
     }
   }
-
-  useEffect(() => {
-    console.log(traitsTBI);
-  }, [traitsTBI]);
   return (
     <Dialog>
       <DialogTrigger asChild>

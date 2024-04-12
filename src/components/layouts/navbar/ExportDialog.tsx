@@ -12,16 +12,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getCharacterImage } from "@/constants/character/characters";
 import { getSigilImage } from "@/constants/gear/sigils";
 import { useBuildStore } from "@/stores/useBuildStore";
-import { buildShareableUrl } from "@/stores/zustandHelpers/buildURLSuffix";
-// import { buildShareableUrl } from "@/stores/zustandHelpers/buildURLSuffix";
 import { TraitLiterals } from "@/types/traits.types";
 import { ClipboardCopy, FolderOutput } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export const ExportDialog = () => {
   const buildState = useBuildStore((state) => state);
-  console.log(buildShareableUrl(buildState, 0));
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    setUrl(window.location.href);
+  }, []);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -36,23 +40,17 @@ export const ExportDialog = () => {
             <div className="flex">
               <TabsList>
                 <TabsTrigger value="link">Link</TabsTrigger>
-                {/* <TabsTrigger value="image">Image</TabsTrigger>
-                <TabsTrigger value="json">JSON</TabsTrigger> */}
               </TabsList>
             </div>
           </DialogHeader>
           <TabsContent value="link">
             <div className="flex gap-4">
-              <Input
-                type="text"
-                value={window !== undefined ? window.location.href : ""}
-                readOnly
-              />
+              <Input type="text" value={url} readOnly />
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
+                  navigator.clipboard.writeText(url);
                   toast("Link has been copied.");
                 }}
               >

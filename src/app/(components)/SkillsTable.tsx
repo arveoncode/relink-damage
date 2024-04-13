@@ -25,6 +25,8 @@ import { vaneSkills } from "@/constants/character/skills/vane";
 import { percivalSkills } from "@/constants/character/skills/percival";
 import { idSkills } from "@/constants/character/skills/id";
 import { rackamSkills } from "@/constants/character/skills/rackam";
+import { vaseragaSkills } from "@/constants/character/skills/vaseraga";
+import { siegfriedSkills } from "@/constants/character/skills/siegfried";
 
 export const SkillsTable = () => {
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
@@ -255,10 +257,10 @@ export const SkillsTable = () => {
         setCharData(calculateSkills(rackamSkills));
         break;
       case "Vaseraga":
-        setCharData([]);
+        setCharData(calculateSkills(vaseragaSkills));
         break;
       case "Siegfried":
-        setCharData([]);
+        setCharData(calculateSkills(siegfriedSkills));
         break;
       case "Vane":
         setCharData(calculateSkills(vaneSkills));

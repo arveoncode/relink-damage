@@ -14,6 +14,17 @@ import { cagliostroSkills } from "@/constants/character/skills/cagliostro";
 import { zetaSkills } from "@/constants/character/skills/zeta";
 import { narmayaSkills } from "@/constants/character/skills/narmaya";
 import { useBuildStore } from "@/stores/useBuildStore";
+import { captainSkills } from "@/constants/character/skills/captain";
+import { ferrySkills } from "@/constants/character/skills/ferry";
+import { rosettaSkills } from "@/constants/character/skills/rosetta";
+import { katalinaSkills } from "@/constants/character/skills/katalina";
+import { eugenSkills } from "@/constants/character/skills/eugen";
+import { yordarhaSkills } from "@/constants/character/skills/yodarha";
+import { ghandagozaSkills } from "@/constants/character/skills/ghandagoza";
+import { vaneSkills } from "@/constants/character/skills/vane";
+import { percivalSkills } from "@/constants/character/skills/percival";
+import { idSkills } from "@/constants/character/skills/id";
+import { rackamSkills } from "@/constants/character/skills/rackam";
 
 export const SkillsTable = () => {
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
@@ -223,25 +234,25 @@ export const SkillsTable = () => {
         setCharData(calculateSkills(zetaSkills));
         break;
       case "Captain":
-        setCharData([]);
+        setCharData(calculateSkills(captainSkills));
         break;
       case "Narmaya":
         setCharData(calculateSkills(narmayaSkills));
         break;
       case "Rosetta":
-        setCharData([]);
+        setCharData(calculateSkills(rosettaSkills));
         break;
       case "Cagliostro":
         setCharData(calculateSkills(cagliostroSkills));
         break;
       case "Ferry":
-        setCharData([]);
+        setCharData(calculateSkills(ferrySkills));
         break;
       case "Lancelot":
         setCharData(calculateSkills(lancelotSkills));
         break;
       case "Rackam":
-        setCharData([]);
+        setCharData(calculateSkills(rackamSkills));
         break;
       case "Vaseraga":
         setCharData([]);
@@ -250,28 +261,28 @@ export const SkillsTable = () => {
         setCharData([]);
         break;
       case "Vane":
-        setCharData([]);
+        setCharData(calculateSkills(vaneSkills));
         break;
       case "Id":
-        setCharData([]);
+        setCharData(calculateSkills(idSkills));
         break;
       case "Charlotta":
         setCharData(calculateSkills(charlottaSkills));
         break;
       case "Ghandagoza":
-        setCharData([]);
+        setCharData(calculateSkills(ghandagozaSkills));
         break;
       case "Percival":
-        setCharData([]);
+        setCharData(calculateSkills(percivalSkills));
         break;
       case "Katalina":
-        setCharData([]);
+        setCharData(calculateSkills(katalinaSkills));
         break;
       case "Eugen":
-        setCharData([]);
+        setCharData(calculateSkills(eugenSkills));
         break;
       case "Yodarha":
-        setCharData([]);
+        setCharData(calculateSkills(yordarhaSkills));
         break;
     }
   }, [

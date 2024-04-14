@@ -48,7 +48,7 @@ export function SkillsDataTable<TData, TValue>({
     onRowSelectionChange: setRowSelection,
     initialState: {
       pagination: {
-        pageSize: 200,
+        pageSize: 300,
       },
     },
     state: {

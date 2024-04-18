@@ -88,9 +88,9 @@ export const ExportDialog = ({
               >
                 <GridSmallBackground>
                   <div>
-                    <div className="grid grid-cols-6 gap-4 p-4">
-                      <div className="flex flex-col justify-center">
-                        <div className=" flex flex-col gap-4 my-auto">
+                    <div className="grid grid-cols-5 gap-4 p-4">
+                      <div className="col-span-2 flex flex-col gap-4">
+                        <div className=" grid grid-cols-3 gap-4 my-auto">
                           <div className="relative aspect-square w-full">
                             <div
                               style={{
@@ -109,32 +109,12 @@ export const ExportDialog = ({
                               }}
                             />
                           </div>
-                          <div className="flex gap-2">
+                          <div className="flex gap-2 col-span-2">
                             <hr className="flex-1 my-auto" />
-                            <p className="font-bold">
+                            <p className="font-bold my-auto">
                               {buildState.selectedCharacter}
                             </p>
                             <hr className="flex-1 my-auto" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="col-span-2 flex flex-col gap-4">
-                        <div className="flex flex-col gap-4">
-                          <div className="flex gap-4">
-                            <hr className="flex-1 my-auto" />
-                            <h6>Weapon</h6>
-                            <hr className="flex-1 my-auto" />
-                          </div>
-                          <div>
-                            <StatBox
-                              name="Terminus"
-                              value={buildState.isTerminus}
-                            />
-                            <StatBox
-                              name="Max Awakening"
-                              value={buildState.isMaxAwakening}
-                            />
                           </div>
                         </div>
                         <div className="flex flex-col gap-4">
@@ -262,13 +242,25 @@ export const ExportDialog = ({
                         <div className="flex flex-col gap-4">
                           <div className="flex gap-4">
                             <hr className="flex-1 my-auto" />
-                            <h6>Weapon Imbues</h6>
+                            <h6>Weapon</h6>
                             <hr className="flex-1 my-auto" />
                           </div>
-                          <div>
-                            {buildState.weaponImbues.map((trait, i) => {
-                              return <WeaponImbueBox key={i} trait={trait} />;
-                            })}
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              {buildState.weaponImbues.map((trait, i) => {
+                                return <WeaponImbueBox key={i} trait={trait} />;
+                              })}
+                            </div>
+                            <div>
+                              <StatBox
+                                name="Terminus"
+                                value={buildState.isTerminus}
+                              />
+                              <StatBox
+                                name="Max Awakening"
+                                value={buildState.isMaxAwakening}
+                              />
+                            </div>
                           </div>
                         </div>
                         <div className="flex gap-4">

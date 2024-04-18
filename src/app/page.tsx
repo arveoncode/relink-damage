@@ -18,7 +18,7 @@ export default function Home() {
       <div className="px-8 flex justify-between">
         <BuildSlotTabs />
         <div className="flex gap-4">
-          <ExportDialog />
+          <ExportDialog defaultTab="link" />
           <ImportDialog />
         </div>
       </div>

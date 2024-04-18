@@ -33,7 +33,7 @@ import { toast } from "sonner";
 export const ExportDialog = ({
   defaultTab = "link",
 }: {
-  defaultTab: string;
+  defaultTab?: string;
 }) => {
   const buildState = useBuildStore((state) => state);
   const [url, setUrl] = useState("");

@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -24,11 +24,13 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  setRowSelectionsForExport?: (_rowSelections: TData[]) => void;
 }
 
 export function SkillsDataTable<TData, TValue>({
   columns,
   data,
+  setRowSelectionsForExport,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -48,7 +50,7 @@ export function SkillsDataTable<TData, TValue>({
     onRowSelectionChange: setRowSelection,
     initialState: {
       pagination: {
-        pageSize: 200,
+        pageSize: 300,
       },
     },
     state: {
@@ -59,6 +61,20 @@ export function SkillsDataTable<TData, TValue>({
     },
   });
 
+  useEffect(() => {
+    if (setRowSelectionsForExport) {
+      const rowSelections = table.getSelectedRowModel().rows.map((row) => {
+        return row.original;
+      });
+      setRowSelectionsForExport(rowSelections);
+    }
+  }, [table, rowSelection, setRowSelectionsForExport]);
+
+  useEffect(() => {
+    if (setRowSelectionsForExport) {
+      table.setRowSelection({});
+    }
+  }, [data, setRowSelectionsForExport, table]);
   return (
     <div className="w-full">
       <div className="rounded-md border">

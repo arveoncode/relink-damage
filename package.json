@@ -30,6 +30,7 @@
     "cmdk": "^1.0.0",
     "csv-parse": "^5.5.5",
     "framer-motion": "^11.0.24",
+    "html2canvas": "^1.4.1",
     "i18next": "^23.10.1",
     "jsurl": "^0.1.5",
     "lucide-react": "^0.363.0",

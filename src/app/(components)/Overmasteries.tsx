@@ -54,7 +54,7 @@ export const Overmasteries = () => {
             className=""
             min={0}
             max={20}
-            step={4}
+            step={1}
             onInput={(e) =>
               setNormalDamageCapUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
@@ -70,7 +70,7 @@ export const Overmasteries = () => {
             className=""
             min={0}
             max={20}
-            step={4}
+            step={1}
             onInput={(e) =>
               setSkillDamageCapUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
@@ -86,7 +86,7 @@ export const Overmasteries = () => {
             className=""
             min={0}
             max={20}
-            step={4}
+            step={1}
             onInput={(e) =>
               setSbaDamageCapUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
@@ -102,7 +102,7 @@ export const Overmasteries = () => {
             className=""
             min={0}
             max={20}
-            step={4}
+            step={1}
             onInput={(e) =>
               setSkillDamageUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
@@ -118,7 +118,7 @@ export const Overmasteries = () => {
             className=""
             min={0}
             max={20}
-            step={4}
+            step={1}
             onInput={(e) =>
               setSbaDamageUp(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])
@@ -134,7 +134,7 @@ export const Overmasteries = () => {
             className=""
             min={0}
             max={20}
-            step={4}
+            step={1}
             onInput={(e) =>
               setCritHitRate(
                 safeDecimalMultiplier([Number(e.currentTarget.value), 0.01])

@@ -27,6 +27,8 @@ import { idSkills } from "@/constants/character/skills/id";
 import { rackamSkills } from "@/constants/character/skills/rackam";
 import { vaseragaSkills } from "@/constants/character/skills/vaseraga";
 import { siegfriedSkills } from "@/constants/character/skills/siegfried";
+import { useSelectedRowsStore } from "@/stores/useSelectedRowsStore";
+import { ExportDialog } from "@/components/layouts/navbar/ExportDialog";
 
 export const SkillsTable = () => {
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
@@ -35,8 +37,10 @@ export const SkillsTable = () => {
   const comboActive = useBuildStore((state) => state.comboActive);
   const statsStore = useStatsStore((state) => state);
   const overmasteryCrit = useBuildStore((state) => state.critHitRate);
-  // const traitsTable = useStatsStore((state) => state.traitsTable);
   const [charData, setCharData] = useState<SkillCalculatedTable[]>([]);
+  const setSelectedSkills = useSelectedRowsStore(
+    (state) => state.setSelectedSkills
+  );
 
   useEffect(() => {
     function calculateSkills(_skills: SkillConstant[]): SkillCalculatedTable[] {
@@ -295,5 +299,16 @@ export const SkillsTable = () => {
     butterflies,
     comboActive,
   ]);
-  return <SkillsDataTable data={charData} columns={skillsDataColumns} />;
+  return (
+    <div className="flex flex-col gap-4">
+      <div>
+        <ExportDialog defaultTab="image" />
+      </div>
+      <SkillsDataTable
+        data={charData}
+        columns={skillsDataColumns}
+        setRowSelectionsForExport={setSelectedSkills}
+      />
+    </div>
+  );
 };

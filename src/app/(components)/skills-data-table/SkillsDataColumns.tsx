@@ -154,25 +154,7 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
         accessorKey: "damagePotential",
         header: "Damage Potential",
         cell: ({ row }) => (
-          <div
-            className={`h-full ${
-              row.original.damagePotential === 100
-                ? "bg-green-200"
-                : row.original.damagePotential > 85
-                ? "bg-lime-200"
-                : row.original.damagePotential > 65
-                ? "bg-yellow-200"
-                : row.original.damagePotential > 50
-                ? "bg-amber-200"
-                : row.original.damagePotential > 35
-                ? "bg-orange-200"
-                : row.original.damagePotential > 20
-                ? "bg-red-200"
-                : "bg-rose-200"
-            }`}
-          >
-            {row.original.damagePotential.toFixed(2)}%
-          </div>
+          <DamagePotentialCell damagePotential={row.original.damagePotential} />
         ),
       },
       {
@@ -226,5 +208,33 @@ const SkillClassificationBadge = ({
         <p>{full}</p>
       </HoverCardContent>
     </HoverCard>
+  );
+};
+
+export const DamagePotentialCell = ({
+  damagePotential,
+}: {
+  damagePotential: number;
+}) => {
+  return (
+    <div
+      className={`h-full ${
+        damagePotential === 100
+          ? "bg-green-200"
+          : damagePotential > 85
+          ? "bg-lime-200"
+          : damagePotential > 65
+          ? "bg-yellow-200"
+          : damagePotential > 50
+          ? "bg-amber-200"
+          : damagePotential > 35
+          ? "bg-orange-200"
+          : damagePotential > 20
+          ? "bg-red-200"
+          : "bg-rose-200"
+      }`}
+    >
+      {damagePotential.toFixed(2)}%
+    </div>
   );
 };

@@ -15,7 +15,7 @@ import { CharacterStates } from "@/stores/useCharacterStore";
 import { TraitsStates } from "@/stores/useTraitsStore";
 import { LogsData } from "@/types/logs.types";
 import { Overmasteries } from "@/types/overmasteries.types";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const JSURL = require("jsurl");

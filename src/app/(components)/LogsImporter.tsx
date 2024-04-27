@@ -178,6 +178,7 @@ export const LogsImporter = () => {
       console.log(logsdata);
       console.log("search params cleared");
       router.replace(pathname);
+
     }
   }, [build, logsdata, router, pathname]);
 

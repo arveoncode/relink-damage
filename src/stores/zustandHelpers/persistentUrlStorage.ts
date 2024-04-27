@@ -24,7 +24,7 @@ export const persistentStorage: StateStorage = {
     // if (getUrlSearch()) {
     const searchParams = new URLSearchParams(getUrlSearch());
     searchParams.set(key, JSURL.stringify(newValue));
-    searchParams.delete("logsdata");
+
     window.history.replaceState(null, "", `?${searchParams.toString()}`);
     // }
     localStorage.setItem(key, JSURL.stringify(newValue));

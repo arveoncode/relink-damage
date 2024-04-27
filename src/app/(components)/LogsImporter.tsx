@@ -15,17 +15,17 @@ import { CharacterStates } from "@/stores/useCharacterStore";
 import { TraitsStates } from "@/stores/useTraitsStore";
 import { LogsData } from "@/types/logs.types";
 import { Overmasteries } from "@/types/overmasteries.types";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const JSURL = require("jsurl");
 
 export const LogsImporter = () => {
   const searchParams = useSearchParams();
-  // const router = useRouter();
-  // const pathname = usePathname();
+  const router = useRouter();
+  const pathname = usePathname();
   const logsdata = searchParams.get("logsdata");
-  // const build = searchParams.get("build");
+  const build = searchParams.get("build");
   const [characterTBI, setCharacterTBI] = useState<CharacterStates | undefined>(
     undefined
   );
@@ -171,15 +171,15 @@ export const LogsImporter = () => {
     setOvermasteriesStates,
   ]);
 
-  // useEffect(() => {
-  //   if (build !== null && logsdata !== null) {
-  //     // remove logsdata search params after build search params has been set
-  //     console.log(build);
-  //     console.log(logsdata);
-  //     console.log("search params cleared");
-  //     router.replace(pathname);
-  //   }
-  // }, [build, logsdata, router, pathname]);
+  useEffect(() => {
+    if (build !== null && logsdata !== null) {
+      // remove logsdata search params after build search params has been set
+      console.log("test in prod");
+      const queryParams = new URLSearchParams(window.location.search.slice(1));
+      queryParams.delete("logsdata");
+      window.history.replaceState(null, "", `?${queryParams.toString()}`);
+    }
+  }, [build, logsdata, router, pathname]);
 
   return <></>;
 };

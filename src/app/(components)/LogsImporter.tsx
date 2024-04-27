@@ -15,17 +15,17 @@ import { CharacterStates } from "@/stores/useCharacterStore";
 import { TraitsStates } from "@/stores/useTraitsStore";
 import { LogsData } from "@/types/logs.types";
 import { Overmasteries } from "@/types/overmasteries.types";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const JSURL = require("jsurl");
 
 export const LogsImporter = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  // const router = useRouter();
+  // const pathname = usePathname();
   const logsdata = searchParams.get("logsdata");
-  const build = searchParams.get("build");
+  // const build = searchParams.get("build");
   const [characterTBI, setCharacterTBI] = useState<CharacterStates | undefined>(
     undefined
   );

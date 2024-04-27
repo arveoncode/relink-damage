@@ -1,0 +1,35 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("POSTGRES_URL")
+}
+
+model User {
+    id    Int     @id @default(autoincrement())
+    token String  @unique
+    name  String?
+}
+
+model Encounter {
+    encounterId String           @id @default(uuid())
+    startTime   BigInt
+    endTime     BigInt
+    totalDamage Float
+    dps         Float
+    targets     Json
+    party       EncounterParty[]
+}
+
+model EncounterParty {
+    encounterPartyId String    @id @default(uuid())
+    encounterId      String
+    index            Int
+    characterType    String
+    totalDamage      Float
+    dps              Float
+    skillBreakdown   Json
+    encounter        Encounter @relation(fields: [encounterId], references: [encounterId], onDelete: Cascade)
+}

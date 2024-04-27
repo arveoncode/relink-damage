@@ -21,14 +21,28 @@ export const Navbar = () => {
   const packageJson = require("@/../../package.json");
   return (
     <nav className="w-full bg-none flex justify-center">
-      <div className="flex justify-between align-middle px-8 flex-1 py-2">
+      <div className="flex justify-between align-middle px-4 flex-1 py-2">
         <div>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <Link href="/" passHref legacyBehavior>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Relink Damage Calculator {packageJson.version}
+                    Relink Damage {packageJson.version}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/" passHref legacyBehavior>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Calculator
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/logs-db" passHref legacyBehavior>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Logs DB
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>

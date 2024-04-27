@@ -26,3 +26,12 @@ export const exportScreenshotToClipboard = (selector = "#build") => {
     });
   });
 };
+
+export const json = (param: any): any => {
+  return JSON.parse(
+    JSON.stringify(
+      param,
+      (key, value) => (typeof value === "bigint" ? value.toString() : value) // return everything else unchanged
+    )
+  );
+};

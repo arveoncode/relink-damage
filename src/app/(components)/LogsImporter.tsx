@@ -175,7 +175,8 @@ export const LogsImporter = () => {
     if (build !== null) {
       // remove logsdata search params after build search params has been set
       console.log("search params cleared");
-      router.push(pathname + "?build=" + build);
+      router.replace(pathname);
+
     }
   }, [build, logsdata, router, pathname]);
 

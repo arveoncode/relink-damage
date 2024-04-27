@@ -174,7 +174,8 @@ export const LogsImporter = () => {
   useEffect(() => {
     if (build !== null && logsdata !== null) {
       // remove logsdata search params after build search params has been set
-      router.replace("/");
+      console.log("search params cleared");
+      router.push(pathname + "?build=" + build);
     }
   }, [build, logsdata, router, pathname]);
 

@@ -43,10 +43,6 @@ export const ExportDialog = ({
     setUrl(window.location.href);
   }, []);
 
-  useEffect(() => {
-    console.log(selectedSkills);
-  }, [selectedSkills]);
-
   return (
     <Dialog>
       <DialogTrigger asChild>

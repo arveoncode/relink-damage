@@ -171,16 +171,15 @@ export const LogsImporter = () => {
     setOvermasteriesStates,
   ]);
 
-  useEffect(() => {
-    if (build !== null && logsdata !== null) {
-      // remove logsdata search params after build search params has been set
-      console.log(build);
-      console.log(logsdata);
-      console.log("search params cleared");
-      router.replace(pathname);
-
-    }
-  }, [build, logsdata, router, pathname]);
+  // useEffect(() => {
+  //   if (build !== null && logsdata !== null) {
+  //     // remove logsdata search params after build search params has been set
+  //     console.log(build);
+  //     console.log(logsdata);
+  //     console.log("search params cleared");
+  //     router.replace(pathname);
+  //   }
+  // }, [build, logsdata, router, pathname]);
 
   return <></>;
 };

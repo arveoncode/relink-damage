@@ -1,13 +1,13 @@
 import { TraitLiterals } from "@/types/traits.types";
 
 //to generate type
-export function traitLiteralsCodeGen() {
-  let traitLiteralsArray: string[] = [];
-  Object.keys(logsTraits).forEach(function (key) {
-    traitLiteralsArray.push(key);
-  });
-  console.log(JSON.stringify(traitLiteralsArray));
-}
+// export function traitLiteralsCodeGen() {
+//   let traitLiteralsArray: string[] = [];
+//   Object.keys(logsTraits).forEach(function (key) {
+//     traitLiteralsArray.push(key);
+//   });
+//   console.log(JSON.stringify(traitLiteralsArray));
+// }
 
 // BRUH LMAO idk how else to do this I'm a hobbyist okay???
 type NoneConstant = "None";

@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import {
   HoverCard,
   HoverCardContent,
@@ -16,39 +16,45 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
     id: "calculations",
     header: () => <div className="px-2">Calculations (2.6.8)</div>,
     columns: [
+      // {
+      //   id: "select",
+      //   header: ({ table }) => (
+      //     <div className="w-full px-2 flex flex-col justify-center">
+      //       <Checkbox
+      //         className="my-auto"
+      //         checked={
+      //           table.getIsAllPageRowsSelected() ||
+      //           (table.getIsSomePageRowsSelected() && "indeterminate")
+      //         }
+      //         onCheckedChange={(value) =>
+      //           table.toggleAllPageRowsSelected(!!value)
+      //         }
+      //         aria-label="Select all"
+      //       />
+      //     </div>
+      //   ),
+      //   cell: ({ row }) => (
+      //     <div className="w-full px-2 flex flex-col justify-center">
+      //       <Checkbox
+      //         checked={row.getIsSelected()}
+      //         onCheckedChange={(value) => row.toggleSelected(!!value)}
+      //         aria-label="Select row"
+      //       />
+      //     </div>
+      //   ),
+      //   enableSorting: false,
+      //   enableHiding: false,
+      // },
       {
-        id: "select",
-        header: ({ table }) => (
-          <div className="w-full px-2 flex flex-col justify-center">
-            <Checkbox
-              className="my-auto"
-              checked={
-                table.getIsAllPageRowsSelected() ||
-                (table.getIsSomePageRowsSelected() && "indeterminate")
-              }
-              onCheckedChange={(value) =>
-                table.toggleAllPageRowsSelected(!!value)
-              }
-              aria-label="Select all"
-            />
-          </div>
+        accessorKey: "skill",
+        header: () => (
+          <div className="w-full px-2 flex flex-col justify-center">Skill</div>
         ),
         cell: ({ row }) => (
           <div className="w-full px-2 flex flex-col justify-center">
-            <Checkbox
-              checked={row.getIsSelected()}
-              onCheckedChange={(value) => row.toggleSelected(!!value)}
-              aria-label="Select row"
-            />
+            {row.original.skill}
           </div>
         ),
-        enableSorting: false,
-        enableHiding: false,
-      },
-      {
-        accessorKey: "skill",
-        header: "Skill",
-        cell: ({ row }) => row.original.skill,
       },
       {
         accessorKey: "modifier",
@@ -177,19 +183,19 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
         ),
       },
     ],
-    meta: { colspan: 15 },
+    meta: { colspan: 14 },
   },
-  {
-    id: "runSpecific",
-    header: "Run Specific",
-    columns: [
-      {
-        id: "weight",
-        header: "Weight",
-        cell: () => <div>0</div>,
-      },
-    ],
-  },
+  // {
+  //   id: "runSpecific",
+  //   header: "Run Specific",
+  //   columns: [
+  //     {
+  //       id: "weight",
+  //       header: "Weight",
+  //       cell: () => <div>0</div>,
+  //     },
+  //   ],
+  // },
 ];
 
 const SkillClassificationBadge = ({

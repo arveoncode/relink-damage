@@ -27,6 +27,9 @@ export default function RootLayout({
         <>
           <AuroraBackground>
             <Navbar />
+            <div className="w-full bg-slate-200 p-8 mb-4">
+              Calculator will be updated soon!
+            </div>
             {children}
           </AuroraBackground>
           <Footer />

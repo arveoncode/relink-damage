@@ -1,8 +1,7 @@
-import { useBuildStore } from "@/stores/useBuildStore";
 import { Character } from "@/types/character.types";
 
 //
-export const baseStatsAtLvl100 = (selectedCharacter: Character) => {
+export const baseStatsAtLvl100 = (selectedCharacter?: Character) => {
   /* Your total base attack.
     Characters at lv100 have 12396 base attack with a
     +99 Terminus weapon (note that Terminus weapon applies a final +50%,

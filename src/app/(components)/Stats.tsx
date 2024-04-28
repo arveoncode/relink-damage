@@ -171,7 +171,7 @@ const RawPowerBox = () => {
       safeDecimalMultiplier([
         // Attack Power Modifier
         safeDecimalAdder([
-          baseStatsAtLvl100.attack,
+          baseStatsAtLvl100().attack,
           attackOvermastery,
           sigilsAttack ? sigilsAttack : 0,
         ]),
@@ -267,7 +267,7 @@ const RawPowerCritBox = () => {
         rawPower,
         safeDecimalAdder([
           1,
-          baseStatsAtLvl100.criticalDamage,
+          baseStatsAtLvl100().criticalDamage,
           sigilsCritDamage ? sigilsCritDamage : 0,
         ]),
       ])

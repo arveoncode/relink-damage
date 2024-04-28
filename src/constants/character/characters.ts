@@ -21,7 +21,7 @@ export const characters = [
   "Eugen",
   "Yodarha",
   "Tweyen",
-  "Seofon",
+  // "Seofon",
 ] as const;
 
 export const characterConstants = [

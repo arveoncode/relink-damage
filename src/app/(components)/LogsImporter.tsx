@@ -8,6 +8,7 @@ import { logsOvermasteries } from "@/constants/logs/overmasteries";
 import {
   LogsTraitsIDs,
   convertLogsToCalculatorTrait,
+  traitLiteralsCodeGen,
 } from "@/constants/logs/traits";
 import { safeDecimalAdder, safeDecimalMultiplier } from "@/lib/calculators";
 import { useBuildStore } from "@/stores/useBuildStore";
@@ -42,6 +43,7 @@ export const LogsImporter = () => {
   const setTraitsStates = useBuildStore((state) => state.setTraitsStates);
 
   useEffect(() => {
+    traitLiteralsCodeGen();
     if (logsdata && searchParams.has("logsdata")) {
       try {
         const logsData = JSURL.parse(logsdata) as LogsData;

@@ -109,6 +109,8 @@ export const traitLiterals = [
   "Stun Power",
   "Flight Over Fight",
   "Critical Hit Rate",
+  "Warpath",
+  "Boundary",
 ] as const;
 
 export const singleSigilsObject = singleSigils.map((sigil) => {

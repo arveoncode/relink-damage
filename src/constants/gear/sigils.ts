@@ -601,6 +601,20 @@ export const sigilConstants = [
     sigilSeconds: "OrangeGrayCritRedPurpleBlueNone",
     sigilMaxLevel: 15,
   },
+  {
+    sigilName: "Warpath" as TraitLiterals,
+    sigilImage: "https://i.imgur.com/jnMUx4D.png",
+    sigilColor: "Unique_New",
+    sigilSeconds: "None",
+    sigilMaxLevel: 15,
+  },
+  {
+    sigilName: "Boundary" as TraitLiterals,
+    sigilImage: "https://i.imgur.com/jnMUx4D.png",
+    sigilColor: "Unique_New",
+    sigilSeconds: "None",
+    sigilMaxLevel: 15,
+  },
 ];
 
 export function getSigilImage(_sigil: TraitLiterals) {

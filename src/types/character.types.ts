@@ -29,6 +29,8 @@ export const characterInput = z.discriminatedUnion("name", [
   z.object({ name: z.literal("Katalina") }),
   z.object({ name: z.literal("Eugen") }),
   z.object({ name: z.literal("Yodarha") }),
+  z.object({ name: z.literal("Tweyen") }),
+  z.object({ name: z.literal("Seofon") }),
 ]);
 
 export type CharacterInput = z.infer<typeof characterInput>;

@@ -29,6 +29,7 @@ import { vaseragaSkills } from "@/constants/character/skills/vaseraga";
 import { siegfriedSkills } from "@/constants/character/skills/siegfried";
 import { useSelectedRowsStore } from "@/stores/useSelectedRowsStore";
 import { ExportDialog } from "@/components/layouts/navbar/ExportDialog";
+import { tweyenSkills } from "@/constants/character/skills/tweyen";
 
 export const SkillsTable = () => {
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
@@ -289,6 +290,9 @@ export const SkillsTable = () => {
         break;
       case "Yodarha":
         setCharData(calculateSkills(yordarhaSkills));
+        break;
+      case "Tweyen":
+        setCharData(calculateSkills(tweyenSkills));
         break;
     }
   }, [

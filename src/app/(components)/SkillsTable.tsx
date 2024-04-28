@@ -123,7 +123,7 @@ export const SkillsTable = () => {
         );
 
         const critChance = safeDecimalAdder([
-          baseStatsAtLvl100.critHitRate,
+          baseStatsAtLvl100(selectedCharacter).critHitRate,
           overmasteryCrit,
           sigilsCrit ? sigilsCrit : 0,
           skill.classification.charged
@@ -184,7 +184,7 @@ export const SkillsTable = () => {
                     ) *
                       Math.min(
                         1,
-                        baseStatsAtLvl100.critHitRate +
+                        baseStatsAtLvl100(selectedCharacter).critHitRate +
                           overmasteryCrit +
                           (sigilsCrit ? sigilsCrit : 0)
                       ) +
@@ -198,7 +198,7 @@ export const SkillsTable = () => {
                         (1 -
                           Math.min(
                             1,
-                            baseStatsAtLvl100.critHitRate +
+                            baseStatsAtLvl100(selectedCharacter).critHitRate +
                               overmasteryCrit +
                               (sigilsCrit ? sigilsCrit : 0)
                           )),

@@ -237,6 +237,8 @@ const SaveSlotAlertDialog = ({
                     backAttack: buildState.backAttack,
                     weakPointAttack: buildState.weakPointAttack,
                     isLinkTime: buildState.isLinkTime,
+                    isWarpathActive: buildState.isWarpathActive,
+                    isUniqueSigilActive: buildState.isUniqueSigilActive,
                   },
                   overmasteries: {
                     attack: buildState.attack,

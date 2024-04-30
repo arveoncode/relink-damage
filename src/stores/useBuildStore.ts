@@ -228,6 +228,12 @@ export const useBuildStore = create(
           isMaxAwakening: isMaxAwakening,
           weaponImbues: weaponImbues,
         })),
+      isWarpathActive: false,
+      setIsWarpathActive: (_isWarpathActive) =>
+        set(() => ({ isWarpathActive: _isWarpathActive })),
+      isUniqueSigilActive: false,
+      setIsUniqueSigilActive: (_isUniqueSigilActive: boolean) =>
+        set(() => ({ isUniqueSigilActive: _isUniqueSigilActive })),
     }),
     {
       name: "build",

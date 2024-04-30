@@ -138,7 +138,7 @@ export function convertLogsToCalculatorTrait(
     case "7edd69d0":
       return "Precise Wrath";
     case "82ce278d":
-      return "Less is More";
+      return "Less Is More";
     case "84078cb0":
       return "Quick Charge";
     case "86cbcdc4":

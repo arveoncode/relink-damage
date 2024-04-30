@@ -62,6 +62,8 @@ export const BuildSlotTabs = () => {
         backAttack: buildState.backAttack,
         weakPointAttack: buildState.weakPointAttack,
         isLinkTime: buildState.isLinkTime,
+        isUniqueSigilActive: buildState.isUniqueSigilActive,
+        isWarpathActive: buildState.isUniqueSigilActive,
       },
       overmasteries: {
         attack: buildState.attack,

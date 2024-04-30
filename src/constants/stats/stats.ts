@@ -10,7 +10,6 @@ export const baseStatsAtLvl100 = (selectedCharacter?: Character) => {
   return {
     attack: isEternal ? 10484 : 12396,
     /* Your base crit rate. Should be 50%. */
-
     critHitRate: isEternal ? 0.6 : 0.5,
     /* Your total bonus Crit DMG, including all masteries.
     Base = 20%

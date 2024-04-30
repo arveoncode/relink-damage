@@ -51,8 +51,8 @@ export const Stats = () => {
             <ThrowBonusBox />
             <LinkBonusBox />
           </div>
-
-          {/* <StatsDebug /> */}
+          <HiddenStats />
+          <StatsDebug />
         </div>
       </CardContent>
     </Card>
@@ -76,6 +76,8 @@ const RawPowerBox = () => {
   const isAwakening = useStatsStore((state) => state.isAwakening);
   const isLinkTime = useBuildStore((state) => state.isLinkTime);
   const rageLevel = useBuildStore((state) => state.rageLevel);
+  const isEternal = useStatsStore((state) => state.isEternal);
+  const isBoundary = useStatsStore((state) => state.isBoundary);
   // Value Read in component
   const rawPower = useStatsStore((state) => state.rawPower);
 
@@ -95,8 +97,9 @@ const RawPowerBox = () => {
       (trait) => trait.traitName === "Quick Charge"
     )?.value;
     const sigilsLessIsMore = traitsTable.find(
-      (trait) => trait.traitName === "Less is More"
+      (trait) => trait.traitName === "Less Is More"
     )?.value;
+    console.log(sigilsLessIsMore);
     const sigilsLifeOnTheLine = traitsTable.find(
       (trait) => trait.traitName === "Life on the Line"
     )?.value;
@@ -171,7 +174,7 @@ const RawPowerBox = () => {
       safeDecimalMultiplier([
         // Attack Power Modifier
         safeDecimalAdder([
-          baseStatsAtLvl100().attack,
+          baseStatsAtLvl100(selectedCharacter).attack,
           attackOvermastery,
           sigilsAttack ? sigilsAttack : 0,
         ]),
@@ -188,7 +191,7 @@ const RawPowerBox = () => {
         // Dodge Payback Modifier
         sigilsDodgePayback ? 1 + sigilsDodgePayback : 1,
         // Terminus Modifier
-        isTermimus ? 1.5 : 1,
+        isEternal && isBoundary ? 1.5 : isTermimus ? 1.5 : 1,
         // Defense Debuffs Modifier
         1 + defDebuffs,
         // Attack buffs Modifier
@@ -247,6 +250,8 @@ const RawPowerBox = () => {
     comboActive,
     setRawPower,
     rageLevel,
+    isBoundary,
+    isEternal,
   ]);
   return <StatBox title="Raw Power" value={rawPower} />;
 };
@@ -281,9 +286,12 @@ const DamageCapBox = () => {
   const traitsTable = useStatsStore((state) => state.traitsTable);
   const isTermimus = useBuildStore((state) => state.isTerminus);
   const setDamageCap = useStatsStore((state) => state.setDamageCap);
-
+  const isEternal = useStatsStore((state) => state.isEternal);
+  const isBoundary = useStatsStore((state) => state.isBoundary);
   // Value Read in component
   const damageCap = useStatsStore((state) => state.damageCap);
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
+  const isLinkTime = useBuildStore((state) => state.isLinkTime);
 
   useEffect(() => {
     // Damage Cap
@@ -302,10 +310,20 @@ const DamageCapBox = () => {
         sigilsDmgCap ? sigilsDmgCap : 0,
         gammaDmgCap ? gammaDmgCap : 0,
         glassCannonDmgCap ? glassCannonDmgCap : 0,
-        isTermimus ? 1 : 0,
+        isEternal && isBoundary ? 1 : isTermimus ? 1 : 0,
+        selectedCharacter === "Vaseraga" && isLinkTime ? 0.6 : 0,
+        // selectedCharacter === "Seofon"
       ])
     );
-  }, [traitsTable, isTermimus, setDamageCap]);
+  }, [
+    traitsTable,
+    isTermimus,
+    isEternal,
+    isBoundary,
+    isLinkTime,
+    selectedCharacter,
+    setDamageCap,
+  ]);
 
   return <StatBox title="DMG Cap" value={damageCap} percentage />;
 };
@@ -481,6 +499,7 @@ const ChargedBonusBox = () => {
   // Dependencies for calculation
   const traitsTable = useStatsStore((state) => state.traitsTable);
   const setChargedBonus = useStatsStore((state) => state.setChargedBonus);
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
   // Value Read in component
   const chargedBonus = useStatsStore((state) => state.chargedBonus);
   useEffect(() => {
@@ -488,8 +507,13 @@ const ChargedBonusBox = () => {
       (sigil) => sigil.traitName === "Charged Attack"
     )?.value;
 
-    setChargedBonus(sigilsCharged ? sigilsCharged : 0);
-  }, [traitsTable, setChargedBonus]);
+    setChargedBonus(
+      safeDecimalAdder([
+        sigilsCharged ? sigilsCharged : 0,
+        selectedCharacter === "Tweyen" ? 0.2 : 0,
+      ])
+    );
+  }, [traitsTable, setChargedBonus, selectedCharacter]);
 
   return <StatBox title="Charged Bonus" value={chargedBonus} percentage />;
 };
@@ -678,4 +702,32 @@ const StatBox = ({
       </CardContent>
     </Card>
   );
+};
+
+const HiddenStats = () => {
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
+  const setIsBoundary = useStatsStore((state) => state.setIsBoundary);
+  const setIsEternal = useStatsStore((state) => state.setIsEternal);
+  useEffect(() => {
+    const sigilsBoundary = traitsTable.find(
+      (trait) => trait.traitName === "Boundary"
+    )?.actualUseableLevel;
+    const isEternal = selectedCharacter === "Tweyen" ? true : false;
+
+    setIsBoundary(sigilsBoundary ? true : false);
+    setIsEternal(isEternal);
+    console.log();
+  }, [traitsTable, selectedCharacter, setIsBoundary, setIsEternal]);
+  return <></>;
+};
+
+const StatsDebug = () => {
+  const stats = useStatsStore((state) => state);
+  const build = useBuildStore((state) => state);
+  useEffect(() => {
+    console.log(stats);
+    console.log(build);
+  }, [stats, build]);
+  return <></>;
 };

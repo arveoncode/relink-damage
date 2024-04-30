@@ -37,6 +37,7 @@ export const Traits = () => {
 
   const traitsTable = useStatsStore((state) => state.traitsTable);
   const setTraitsTable = useStatsStore((state) => state.setTraitsTable);
+  const isEternal = useStatsStore((state) => state.isEternal);
 
   const [showZeroLvlTraits, setShowZeroLvlTraits] = useState(false);
 
@@ -68,10 +69,17 @@ export const Traits = () => {
         }
       });
       // special case for damage cap +5 when max ascension
-      const level =
+      let level =
         isMaxAwakening && sigil.sigilName === "Damage Cap"
           ? levels.reduce((partialSum, lvl) => partialSum + lvl, 0) + 5
           : levels.reduce((partialSum, lvl) => partialSum + lvl, 0);
+      // special case for Eternals having +25 attack and +15 supp damage levels
+      level =
+        isEternal && sigil.sigilName === "Attack Power" ? level + 25 : level;
+      level =
+        isEternal && sigil.sigilName === "Supplementary Damage"
+          ? level + 15
+          : level;
       // prevent actualUseableLevel from exceeding maximum allowed level
       const actualUseableLevel = Math.min(level, sigil.sigilMaxLevel);
       // returns value from sigilLevels taken from maygi's sheet. Also prevents non-sigils from having a value added to it
@@ -82,6 +90,7 @@ export const Traits = () => {
             actualUseableLevel
           ]
         : 0;
+
       return {
         traitName: sigil.sigilName as TraitLiterals,
         calculatedLevel: level,
@@ -98,6 +107,7 @@ export const Traits = () => {
     isTermimus,
     isMaxAwakening,
     setTraitsTable,
+    isEternal,
   ]);
   return (
     <Card className="rounded-lg col-span-2 bg-background/50">

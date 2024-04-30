@@ -41,6 +41,11 @@ interface StatsStore {
   setIsAwakening: (_awakening: boolean) => void;
   isFoF: boolean;
   setIsFoF: (_fof: boolean) => void;
+  //patch 1.2.1
+  isEternal: boolean;
+  setIsEternal: (_isEternal: boolean) => void;
+  isBoundary: boolean;
+  setIsBoundary: (_isBoundary: boolean) => void;
 }
 
 export const useStatsStore = create<StatsStore>()((set) => ({
@@ -89,6 +94,9 @@ export const useStatsStore = create<StatsStore>()((set) => ({
     set(() => ({ isAwakening: _awakening })),
   isFoF: false,
   setIsFoF: (_fof: boolean) => set(() => ({ isFoF: _fof })),
-  // tyrannyMod: 0,
-  // setTyrannyMod:
+  isEternal: false,
+  setIsEternal: (_isEternal: boolean) => set(() => ({ isEternal: _isEternal })),
+  isBoundary: false,
+  setIsBoundary: (_isBoundary: boolean) =>
+    set(() => ({ isBoundary: _isBoundary })),
 }));

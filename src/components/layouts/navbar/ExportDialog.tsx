@@ -51,7 +51,7 @@ export const ExportDialog = ({
           Export Build
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[72rem]">
+      <DialogContent className="max-w-[48rem]">
         <Tabs defaultValue={defaultTab}>
           <DialogHeader>
             <div className="flex">
@@ -361,18 +361,24 @@ export const ExportDialog = ({
   );
 };
 
-const ExportImageButton = () => {
+const ExportImageButton = ({
+  targetElement,
+  text,
+}: {
+  targetElement?: string;
+  text?: string;
+}) => {
   return (
     <Button
       onClick={() => {
         try {
-          exportScreenshotToClipboard();
+          exportScreenshotToClipboard(targetElement);
         } catch (e) {
           console.log(e);
         }
       }}
     >
-      Copy Image To Clipboard
+      {text ? text : "Copy Image To Clipboard"}
     </Button>
   );
 };

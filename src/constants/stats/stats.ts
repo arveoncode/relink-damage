@@ -2,15 +2,16 @@ import { Character } from "@/types/character.types";
 
 //
 export const baseStatsAtLvl100 = (selectedCharacter?: Character) => {
+  const isEternal = selectedCharacter === "Tweyen";
   /* Your total base attack.
     Characters at lv100 have 12396 base attack with a
     +99 Terminus weapon (note that Terminus weapon applies a final +50%,
     bringing it to 18594) */
   return {
-    attack: 12396,
+    attack: isEternal ? 10484 : 12396,
     /* Your base crit rate. Should be 50%. */
 
-    critHitRate: selectedCharacter === "Tweyen" ? 0.6 : 0.5,
+    critHitRate: isEternal ? 0.6 : 0.5,
     /* Your total bonus Crit DMG, including all masteries.
     Base = 20%
     Mastery = 30%

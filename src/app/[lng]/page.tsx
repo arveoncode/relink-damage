@@ -11,11 +11,11 @@ import { BuildSlotTabs } from "../(components)/BuildSlotTabs";
 import { ExportDialog } from "@/components/layouts/navbar/ExportDialog";
 import { LogsImporter } from "../(components)/LogsImporter";
 import { Suspense } from "react";
-import { fallbackLng, languages } from "../(i18n)/settings";
+import { Language, fallbackLng, languages } from "../(i18n)/settings";
 import { BannerNotif } from "../(components)/BannerNotif";
 
 export default function Home({ params: { lng } }: { params: { lng: string } }) {
-  if (languages.indexOf(lng) < 0) lng = fallbackLng;
+  if (languages.indexOf(lng as Language) < 0) lng = fallbackLng;
   return (
     <Suspense>
       <main className="flex flex-col relative">

@@ -124,11 +124,16 @@ export const Navbar = ({ lng }: { lng: string }) => {
                           return (
                             <SelectItem value={lang} key={lang.toString()}>
                               <Link passHref href={`/${lang}`}>
-                                {lang === "en" && "English"}
+                                {lang === "en" && "EN"}
                                 {lang === "ct" && "繁體中文"}
                                 {lang === "cs" && "简体中文"}
                                 {lang === "ko" && "한국의"}
                                 {lang === "jp" && "日本語"}
+                                {lang === "bp" && "BP"}
+                                {lang === "es" && "ES"}
+                                {lang === "fr" && "FR"}
+                                {lang === "ge" && "GE"}
+                                {lang === "it" && "IT"}
                               </Link>
                             </SelectItem>
                           );

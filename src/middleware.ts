@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import acceptLanguage from "accept-language";
 import { fallbackLng, languages, cookieName } from "./app/(i18n)/settings";
 
-acceptLanguage.languages(languages);
+acceptLanguage.languages(languages as string[]);
 
 export const config = {
   // matcher: '/:lng*'

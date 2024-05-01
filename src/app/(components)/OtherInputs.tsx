@@ -14,8 +14,13 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { safeDecimalMultiplier } from "@/lib/calculators";
 import { useBuildStore } from "@/stores/useBuildStore";
+import { useTranslation } from "../(i18n)/client";
+import { useParams } from "next/navigation";
 
 export const OtherInputs = () => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const uiTranslate = useTranslation(lng, "ui");
   const numberOfSkills = useBuildStore((state) => state.numberOfSkills);
   const attackBuffs = useBuildStore((state) => state.attackBuffs);
   const defDebuffs = useBuildStore((state) => state.defDebuffs);
@@ -37,7 +42,7 @@ export const OtherInputs = () => {
       <CardHeader>
         <CardTitle className="flex gap-4">
           <hr className="flex-1 my-auto" />
-          <div>Other Inputs</div>
+          <div>{uiTranslate.t("Other Inputs")}</div>
           <hr className="flex-1 my-auto" />
         </CardTitle>
       </CardHeader>

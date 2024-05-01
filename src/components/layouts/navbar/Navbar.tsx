@@ -16,9 +16,26 @@ import {
 import Link from "next/link";
 import { ExportDialog } from "./ExportDialog";
 import { ImportDialog } from "./ImportDialog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+} from "@/components/ui/select";
+import { languages } from "@/app/(i18n)/settings";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Label } from "@/components/ui/label";
 
-export const Navbar = () => {
+export const Navbar = ({ lng }: { lng: string }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const packageJson = require("@/../../package.json");
+  const build = searchParams.get("build");
+  function handleLocaleChange(lang: string) {
+    router.push(`/${lang}?build=${build}`);
+  }
   return (
     <nav className="w-full bg-none flex justify-center">
       <div className="flex justify-between align-middle px-8 flex-1 py-2">
@@ -92,17 +109,39 @@ export const Navbar = () => {
                   <Label className="col-span-2 my-auto">Dark Mode</Label>
                   <ThemeSwitcher />
                 </div> */}
-                {/* <div className="flex gap-4 justify-between align-middle">
-                  <Label className="col-span-2 my-auto">Locale</Label>
-                  <Select>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Locale" />
+                <div className="flex gap-4 justify-between align-middle">
+                  <Label className="my-auto">Locale</Label>
+                  <Select
+                    value={lng.toString()}
+                    onValueChange={(value) => handleLocaleChange(value)}
+                  >
+                    <SelectTrigger value={lng.toString()}>
+                      <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="en">En</SelectItem>
+                      <SelectGroup>
+                        {languages.map((lang) => {
+                          return (
+                            <SelectItem value={lang} key={lang.toString()}>
+                              <Link passHref href={`/${lang}`}>
+                                {lang === "en" && "EN"}
+                                {lang === "ct" && "繁體中文"}
+                                {lang === "cs" && "简体中文"}
+                                {lang === "ko" && "한국의"}
+                                {lang === "jp" && "日本語"}
+                                {lang === "bp" && "BP"}
+                                {lang === "es" && "ES"}
+                                {lang === "fr" && "FR"}
+                                {lang === "ge" && "GE"}
+                                {lang === "it" && "IT"}
+                              </Link>
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
-                </div> */}
+                </div>
                 <hr />
                 <ImportDialog />
                 <ExportDialog />

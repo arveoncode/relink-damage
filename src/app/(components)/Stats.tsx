@@ -84,7 +84,7 @@ const RawPowerBox = () => {
   // Calculator
   useEffect(() => {
     const sigilsAttack = traitsTable.find(
-      (trait) => trait.traitName === "Attack Power"
+      (trait) => trait.traitName === "ATK"
     )?.value;
     const sigilsTyranny = traitsTable.find(
       (trait) => trait.traitName === "Tyranny"
@@ -99,7 +99,6 @@ const RawPowerBox = () => {
     const sigilsLessIsMore = traitsTable.find(
       (trait) => trait.traitName === "Less Is More"
     )?.value;
-    console.log(sigilsLessIsMore);
     const sigilsLifeOnTheLine = traitsTable.find(
       (trait) => trait.traitName === "Life on the Line"
     )?.value;
@@ -125,7 +124,7 @@ const RawPowerBox = () => {
 
     // FoF doesn't contain any useable values in constants
     const sigilsFoF = traitsTable.find(
-      (trait) => trait.traitName === "Flight Over Fight"
+      (trait) => trait.traitName === "Flight over Fight"
     )?.actualUseableLevel;
 
     // as per damage calc 2.6.8
@@ -265,7 +264,7 @@ const RawPowerCritBox = () => {
   const rawPowerCrit = useStatsStore((state) => state.rawPowerCrit);
   useEffect(() => {
     const sigilsCritDamage = traitsTable.find(
-      (trait) => trait.traitName === "Critical Damage"
+      (trait) => trait.traitName === "Critical Hit DMG"
     )?.value;
     setRawPowerCrit(
       safeDecimalMultiplier([
@@ -296,7 +295,7 @@ const DamageCapBox = () => {
   useEffect(() => {
     // Damage Cap
     const sigilsDmgCap = traitsTable.find(
-      (trait) => trait.traitName === "Damage Cap"
+      (trait) => trait.traitName === "DMG Cap"
     )?.value;
     const gammaDmgCap = traitsTable.find(
       (trait) => trait.traitName === "Gamma"
@@ -452,8 +451,9 @@ const LinkBonusBox = () => {
       (trait) => trait.traitName === "Linked Together"
     )?.actualUseableLevel;
 
-    const sigilsLTValue =
-      sigilLevelValues["LT Link"][sigilsLTLinkLevel ? sigilsLTLinkLevel : 0];
+    const sigilsLTValue = sigilLevelValues["LT Link"]
+      ? sigilLevelValues["LT Link"][sigilsLTLinkLevel ? sigilsLTLinkLevel : 0]
+      : 0;
 
     setLinkBonus(sigilsLTValue);
   }, [traitsTable, setLinkBonus]);
@@ -469,7 +469,7 @@ const ThrowBonusBox = () => {
   const throwBonus = useStatsStore((state) => state.throwBonus);
   useEffect(() => {
     const sigilsThrow = traitsTable.find(
-      (sigil) => sigil.traitName === "Throw"
+      (sigil) => sigil.traitName === "Throw DMG"
     )?.value;
 
     setThrowBonus(sigilsThrow ? sigilsThrow : 0);
@@ -486,7 +486,7 @@ const FinisherBonusBox = () => {
   const finisherBonus = useStatsStore((state) => state.finisherBonus);
   useEffect(() => {
     const sigilsFinisher = traitsTable.find(
-      (sigil) => sigil.traitName === "Combo Finisher"
+      (sigil) => sigil.traitName === "Combo Finisher DMG"
     )?.value;
 
     setFinisherBonus(sigilsFinisher ? sigilsFinisher : 0);
@@ -504,7 +504,7 @@ const ChargedBonusBox = () => {
   const chargedBonus = useStatsStore((state) => state.chargedBonus);
   useEffect(() => {
     const sigilsCharged = traitsTable.find(
-      (sigil) => sigil.traitName === "Charged Attack"
+      (sigil) => sigil.traitName === "Charged Attack DMG"
     )?.value;
 
     setChargedBonus(
@@ -548,8 +548,9 @@ const SBABonusBox = () => {
       (trait) => trait.traitName === "Linked Together"
     )?.actualUseableLevel;
 
-    const sigilsLTValue =
-      sigilLevelValues["LT SBA"][sigilsLTLinkLevel ? sigilsLTLinkLevel : 0];
+    const sigilsLTValue = sigilLevelValues["LT SBA"]
+      ? sigilLevelValues["LT SBA"][sigilsLTLinkLevel ? sigilsLTLinkLevel : 0]
+      : 0;
 
     setSbaBonus(
       safeDecimalAdder([
@@ -598,7 +599,7 @@ const WeakpointBox = () => {
   const weakpointBonus = useStatsStore((state) => state.weakPoint);
   useEffect(() => {
     const traitsExploiter = traitsTable.find(
-      (trait) => trait.traitName === "Exploiter"
+      (trait) => trait.traitName === "Weak Point DMG"
     )?.value;
     const traitsExploiterValue = traitsExploiter ? traitsExploiter : 0;
     const backAttackBase = 0.2;
@@ -651,7 +652,7 @@ const FlightOverFightBox = () => {
   const setIsFoF = useStatsStore((state) => state.setIsFoF);
   useEffect(() => {
     const sigilLvl = traitsTable.find(
-      (sigil) => sigil.traitName === "Flight Over Fight"
+      (sigil) => sigil.traitName === "Flight over Fight"
     )?.actualUseableLevel;
     setIsFoF(sigilLvl ? true : false);
   }, [setIsFoF, traitsTable]);
@@ -717,7 +718,6 @@ const HiddenStats = () => {
 
     setIsBoundary(sigilsBoundary ? true : false);
     setIsEternal(isEternal);
-    console.log();
   }, [traitsTable, selectedCharacter, setIsBoundary, setIsEternal]);
   return <></>;
 };

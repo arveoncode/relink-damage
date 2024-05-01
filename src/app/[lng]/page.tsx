@@ -17,36 +17,59 @@ import { BannerNotif } from "../(components)/BannerNotif";
 export default function Home({ params: { lng } }: { params: { lng: string } }) {
   if (languages.indexOf(lng) < 0) lng = fallbackLng;
   return (
-    <Suspense>
-      <main className="flex flex-col relative">
-        <BannerNotif />
-        <div className="px-8 flex justify-between">
+    <main className="flex flex-col relative">
+      <BannerNotif />
+      <div className="px-8 flex justify-between">
+        <Suspense>
           <BuildSlotTabs />
-          <div className="flex gap-4">
+        </Suspense>
+
+        <div className="flex gap-4">
+          <Suspense>
             <ExportDialog defaultTab="link" />
+          </Suspense>
+          <Suspense>
             <ImportDialog />
-          </div>
+          </Suspense>
         </div>
-        <div className="grid grid-cols-10 gap-4 p-8">
-          <div className="flex flex-col gap-4 col-span-2">
+      </div>
+      <div className="grid grid-cols-10 gap-4 p-8">
+        <div className="flex flex-col gap-4 col-span-2">
+          <Suspense>
             <CharacterPicker />
+          </Suspense>
+          <Suspense>
             <Overmasteries />
+          </Suspense>
+          <Suspense>
             <OtherInputs />
-          </div>
-          <div className="col-span-4 flex gap-4 flex-col">
+          </Suspense>
+        </div>
+        <div className="col-span-4 flex gap-4 flex-col">
+          <Suspense>
             <Sigils />
+          </Suspense>
+          <Suspense>
             <Weapon />
-          </div>
-          <div className="col-span-4 flex flex-col gap-4">
+          </Suspense>
+        </div>
+        <div className="col-span-4 flex flex-col gap-4">
+          <Suspense>
             <Traits />
+          </Suspense>
+          <Suspense>
             <Stats />
-          </div>
+          </Suspense>
         </div>
-        <div className="p-8 bg-white">
+      </div>
+      <div className="p-8 bg-white">
+        <Suspense>
           <SkillsTable />
-        </div>
+        </Suspense>
+      </div>
+      <Suspense>
         <LogsImporter />
-      </main>
-    </Suspense>
+      </Suspense>
+    </main>
   );
 }

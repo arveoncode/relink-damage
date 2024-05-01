@@ -14,7 +14,7 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { safeDecimalMultiplier } from "@/lib/calculators";
 import { useBuildStore } from "@/stores/useBuildStore";
-import { useTranslation } from "../i18n/client";
+import { useTranslation } from "../(i18n)/client";
 import { useParams } from "next/navigation";
 
 export const OtherInputs = () => {

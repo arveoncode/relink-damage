@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { safeDecimalMultiplier } from "@/lib/calculators";
 import { useBuildStore } from "@/stores/useBuildStore";
-import { useTranslation } from "../i18n/client";
+import { useTranslation } from "../(i18n)/client";
 import { useParams } from "next/navigation";
 
 export const Overmasteries = () => {

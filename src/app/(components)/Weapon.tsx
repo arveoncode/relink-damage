@@ -8,7 +8,7 @@ import { convertCalculatorToLogsTrait } from "@/constants/logs/traits";
 import { useBuildStore } from "@/stores/useBuildStore";
 import { TraitLiterals } from "@/types/traits.types";
 import Image from "next/image";
-import { useTranslation } from "../i18n/client";
+import { useTranslation } from "../(i18n)/client";
 import { useParams } from "next/navigation";
 
 export const Weapon = () => {

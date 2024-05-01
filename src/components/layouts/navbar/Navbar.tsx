@@ -24,7 +24,7 @@ import {
   SelectValue,
   SelectItem,
 } from "@/components/ui/select";
-import { languages } from "@/app/i18n/settings";
+import { languages } from "@/app/(i18n)/settings";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Label } from "@/components/ui/label";
 

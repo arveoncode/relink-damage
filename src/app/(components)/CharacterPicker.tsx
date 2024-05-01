@@ -10,7 +10,7 @@ import {
 import Image from "next/image";
 import { ComboBox, SelectOptionsProp } from "@/components/ui/combo-box";
 import { useBuildStore } from "@/stores/useBuildStore";
-import { useTranslation } from "../i18n/client";
+import { useTranslation } from "../(i18n)/client";
 import { useParams } from "next/navigation";
 
 export const CharacterPicker = () => {

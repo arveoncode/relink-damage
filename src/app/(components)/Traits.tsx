@@ -29,7 +29,7 @@ import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useTranslation } from "../i18n/client";
+import { useTranslation } from "../(i18n)/client";
 import { convertCalculatorToLogsTrait } from "@/constants/logs/traits";
 
 export const Traits = () => {

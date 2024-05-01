@@ -7,7 +7,7 @@ import { getSigilImage, sigilConstants } from "@/constants/gear/sigils";
 import { useBuildStore } from "@/stores/useBuildStore";
 import { SigilSet, TraitLiterals } from "@/types/traits.types";
 import Image from "next/image";
-import { useTranslation } from "../i18n/client";
+import { useTranslation } from "../(i18n)/client";
 import { useParams } from "next/navigation";
 import { convertCalculatorToLogsTrait } from "@/constants/logs/traits";
 

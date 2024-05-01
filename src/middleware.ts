@@ -26,6 +26,16 @@ export function middleware(req: any) {
     !languages.some((loc: any) => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
     !req.nextUrl.pathname.startsWith("/_next")
   ) {
+    if (req.nextUrl.searchParams.get("logsdata")) {
+      return NextResponse.redirect(
+        new URL(
+          `/${lng}${
+            req.nextUrl.pathname
+          }?logsdata=${req.nextUrl.searchParams.get("logsdata")}`,
+          req.url
+        )
+      );
+    }
     return NextResponse.redirect(
       new URL(`/${lng}${req.nextUrl.pathname}`, req.url)
     );

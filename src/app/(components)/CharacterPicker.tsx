@@ -10,8 +10,14 @@ import {
 import Image from "next/image";
 import { ComboBox, SelectOptionsProp } from "@/components/ui/combo-box";
 import { useBuildStore } from "@/stores/useBuildStore";
+import { useTranslation } from "../i18n/client";
+import { useParams } from "next/navigation";
 
 export const CharacterPicker = () => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const uiTranslate = useTranslation(lng, "ui");
+  const characterTranslate = useTranslation(lng, "characters");
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
   const setSelectedCharacter = useBuildStore(
     (state) => state.setSelectedCharacter
@@ -81,7 +87,7 @@ export const CharacterPicker = () => {
   const options: SelectOptionsProp[] = characters.map((character) => {
     return {
       value: character,
-      label: character,
+      label: characterTranslate.t(character),
     };
   });
 
@@ -91,7 +97,7 @@ export const CharacterPicker = () => {
         <CardHeader>
           <CardTitle className="flex gap-4">
             <hr className="flex-1 my-auto" />
-            <div>Character</div>
+            <div>{uiTranslate.t("Character")}</div>
             <hr className="flex-1 my-auto" />
           </CardTitle>
         </CardHeader>

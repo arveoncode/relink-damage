@@ -55,7 +55,7 @@ export const SkillsTable = () => {
         (sigil) => sigil.traitName === "Tyranny"
       )?.value as number;
       const sigilsSupplementary = statsStore.traitsTable.find(
-        (sigil) => sigil.traitName === "Supplementary Damage"
+        (sigil) => sigil.traitName === "Supplementary DMG"
       )?.actualUseableLevel;
 
       return _skills.map((skill) => {

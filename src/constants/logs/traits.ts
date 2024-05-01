@@ -46,7 +46,7 @@ export function convertLogsToCalculatorTrait(
     case "1b0d9897":
       return "None";
     case "1c360c63":
-      return "Charged Attack";
+      return "Charged Attack DMG";
     case "1dc9d7e7":
       return "None";
     case "2242921f":
@@ -90,7 +90,7 @@ export function convertLogsToCalculatorTrait(
     case "4f1a3683":
       return "Injury to Insult";
     case "50079a1c":
-      return "Attack Power";
+      return "ATK";
     case "50b453dd":
       return "None";
     case "522e2388":
@@ -98,7 +98,7 @@ export function convertLogsToCalculatorTrait(
     case "5463232f":
       return "Awakening";
     case "57ab5b10":
-      return "Supplementary Damage";
+      return "Supplementary DMG";
     case "57e8a93f":
       return "None";
     case "5c862e13":
@@ -112,7 +112,7 @@ export function convertLogsToCalculatorTrait(
     case "66de60b1":
       return "None";
     case "6b694d6d":
-      return "Exploiter";
+      return "Weak Point DMG";
     case "6ebfa176":
       return "Awakening";
     case "6ff05223":
@@ -148,7 +148,7 @@ export function convertLogsToCalculatorTrait(
     case "8cdf9382":
       return "Awakening";
     case "8d078597":
-      return "Throw";
+      return "Throw DMG";
     case "8d2adb6e":
       return "Beta";
     case "8d78a19b":
@@ -186,7 +186,7 @@ export function convertLogsToCalculatorTrait(
     case "a63b89cd":
       return "Awakening";
     case "a7a45f28":
-      return "Combo Finisher";
+      return "Combo Finisher DMG";
     case "a8a3163b":
       return "Glass Cannon";
     case "a9d17f55":
@@ -208,7 +208,7 @@ export function convertLogsToCalculatorTrait(
     case "b6e31f76":
       return "Firm Stance";
     case "c0979a17":
-      return "Critical Damage";
+      return "Critical Hit DMG";
     case "c2a4c7a9":
       return "Awakening";
     case "c35b111b":
@@ -240,7 +240,7 @@ export function convertLogsToCalculatorTrait(
     case "dc225c96":
       return "Power Hungry";
     case "dc584f60":
-      return "Damage Cap";
+      return "DMG Cap";
     case "dc607d75":
       return "Low Profile";
     case "dd4a701e":
@@ -256,7 +256,7 @@ export function convertLogsToCalculatorTrait(
     case "eae321eb":
       return "Skilled Assault";
     case "ec1c6779":
-      return "Flight Over Fight";
+      return "Flight over Fight";
     case "ec3cf174":
       return "Awakening";
     case "f17850b9":
@@ -334,6 +334,14 @@ export function convertLogsToCalculatorTrait(
     default:
       return "None";
   }
+}
+
+export function convertCalculatorToLogsTrait(
+  _traitName: TraitLiterals | NoneConstant
+): LogsTraitsIDs | NoneConstant {
+  return Object.keys(logsTraits).find(
+    (key) => logsTraits[key as keyof typeof logsTraits].text === _traitName
+  ) as LogsTraitsIDs;
 }
 
 export const logsTraits = {

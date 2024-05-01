@@ -5,8 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { safeDecimalMultiplier } from "@/lib/calculators";
 import { useBuildStore } from "@/stores/useBuildStore";
+import { useTranslation } from "../i18n/client";
+import { useParams } from "next/navigation";
 
 export const Overmasteries = () => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const uiTranslate = useTranslation(lng, "ui");
+  const omTranslate = useTranslation(lng, "overmasteries");
   const attack = useBuildStore((state) => state.attack);
   const normalDamageCapUp = useBuildStore((state) => state.normalDamageCapUp);
   const skillDamageCapUp = useBuildStore((state) => state.skillDamageCapUp);
@@ -30,13 +36,13 @@ export const Overmasteries = () => {
       <CardHeader>
         <CardTitle className="flex gap-4">
           <hr className="flex-1 my-auto" />
-          <div>Overmasteries</div>
+          <div>{uiTranslate.t("Overmasteries")}</div>
           <hr className="flex-1 my-auto" />
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <div className="grid grid-cols-2 gap-4">
-          <Label className="my-auto">Attack</Label>
+          <Label className="my-auto">{omTranslate.t("0cf5d0f3.text")}</Label>
           <Input
             type="number"
             className=""
@@ -48,7 +54,9 @@ export const Overmasteries = () => {
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">Normal DMG Cap Up (%)</Label>
+          <Label className="my-auto col-span-2">
+            {omTranslate.t("06595c52.text")}
+          </Label>
           <Input
             type="number"
             className=""
@@ -64,7 +72,9 @@ export const Overmasteries = () => {
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">Skill DMG Cap Up (%)</Label>
+          <Label className="my-auto col-span-2">
+            {omTranslate.t("0b0e4311.text")}
+          </Label>
           <Input
             type="number"
             className=""
@@ -80,7 +90,9 @@ export const Overmasteries = () => {
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">SBA DMG Cap Up (%)</Label>
+          <Label className="my-auto col-span-2">
+            {omTranslate.t("149593b8.text")}
+          </Label>
           <Input
             type="number"
             className=""
@@ -96,7 +108,9 @@ export const Overmasteries = () => {
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">Skill DMG Up (%)</Label>
+          <Label className="my-auto col-span-2">
+            {omTranslate.t("426b370b.text")}
+          </Label>
           <Input
             type="number"
             className=""
@@ -112,7 +126,9 @@ export const Overmasteries = () => {
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">SBA Damage Up (%)</Label>
+          <Label className="my-auto col-span-2">
+            {omTranslate.t("4e42646b.text")}
+          </Label>
           <Input
             type="number"
             className=""
@@ -128,7 +144,9 @@ export const Overmasteries = () => {
           />
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <Label className="my-auto col-span-2">Crit Hit Rate</Label>
+          <Label className="my-auto col-span-2">
+            {omTranslate.t("524492e2.text")}
+          </Label>
           <Input
             type="number"
             className=""

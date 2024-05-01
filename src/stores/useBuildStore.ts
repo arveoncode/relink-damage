@@ -151,36 +151,36 @@ export const useBuildStore = create(
       sigilsEquipped: [
         {
           sigil1: "Alpha",
-          sigil2: "Damage Cap",
+          sigil2: "DMG Cap",
           level: 15,
         },
         {
           sigil1: "Gamma",
-          sigil2: "Damage Cap",
+          sigil2: "DMG Cap",
           level: 15,
         },
         {
           sigil1: "Gamma",
-          sigil2: "Damage Cap",
+          sigil2: "DMG Cap",
           level: 15,
         },
         {
           sigil1: "Beta",
-          sigil2: "Damage Cap",
+          sigil2: "DMG Cap",
           level: 15,
         },
         {
-          sigil1: "Supplementary Damage",
+          sigil1: "Supplementary DMG",
           sigil2: "None",
           level: 15,
         },
         {
-          sigil1: "Supplementary Damage",
+          sigil1: "Supplementary DMG",
           sigil2: "None",
           level: 15,
         },
         {
-          sigil1: "Supplementary Damage",
+          sigil1: "Supplementary DMG",
           sigil2: "None",
           level: 15,
         },

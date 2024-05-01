@@ -7,15 +7,21 @@ import { getSigilImage, sigilConstants } from "@/constants/gear/sigils";
 import { useBuildStore } from "@/stores/useBuildStore";
 import { SigilSet, TraitLiterals } from "@/types/traits.types";
 import Image from "next/image";
+import { useTranslation } from "../i18n/client";
+import { useParams } from "next/navigation";
+import { convertCalculatorToLogsTrait } from "@/constants/logs/traits";
 
 export const Sigils = () => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const uiTranslate = useTranslation(lng, "ui");
   const sigilsEquipped = useBuildStore((state) => state.sigilsEquipped);
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex gap-4">
           <hr className="flex-1 my-auto" />
-          <div>Sigils</div>
+          <div>{uiTranslate.t("Sigils")}</div>
           <hr className="flex-1 my-auto" />
         </CardTitle>
       </CardHeader>
@@ -35,12 +41,20 @@ interface SigilsPickerProps {
   sigilSet: SigilSet;
 }
 const SigilsPicker = ({ index, sigilSet }: SigilsPickerProps) => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const traitsTranslate = useTranslation(lng, "traits");
   const updateSigilSet = useBuildStore((state) => state.updateSigilSet);
 
   const options: SelectOptionsProp[] = sigilConstants.map((sigil) => {
     return {
       value: sigil.sigilName,
-      label: sigil.sigilName,
+      label:
+        convertCalculatorToLogsTrait(sigil.sigilName) === undefined
+          ? sigil.sigilName
+          : traitsTranslate.t(
+              `${convertCalculatorToLogsTrait(sigil.sigilName)}.text`
+            ),
     };
   });
   return (

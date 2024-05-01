@@ -1,66 +1,8 @@
-import { SigilTrait, TraitLiterals } from "@/types/traits.types";
-
-export const singleSigils = ["War Elemental", "Stout Heart"];
-export const awakeningSigils = ["Awakening"];
-export const specialSigils = [
-  "Low Profile",
-  "Steady Focus",
-  "Autorevive",
-  "Guts",
-  "Potion Hoarder",
-];
-export const supportSigils = [
-  "Quick Cooldown",
-  "Cascade",
-  "Uplift",
-  "Nimble Onslaught",
-  "Precise Wrath",
-];
-export const defensiveSigils = [
-  "Aegis",
-  "Garrison",
-  "Steel Nerves",
-  "Firm Stance",
-  "Status Resistance",
-  "Improved Dodge",
-];
-
-export const attackSigils = [
-  "Damage Cap",
-  "Critical Damage",
-  "Stamina",
-  "Enmity",
-  "Tyranny",
-  "Life on the Line",
-  "Skilled Assault",
-  "Linked Together",
-  "Combo Booster",
-  "Combo Finisher",
-  "Charged Attack",
-  "Lucky Charge",
-  "Quick Charge",
-  "Concentrated Fire",
-  "Throw",
-  "Injury to Insult",
-  "Less Is More",
-  "Supplementary Damage",
-  "Exploiter",
-  "Head Start",
-  "Dodge Payback",
-  "Power Hungry",
-  "Glass Cannon",
-  "Berserker",
-];
-
-export const baseStatSigils = [
-  "Attack Power",
-  "Stun Power",
-  "Critical Hit Rate",
-];
+import { TraitLiterals } from "@/types/traits.types";
 
 export const traitLiterals = [
-  "Damage Cap",
-  "Critical Damage",
+  "DMG Cap",
+  "Critical Hit DMG",
   "Stamina",
   "Enmity",
   "Tyranny",
@@ -68,16 +10,16 @@ export const traitLiterals = [
   "Skilled Assault",
   "Linked Together",
   "Combo Booster",
-  "Combo Finisher",
-  "Charged Attack",
+  "Combo Finisher DMG",
+  "Charged Attack DMG",
   "Lucky Charge",
   "Quick Charge",
   "Concentrated Fire",
-  "Throw",
+  "Throw DMG",
   "Injury to Insult",
   "Less Is More",
-  "Supplementary Damage",
-  "Exploiter",
+  "Supplementary DMG",
+  "Weak Point DMG",
   "Head Start",
   "Dodge Payback",
   "Power Hungry",
@@ -100,131 +42,137 @@ export const traitLiterals = [
   "Garrison",
   "Steel Nerves",
   "Firm Stance",
-  "Status Resistance",
+  "Skill Sealed Resistance",
   "Improved Dodge",
   "Alpha",
   "Gamma",
   "Beta",
-  "Attack Power",
+  "ATK",
   "Stun Power",
-  "Flight Over Fight",
+  "Flight over Fight",
   "Critical Hit Rate",
   "Warpath",
   "Boundary",
 ] as const;
 
-export const singleSigilsObject = singleSigils.map((sigil) => {
-  return {
-    name: sigil as TraitLiterals,
-    type: "Single" as const,
-  };
-});
+// export const singleSigilsObject = singleSigils.map((sigil) => {
+//   return {
+//     name: sigil ,
+//     type: "Single" as const,
+//   };
+// });
 
-export const opusSigils = ["Alpha", "Gamma", "Beta"];
-export const opusSigilsObjects: SigilTrait[] = opusSigils.map((sigil) => {
-  return {
-    name: sigil as TraitLiterals,
-    type: "Opus" as const,
-    allowedSecondaryTraits: ["Damage Cap"],
-  };
-});
+// export const opusSigils = ["Alpha", "Gamma", "Beta"];
+// export const opusSigilsObjects: SigilTrait[] = opusSigils.map((sigil) => {
+//   return {
+//     name: sigil ,
+//     type: "Opus" as const,
+//     allowedSecondaryTraits: ["Damage Cap"],
+//   };
+// });
 
-export const baseStatSigilsObjects: SigilTrait[] = baseStatSigils.map(
-  (sigil) => {
-    const allowedSecondaryTraits = attackSigils.concat(
-      defensiveSigils,
-      supportSigils,
-      specialSigils
-    );
-    return {
-      name: sigil as TraitLiterals,
-      type: "BaseStat" as const,
-      allowedSecondaryTraits: allowedSecondaryTraits,
-    };
-  }
-);
+// export const baseStatSigilsObjects: SigilTrait[] = baseStatSigils.map(
+//   (sigil) => {
+//     const allowedSecondaryTraits = attackSigils.concat(
+//       defensiveSigils,
+//       supportSigils,
+//       specialSigils
+//     );
+//     return {
+//       name: sigil ,
+//       type: "BaseStat" as const,
+//       allowedSecondaryTraits: allowedSecondaryTraits,
+//     };
+//   }
+// );
 
-export const attackSigilsObjects: SigilTrait[] = attackSigils.map((sigil) => {
-  const allowedSecondaryTraits = defensiveSigils.concat(
-    supportSigils,
-    specialSigils
-  );
-  return {
-    name: sigil as TraitLiterals,
-    type: "Attack" as const,
-    allowedSecondaryTraits: allowedSecondaryTraits,
-  };
-});
+// export const attackSigilsObjects: SigilTrait[] = attackSigils.map((sigil) => {
+//   const allowedSecondaryTraits = defensiveSigils.concat(
+//     supportSigils,
+//     specialSigils
+//   );
+//   return {
+//     name: sigil ,
+//     type: "Attack" as const,
+//     allowedSecondaryTraits: allowedSecondaryTraits,
+//   };
+// });
 
-export const defensiveSigilsObjects: SigilTrait[] = defensiveSigils.map(
-  (sigil) => {
-    const allowedSecondaryTraits = supportSigils.concat(specialSigils);
-    return {
-      name: sigil as TraitLiterals,
-      type: "Defensive" as const,
-      allowedSecondaryTraits: allowedSecondaryTraits,
-    };
-  }
-);
+// export const defensiveSigilsObjects: SigilTrait[] = defensiveSigils.map(
+//   (sigil) => {
+//     const allowedSecondaryTraits = supportSigils.concat(specialSigils);
+//     return {
+//       name: sigil ,
+//       type: "Defensive" as const,
+//       allowedSecondaryTraits: allowedSecondaryTraits,
+//     };
+//   }
+// );
 
-export const supportSigilsObjects: SigilTrait[] = supportSigils.map((sigil) => {
-  return {
-    name: sigil as TraitLiterals,
-    type: "Support" as const,
-  };
-});
+// export const supportSigilsObjects: SigilTrait[] = supportSigils.map((sigil) => {
+//   return {
+//     name: sigil ,
+//     type: "Support" as const,
+//   };
+// });
 
-export const specialSigilsObjects: SigilTrait[] = specialSigils.map((sigil) => {
-  return {
-    name: sigil as TraitLiterals,
-    type: "Special" as const,
-  };
-});
+// export const specialSigilsObjects: SigilTrait[] = specialSigils.map((sigil) => {
+//   return {
+//     name: sigil ,
+//     type: "Special" as const,
+//   };
+// });
 
-export const allSigils = opusSigils.concat(
-  singleSigils,
-  awakeningSigils,
-  baseStatSigils,
-  attackSigils,
-  defensiveSigils,
-  supportSigils,
-  specialSigils
-);
+// export const allSigils = opusSigils.concat(
+//   singleSigils,
+//   awakeningSigils,
+//   baseStatSigils,
+//   attackSigils,
+//   defensiveSigils,
+//   supportSigils,
+//   specialSigils
+// );
 
-export const awakeningSigilsObjects: SigilTrait[] = awakeningSigils.map(
-  (sigil) => {
-    const allowedSecondaryTraits = attackSigils.concat(
-      baseStatSigils,
-      defensiveSigils,
-      supportSigils,
-      specialSigils
-    );
-    return {
-      name: sigil as TraitLiterals,
-      type: "Awakening",
-      allowedSecondaryTraits: allowedSecondaryTraits.concat(["Awakening"]),
-    };
-  }
-);
+// export const awakeningSigilsObjects: SigilTrait[] = awakeningSigils.map(
+//   (sigil) => {
+//     const allowedSecondaryTraits = attackSigils.concat(
+//       baseStatSigils,
+//       defensiveSigils,
+//       supportSigils,
+//       specialSigils
+//     );
+//     return {
+//       name: sigil ,
+//       type: "Awakening",
+//       allowedSecondaryTraits: allowedSecondaryTraits.concat(["Awakening"]),
+//     };
+//   }
+// );
 
-export const allSigilObjects = opusSigilsObjects.concat(
-  singleSigilsObject,
-  awakeningSigilsObjects,
-  baseStatSigilsObjects,
-  attackSigilsObjects,
-  defensiveSigilsObjects,
-  supportSigilsObjects,
-  specialSigilsObjects
-);
+// export const allSigilObjects = opusSigilsObjects.concat(
+//   singleSigilsObject,
+//   awakeningSigilsObjects,
+//   baseStatSigilsObjects,
+//   attackSigilsObjects,
+//   defensiveSigilsObjects,
+//   supportSigilsObjects,
+//   specialSigilsObjects
+// );
 
-export const sigilOptions = allSigils.map((sigil) => {
+export const sigilOptions = traitLiterals.map((sigil) => {
   return {
     label: sigil,
     value: sigil,
   };
 });
 
-export const sigilConstants = [
+export const sigilConstants: {
+  sigilName: TraitLiterals;
+  sigilImage: string;
+  sigilColor: string;
+  sigilSeconds: string;
+  sigilMaxLevel: number;
+}[] = [
   {
     sigilName: "None" as TraitLiterals,
     sigilImage: "https://i.imgur.com/ymvvOeh.png",
@@ -233,259 +181,259 @@ export const sigilConstants = [
     sigilMaxLevel: 0,
   },
   {
-    sigilName: "Damage Cap" as TraitLiterals,
+    sigilName: "DMG Cap",
     sigilImage: "https://i.imgur.com/3lmC4aG.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 65,
   },
   {
-    sigilName: "Attack Power" as TraitLiterals,
+    sigilName: "ATK",
     sigilImage: "https://i.imgur.com/qKjRxGQ.png",
     sigilColor: "Gray",
     sigilSeconds: "OrangeRedPurpleBlueNone",
     sigilMaxLevel: 50,
   },
   {
-    sigilName: "Stun Power" as TraitLiterals,
+    sigilName: "Stun Power",
     sigilImage: "https://i.imgur.com/cl9Yjci.png",
     sigilColor: "Gray",
     sigilSeconds: "OrangeRedPurpleBlueNone",
     sigilMaxLevel: 45,
   },
   {
-    sigilName: "Critical Hit Rate" as TraitLiterals,
+    sigilName: "Critical Hit Rate",
     sigilImage: "https://i.imgur.com/ATzn4B3.png",
     sigilColor: "Crit",
     sigilSeconds: "OrangeRedPurpleBlueNone",
     sigilMaxLevel: 45,
   },
   {
-    sigilName: "Critical Damage" as TraitLiterals,
+    sigilName: "Critical Hit DMG",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Linked Together" as TraitLiterals,
+    sigilName: "Linked Together",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Stamina" as TraitLiterals,
+    sigilName: "Stamina",
     sigilImage: "https://i.imgur.com/aWX0IAj.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Enmity" as TraitLiterals,
+    sigilName: "Enmity",
     sigilImage: "https://i.imgur.com/FHrM7Hr.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Tyranny" as TraitLiterals,
+    sigilName: "Tyranny",
     sigilImage: "https://i.imgur.com/FPRMU3t.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Concentrated Fire" as TraitLiterals,
+    sigilName: "Concentrated Fire",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Quick Charge" as TraitLiterals,
+    sigilName: "Quick Charge",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Charged Attack" as TraitLiterals,
+    sigilName: "Charged Attack DMG",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Lucky Charge" as TraitLiterals,
+    sigilName: "Lucky Charge",
     sigilImage: "https://i.imgur.com/HUDS9kJ.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 20,
   },
   {
-    sigilName: "Skilled Assault" as TraitLiterals,
+    sigilName: "Skilled Assault",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Life on the Line" as TraitLiterals,
+    sigilName: "Life on the Line",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Injury to Insult" as TraitLiterals,
+    sigilName: "Injury to Insult",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Combo Booster" as TraitLiterals,
+    sigilName: "Combo Booster",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Combo Finisher" as TraitLiterals,
+    sigilName: "Combo Finisher DMG",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Throw" as TraitLiterals,
+    sigilName: "Throw DMG",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Exploiter" as TraitLiterals,
+    sigilName: "Weak Point DMG",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 45,
   },
   {
-    sigilName: "Dodge Payback" as TraitLiterals,
+    sigilName: "Dodge Payback",
     sigilImage: "https://i.imgur.com/7HKGnqu.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Power Hungry" as TraitLiterals,
+    sigilName: "Power Hungry",
     sigilImage: "https://i.imgur.com/F1sxTGy.png",
     sigilColor: "Orang_Exclusive",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Less Is More" as TraitLiterals,
+    sigilName: "Less Is More",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orang_Exclusive",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Supplementary Damage" as TraitLiterals,
+    sigilName: "Supplementary DMG",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orang_Exclusive",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 45,
   },
   {
-    sigilName: "Glass Cannon" as TraitLiterals,
+    sigilName: "Glass Cannon",
     sigilImage: "https://i.imgur.com/F1sxTGy.png",
     sigilColor: "Orang_Exclusive",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Head Start" as TraitLiterals,
+    sigilName: "Head Start",
     sigilImage: "https://i.imgur.com/H0Vk2z3.png",
     sigilColor: "Orang_Exclusive",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Berserker" as TraitLiterals,
+    sigilName: "Berserker",
     sigilImage: "https://i.imgur.com/F1sxTGy.png",
     sigilColor: "Orang_Exclusive",
     sigilSeconds: "GrayRedPurpleBlueNone",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "War Elemental" as TraitLiterals,
+    sigilName: "War Elemental",
     sigilImage: "https://i.imgur.com/F1sxTGy.png",
     sigilColor: "Orang_Exclusive",
     sigilSeconds: "None",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Quick Cooldown" as TraitLiterals,
+    sigilName: "Quick Cooldown",
     sigilImage: "https://i.imgur.com/wGc0qLp.png",
     sigilColor: "Red",
     sigilSeconds: "None",
     sigilMaxLevel: 45,
   },
   {
-    sigilName: "Cascade" as TraitLiterals,
+    sigilName: "Cascade",
     sigilImage: "https://i.imgur.com/wGc0qLp.png",
     sigilColor: "Red",
     sigilSeconds: "None",
     sigilMaxLevel: 20,
   },
   {
-    sigilName: "Uplift" as TraitLiterals,
+    sigilName: "Uplift",
     sigilImage: "https://i.imgur.com/EJYhNo7.png",
     sigilColor: "Red",
     sigilSeconds: "None",
     sigilMaxLevel: 45,
   },
   {
-    sigilName: "Nimble Onslaught" as TraitLiterals,
+    sigilName: "Nimble Onslaught",
     sigilImage: "https://i.imgur.com/ZIDWafk.png",
     sigilColor: "Red",
     sigilSeconds: "None",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Precise Wrath" as TraitLiterals,
+    sigilName: "Precise Wrath",
     sigilImage: "https://i.imgur.com/ZIDWafk.png",
     sigilColor: "Red",
     sigilSeconds: "None",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Autorevive" as TraitLiterals,
+    sigilName: "Autorevive",
     sigilImage: "https://i.imgur.com/2qKcEOx.png",
     sigilColor: "Purple",
     sigilSeconds: "None",
     sigilMaxLevel: 20,
   },
   {
-    sigilName: "Guts" as TraitLiterals,
+    sigilName: "Guts",
     sigilImage: "https://i.imgur.com/D5ySGCd.png",
     sigilColor: "Purple",
     sigilSeconds: "None",
     sigilMaxLevel: 20,
   },
   {
-    sigilName: "Potion Hoarder" as TraitLiterals,
+    sigilName: "Potion Hoarder",
     sigilImage: "https://i.imgur.com/uhELCWH.png",
     sigilColor: "Purple",
     sigilSeconds: "None",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Low Profile" as TraitLiterals,
+    sigilName: "Low Profile",
     sigilImage: "https://i.imgur.com/rSpaDyN.png",
     sigilColor: "Purple",
     sigilSeconds: "None",
@@ -499,14 +447,14 @@ export const sigilConstants = [
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Stout Heart" as TraitLiterals,
+    sigilName: "Stout Heart",
     sigilImage: "https://i.imgur.com/pSxX0U6.png",
     sigilColor: "Unique",
     sigilSeconds: "None",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Steady Focus" as TraitLiterals,
+    sigilName: "Steady Focus",
     sigilImage: "https://i.imgur.com/pSxX0U6.png",
     sigilColor: "Purple",
     sigilSeconds: "None",
@@ -520,35 +468,35 @@ export const sigilConstants = [
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Aegis" as TraitLiterals,
+    sigilName: "Aegis",
     sigilImage: "https://i.imgur.com/gj1GNUU.png",
     sigilColor: "Blue",
     sigilSeconds: "PurpleRedNone",
     sigilMaxLevel: 45,
   },
   {
-    sigilName: "Garrison" as TraitLiterals,
+    sigilName: "Garrison",
     sigilImage: "https://i.imgur.com/egexYSS.png",
     sigilColor: "Blue",
     sigilSeconds: "PurpleRedNone",
     sigilMaxLevel: 45,
   },
   {
-    sigilName: "Steel Nerves" as TraitLiterals,
+    sigilName: "Steel Nerves",
     sigilImage: "https://i.imgur.com/egexYSS.png",
     sigilColor: "Blue",
     sigilSeconds: "PurpleRedNone",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Firm Stance" as TraitLiterals,
+    sigilName: "Firm Stance",
     sigilImage: "https://i.imgur.com/gFXAGMY.png",
     sigilColor: "Blue",
     sigilSeconds: "PurpleRedNone",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Status Resistance" as TraitLiterals,
+    sigilName: "Skill Sealed Resistance",
     sigilImage: "https://i.imgur.com/JGgx4Xw.png",
     sigilColor: "Blue",
     sigilSeconds: "PurpleRedNone",
@@ -562,56 +510,56 @@ export const sigilConstants = [
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Improved Dodge" as TraitLiterals,
+    sigilName: "Improved Dodge",
     sigilImage: "https://i.imgur.com/kFd60c3.png",
     sigilColor: "Blue",
     sigilSeconds: "PurpleRedNone",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Flight Over Fight" as TraitLiterals,
+    sigilName: "Flight over Fight",
     sigilImage: "https://i.imgur.com/kFd60c3.png",
     sigilColor: "Blu_Exclusive",
     sigilSeconds: "PurpleRedNone",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Alpha" as TraitLiterals,
+    sigilName: "Alpha",
     sigilImage: "https://i.imgur.com/jnMUx4D.png",
     sigilColor: "Opus",
     sigilSeconds: "Damage Cap",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Beta" as TraitLiterals,
+    sigilName: "Beta",
     sigilImage: "https://i.imgur.com/jnMUx4D.png",
     sigilColor: "Opus",
     sigilSeconds: "Damage Cap",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Gamma" as TraitLiterals,
+    sigilName: "Gamma",
     sigilImage: "https://i.imgur.com/jnMUx4D.png",
     sigilColor: "Opus",
     sigilSeconds: "Damage Cap",
     sigilMaxLevel: 30,
   },
   {
-    sigilName: "Awakening" as TraitLiterals,
+    sigilName: "Awakening",
     sigilImage: "https://i.imgur.com/jnMUx4D.png",
     sigilColor: "Unique",
     sigilSeconds: "OrangeGrayCritRedPurpleBlueNone",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Warpath" as TraitLiterals,
+    sigilName: "Warpath",
     sigilImage: "https://i.imgur.com/jnMUx4D.png",
     sigilColor: "Unique_New",
     sigilSeconds: "None",
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Boundary" as TraitLiterals,
+    sigilName: "Boundary",
     sigilImage: "https://i.imgur.com/jnMUx4D.png",
     sigilColor: "Unique_New",
     sigilSeconds: "None",

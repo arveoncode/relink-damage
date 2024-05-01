@@ -4,11 +4,17 @@ import { ComboBox, SelectOptionsProp } from "@/components/ui/combo-box";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { getSigilImage, sigilConstants } from "@/constants/gear/sigils";
+import { convertCalculatorToLogsTrait } from "@/constants/logs/traits";
 import { useBuildStore } from "@/stores/useBuildStore";
 import { TraitLiterals } from "@/types/traits.types";
 import Image from "next/image";
+import { useTranslation } from "../i18n/client";
+import { useParams } from "next/navigation";
 
 export const Weapon = () => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const traitsTranslate = useTranslation(lng, "traits");
   const isTerminus = useBuildStore((state) => state.isTerminus);
   const isMaxAwakening = useBuildStore((state) => state.isMaxAwakening);
   const setIsTerminus = useBuildStore((state) => state.setIsTerminus);
@@ -20,7 +26,12 @@ export const Weapon = () => {
   const allOptions: SelectOptionsProp[] = sigilConstants.map((sigil) => {
     return {
       value: sigil.sigilName,
-      label: sigil.sigilName,
+      label:
+        convertCalculatorToLogsTrait(sigil.sigilName) === undefined
+          ? sigil.sigilName
+          : traitsTranslate.t(
+              `${convertCalculatorToLogsTrait(sigil.sigilName)}.text`
+            ),
     };
   });
 

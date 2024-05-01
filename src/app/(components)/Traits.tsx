@@ -27,7 +27,10 @@ import { CalculatedTrait, Trait, TraitLiterals } from "@/types/traits.types";
 import { Eye, EyeOff } from "lucide-react";
 
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useTranslation } from "../i18n/client";
+import { convertCalculatorToLogsTrait } from "@/constants/logs/traits";
 
 export const Traits = () => {
   const sigilsEquipped = useBuildStore((state) => state.sigilsEquipped);
@@ -70,23 +73,24 @@ export const Traits = () => {
       });
       // special case for damage cap +5 when max ascension
       let level =
-        isMaxAwakening && sigil.sigilName === "Damage Cap"
+        isMaxAwakening && sigil.sigilName === "DMG Cap"
           ? levels.reduce((partialSum, lvl) => partialSum + lvl, 0) + 5
           : levels.reduce((partialSum, lvl) => partialSum + lvl, 0);
       // special case for Eternals having +25 attack and +15 supp damage levels
+      level = isEternal && sigil.sigilName === "ATK" ? level + 25 : level;
       level =
-        isEternal && sigil.sigilName === "Attack Power" ? level + 25 : level;
-      level =
-        isEternal && sigil.sigilName === "Supplementary Damage"
+        isEternal && sigil.sigilName === "Supplementary DMG"
           ? level + 15
           : level;
       // prevent actualUseableLevel from exceeding maximum allowed level
       const actualUseableLevel = Math.min(level, sigil.sigilMaxLevel);
       // returns value from sigilLevels taken from maygi's sheet. Also prevents non-sigils from having a value added to it
+
       const traitValue = sigilLevelLiteral.includes(
         sigil.sigilName as SigilLevelLiteral
       )
-        ? sigilLevelValues[`${sigil.sigilName as SigilLevelLiteral}`][
+        ? // @ts-ignore: Unreachable code error
+          sigilLevelValues[`${sigil.sigilName as SigilLevelLiteral}`][
             actualUseableLevel
           ]
         : 0;
@@ -174,6 +178,9 @@ const TraitsTable = ({
   traitsTable: CalculatedTrait[];
   showZeroLvlTraits: boolean;
 }) => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const traitsTranslate = useTranslation(lng, "traits");
   return (
     <Table>
       <TableHeader>
@@ -202,7 +209,13 @@ const TraitsTable = ({
                     />
                   </div>
                 </TableCell>
-                <TableCell>{trait.traitName}</TableCell>
+                <TableCell>
+                  {convertCalculatorToLogsTrait(trait.traitName) === undefined
+                    ? trait.traitName
+                    : traitsTranslate.t(
+                        `${convertCalculatorToLogsTrait(trait.traitName)}.text`
+                      )}
+                </TableCell>
                 <TableCell
                   className={`text-right px-4 ${
                     trait.actualUseableLevel === trait.maxLevel &&

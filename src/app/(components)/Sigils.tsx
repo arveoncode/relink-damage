@@ -106,7 +106,7 @@ const SigilsPicker = ({ index, sigilSet }: SigilsPickerProps) => {
         </div>
       </div>
       <Input
-        className="max-w-[4rem]"
+        className="w-16"
         type="number"
         value={sigilSet.level}
         min={0}

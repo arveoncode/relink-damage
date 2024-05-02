@@ -38,7 +38,7 @@ export const Navbar = ({ lng }: { lng: string }) => {
   }
   return (
     <nav className="w-full bg-none flex justify-center">
-      <div className="flex justify-between align-middle px-8 flex-1 py-2">
+      <div className="flex flex-wrap justify-between align-middle px-8 flex-1 py-2">
         <div>
           <NavigationMenu>
             <NavigationMenuList>
@@ -54,7 +54,7 @@ export const Navbar = ({ lng }: { lng: string }) => {
         </div>
         <div className="relative flex gap-2">
           <NavigationMenu>
-            <NavigationMenuList>
+            <NavigationMenuList className="flex-wrap">
               <NavigationMenuItem>
                 <NavigationMenuLink
                   className={navigationMenuTriggerStyle()}

@@ -85,6 +85,7 @@ export const Weapon = () => {
                   </div>
 
                   <Input
+                    className="w-16"
                     type="number"
                     value={weaponImbues[index].level}
                     onChange={(e) =>

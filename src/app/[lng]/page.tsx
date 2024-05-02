@@ -19,20 +19,20 @@ export default function Home({ params: { lng } }: { params: { lng: string } }) {
   return (
     <main className="flex flex-col relative">
       <BannerNotif />
-      <div className="px-8 flex justify-between">
+      <div className="px-8 flex justify-between flex-wrap">
         <BuildSlotTabs />
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-wrap">
           <ExportDialog defaultTab="link" />
           <ImportDialog />
         </div>
       </div>
-      <div className="grid grid-cols-10 gap-4 p-8">
+      <div className="flex flex-wrap xl:grid grid-cols-10 gap-4 p-8">
         <div className="flex flex-col gap-4 col-span-2">
           <CharacterPicker />
           <Overmasteries />
           <OtherInputs />
         </div>
-        <div className="col-span-4 flex gap-4 flex-col">
+        <div className="flex-1 col-span-4 flex gap-4 flex-col">
           <Sigils />
           <Weapon />
         </div>

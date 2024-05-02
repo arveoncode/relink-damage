@@ -58,9 +58,9 @@ const SigilsPicker = ({ index, sigilSet }: SigilsPickerProps) => {
     };
   });
   return (
-    <div className="flex">
-      <div className="flex-1 grid grid-cols-7 gap-2">
-        <div className="flex col-span-3">
+    <div className="flex gap-2">
+      <div className="flex-1 grid 2xl:grid-cols-2 gap-2">
+        <div className="flex ">
           <div className="aspect-square h-8 bg-black rounded-md relative">
             <Image
               alt=""
@@ -82,7 +82,7 @@ const SigilsPicker = ({ index, sigilSet }: SigilsPickerProps) => {
             }}
           />
         </div>
-        <div className="col-span-3 flex">
+        <div className=" flex">
           <div className="aspect-square h-8 bg-black rounded-md relative">
             <Image
               alt=""
@@ -104,20 +104,20 @@ const SigilsPicker = ({ index, sigilSet }: SigilsPickerProps) => {
             }}
           />
         </div>
-
-        <Input
-          type="number"
-          value={sigilSet.level}
-          min={0}
-          max={15}
-          onInput={(e) =>
-            updateSigilSet(index, {
-              ...sigilSet,
-              level: Number(e.currentTarget.value),
-            })
-          }
-        />
       </div>
+      <Input
+        className="w-16"
+        type="number"
+        value={sigilSet.level}
+        min={0}
+        max={15}
+        onInput={(e) =>
+          updateSigilSet(index, {
+            ...sigilSet,
+            level: Number(e.currentTarget.value),
+          })
+        }
+      />
     </div>
   );
 };

@@ -22,35 +22,29 @@ export const Stats = () => {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-2">
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid gap-2 grid-cols-auto-fill-sm">
             <RawPowerBox />
             <RawPowerCritBox />
             <StaminaModBox />
-            {/* <div>Tyranny Mod</div> */}
-          </div>
-          <div className="grid grid-cols-3 gap-2">
             <WarElementalBox />
             <AwakeningBox />
             <FlightOverFightBox />
           </div>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-auto-fill-xs gap-2">
             <DamageCapBox />
             <NormalDamageCapBox />
             <SkillDamageCapBox />
             <SbaDamageCapBox />
-          </div>
-          <div className="grid grid-cols-4 gap-2">
             <RangedBonusBox />
             <ChargedBonusBox />
             <SkillBonusBox />
             <SBABonusBox />
-          </div>
-          <div className="grid grid-cols-4 gap-2">
             <WeakpointBox />
             <FinisherBonusBox />
             <ThrowBonusBox />
             <LinkBonusBox />
           </div>
+
           <HiddenStats />
           <StatsDebug />
         </div>
@@ -671,7 +665,7 @@ const TraitBooleanBox = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex gap-2 justify-center text-sm">
+        <CardTitle className="flex flex-wrap gap-2 justify-center align-middle my-auto text-sm">
           {traitTitle}{" "}
           {traitIsActive ? (
             <CheckCircle className="h-4 w-4" />

@@ -77,7 +77,7 @@ export const BuildSlotTabs = () => {
     });
   }
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 flex-wrap">
       {slots.map((slot, i) => {
         return <BuildSlotTab key={hash(slot)} buildSlot={slot} index={i} />;
       })}

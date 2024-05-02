@@ -126,7 +126,7 @@ export const Traits = () => {
           />
         </CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-2 gap-4">
+      <CardContent className="grid md:grid-cols-2 gap-4">
         <div>
           <h6 className="font-bold">Damage Sigils</h6>
           <TraitsTable

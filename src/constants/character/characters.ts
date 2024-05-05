@@ -21,7 +21,7 @@ export const characters = [
   "Eugen",
   "Yodarha",
   "Tweyen",
-  // "Seofon",
+  "Seofon",
 ] as const;
 
 export const characterConstants = [
@@ -134,10 +134,11 @@ export const characterConstants = [
     warpathEnhancement: 0.2,
     warpathCondition: "Ch",
   },
-  // {
-  //   characterName: "Seofon",
-  //   imageLink: "https://i.imgur.com/Efr4Hhf.png",
-  // },
+  {
+    characterName: "Seofon",
+    imageLink: "https://i.imgur.com/evkM9BQ.png",
+    warpathEnhancement: 0.2,
+  },
 ];
 
 export function getCharacterImage(name: Character) {

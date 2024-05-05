@@ -10,6 +10,8 @@ import { TraitLiterals } from "@/types/traits.types";
 import Image from "next/image";
 import { useTranslation } from "../(i18n)/client";
 import { useParams } from "next/navigation";
+import { useStatsStore } from "@/stores/useStatsStore";
+import { useEffect } from "react";
 
 export const Weapon = () => {
   const params = useParams();
@@ -19,6 +21,7 @@ export const Weapon = () => {
   const isMaxAwakening = useBuildStore((state) => state.isMaxAwakening);
   const setIsTerminus = useBuildStore((state) => state.setIsTerminus);
   const setisMaxAwakening = useBuildStore((state) => state.setisMaxAwakening);
+  const isEternal = useStatsStore((state) => state.isEternal);
 
   const weaponImbues = useBuildStore((state) => state.weaponImbues);
   const updateWeaponImbues = useBuildStore((state) => state.updateWeaponImbues);
@@ -34,6 +37,10 @@ export const Weapon = () => {
             ),
     };
   });
+
+  useEffect(() => {
+    setIsTerminus(!isEternal);
+  }, [isEternal, setIsTerminus]);
 
   // const wrightstoneMainTraitOptions = sigilConstants.filter((sigil) => {
   //   sigil.sigilName === "Critical Hit Rate" || sigil.sigilName === "Exploiter";
@@ -68,8 +75,8 @@ export const Weapon = () => {
                     }
                   />
                 </div>
-                <div className="flex-1 grid grid-cols-7 gap-2">
-                  <div className="col-span-6">
+                <div className="flex-1 flex gap-2">
+                  <div className="flex-1">
                     <ComboBox
                       commandEmptyText="None"
                       options={allOptions}
@@ -112,6 +119,7 @@ export const Weapon = () => {
             <Switch
               checked={isTerminus}
               onCheckedChange={(value) => setIsTerminus(value as boolean)}
+              disabled={isEternal}
             />
           </div>
           <div className=" flex items-center space-x-4 rounded-md border p-4">

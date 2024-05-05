@@ -72,6 +72,8 @@ export const ImportDialog = () => {
           butterflies: 6,
           gravityWell: true,
           rageLevel: 0,
+          avatarActive: true,
+          uniqueSigilActive: true,
         });
         setTraitsTBI({
           sigilsEquipped: logsData.sigils.map((ldSigils) => {

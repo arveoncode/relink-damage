@@ -30,14 +30,20 @@ import { siegfriedSkills } from "@/constants/character/skills/siegfried";
 import { useSelectedRowsStore } from "@/stores/useSelectedRowsStore";
 import { ExportDialog } from "@/components/layouts/navbar/ExportDialog";
 import { tweyenSkills } from "@/constants/character/skills/tweyen";
+import { seofonSkills } from "@/constants/character/skills/seofon";
+import { characterConstants } from "@/constants/character/characters";
 
 export const SkillsTable = () => {
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
   const arvessFermare = useBuildStore((state) => state.arvessFermare);
   const butterflies = useBuildStore((state) => state.butterflies);
+  const artsLevel = useBuildStore((state) => state.artsLevel);
   const comboActive = useBuildStore((state) => state.comboActive);
+  const uniqueSigilActive = useBuildStore((state) => state.uniqueSigilActive);
   const statsStore = useStatsStore((state) => state);
   const overmasteryCrit = useBuildStore((state) => state.critHitRate);
+  const isWarpathActive = useBuildStore((state) => state.isWarpathActive);
+  const isLinkTime = useBuildStore((state) => state.isLinkTime);
   const [charData, setCharData] = useState<SkillCalculatedTable[]>([]);
   const setSelectedSkills = useSelectedRowsStore(
     (state) => state.setSelectedSkills
@@ -57,8 +63,77 @@ export const SkillsTable = () => {
       const sigilsSupplementary = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Supplementary DMG"
       )?.actualUseableLevel;
+      const warpathEquipped = statsStore.traitsTable.find(
+        (sigil) => sigil.traitName === "Warpath"
+      )?.actualUseableLevel;
+      const baseEnhancedDamageModifier: number = safeDecimalAdder([
+        selectedCharacter === "Tweyen" &&
+        statsStore.isAwakening &&
+        uniqueSigilActive
+          ? 0.1
+          : 0,
+        selectedCharacter === "Captain" &&
+        statsStore.isAwakening &&
+        artsLevel >= 2
+          ? artsLevel >= 4
+            ? 0.1
+            : artsLevel === 3
+            ? 0.075
+            : 0.05
+          : 0,
+        selectedCharacter === "Zeta" && arvessFermare ? 0.0625 : 0,
+      ]);
+
+      const charHasWarpathCondition = characterConstants.find(
+        (character) => character.characterName === selectedCharacter
+      )?.warpathCondition
+        ? true
+        : false;
 
       return _skills.map((skill) => {
+        //warpath stuff
+        const warpathModifier = characterConstants.find(
+          (character) => character.characterName === selectedCharacter
+        )?.warpathEnhancement as number;
+        const warpathCondition = ():
+          | string
+          | undefined
+          | keyof typeof skill.classification => {
+          const condition = characterConstants.find(
+            (character) => character.characterName === selectedCharacter
+          )?.warpathCondition;
+          if (skill.skill === condition) {
+            return condition;
+          } else if (condition?.length === 2) {
+            //returns key of skill.classification
+            switch (condition) {
+              case "Sp":
+                return "special";
+              case "S2":
+                return "sp2";
+              case "Ch":
+                return "charged";
+            }
+          } else {
+            return undefined;
+          }
+        };
+
+        const enhancedDamageModifier = safeDecimalAdder([
+          baseEnhancedDamageModifier,
+          charHasWarpathCondition
+            ? skill.skill === warpathCondition() ||
+              (skill.classification[
+                warpathCondition() as keyof typeof skill.classification
+              ] === true &&
+                isWarpathActive)
+              ? warpathModifier
+              : 0
+            : isWarpathActive
+            ? warpathModifier
+            : 0,
+        ]);
+
         const multi = safeDecimalAdder([
           // 1,
           safeDecimalMultiplier([
@@ -107,7 +182,8 @@ export const SkillsTable = () => {
                 ? 0.3
                 : 0)) *
             multi *
-            (statsStore.isWarElemental ? 1.2 : 1)
+            (statsStore.isWarElemental ? 1.2 : 1) *
+            (enhancedDamageModifier + 1)
         );
 
         const crit = Math.floor(
@@ -119,33 +195,90 @@ export const SkillsTable = () => {
                 ? 0.3
                 : 0)) *
             multi *
-            (statsStore.isWarElemental ? 1.2 : 1)
+            (statsStore.isWarElemental ? 1.2 : 1) *
+            (enhancedDamageModifier + 1)
         );
 
-        const critChance = safeDecimalAdder([
-          baseStatsAtLvl100(selectedCharacter).critHitRate,
-          overmasteryCrit,
-          sigilsCrit ? sigilsCrit : 0,
-          skill.classification.charged
-            ? sigilsLuckyCharge
-              ? sigilsLuckyCharge
-              : 0
-            : 0,
-        ]);
+        const critChance =
+          selectedCharacter === "Zeta" &&
+          warpathEquipped &&
+          (arvessFermare || isWarpathActive)
+            ? 1
+            : safeDecimalAdder([
+                baseStatsAtLvl100(selectedCharacter).critHitRate,
+                overmasteryCrit,
+                sigilsCrit ? sigilsCrit : 0,
+                skill.classification.charged
+                  ? sigilsLuckyCharge
+                    ? sigilsLuckyCharge
+                    : 0
+                  : 0,
+              ]);
 
-        const totalDamageCap = safeDecimalMultiplier([
-          skill.dmgCap,
-          safeDecimalAdder([
-            1,
-            statsStore.damageCap,
-            skill.classification.normal || skill.classification.linkAttack
-              ? statsStore.normalDamageCap
-              : 0,
-            skill.classification.skill ? statsStore.skillDamageCap : 0,
-            skill.classification.skyboundArt ? statsStore.sbaDamageCap : 0,
-          ]),
-          statsStore.isWarElemental ? 1.2 : 1,
-        ]);
+        const totalDamageCap = Math.floor(
+          safeDecimalMultiplier([
+            skill.dmgCap,
+            statsStore.isWarElemental ? 1.2 : 1,
+            enhancedDamageModifier + 1,
+            safeDecimalAdder([
+              1,
+              statsStore.damageCap,
+              skill.classification.normal || skill.classification.linkAttack
+                ? statsStore.normalDamageCap
+                : 0,
+              skill.classification.skill ? statsStore.skillDamageCap : 0,
+              skill.classification.skyboundArt ? statsStore.sbaDamageCap : 0,
+              selectedCharacter === "Percival" &&
+              statsStore.isAwakening &&
+              skill.skill === "Schlacht"
+                ? 0.5
+                : 0,
+              selectedCharacter === "Ghandagoza" &&
+              statsStore.isAwakening &&
+              skill.skill === "Raging Fist"
+                ? 0.5
+                : 0,
+              selectedCharacter === "Katalina" &&
+              statsStore.isAwakening &&
+              skill.classification.special
+                ? 0.15
+                : 0,
+              selectedCharacter === "Ferry" &&
+              statsStore.isAwakening &&
+              skill.skill === "Onslaught" &&
+              skill.modifier === "Release"
+                ? 0.45
+                : 0,
+              selectedCharacter === "Id" &&
+              statsStore.isAwakening &&
+              skill.classification.special
+                ? 0.3
+                : 0,
+              selectedCharacter === "Zeta" && skill.classification.special
+                ? 0.18
+                : 0,
+              selectedCharacter === "Siegfried" && skill.modifier === "timed"
+                ? 0.2
+                : 0,
+              selectedCharacter === "Rackam" &&
+              statsStore.isAwakening &&
+              skill.skill === "Bull's Eye Blast"
+                ? 0.25
+                : 0,
+              selectedCharacter === "Io" &&
+              skill.skill === "Stargaze" &&
+              statsStore.isAwakening &&
+              skill.modifier === "I"
+                ? 0.5
+                : 0,
+              selectedCharacter === "Vane" &&
+              isLinkTime &&
+              skill.classification.sp2
+                ? 0.8
+                : 0,
+            ]),
+          ])
+        );
 
         const damagePotential =
           skill.skillRatio <= 0
@@ -294,6 +427,9 @@ export const SkillsTable = () => {
       case "Tweyen":
         setCharData(calculateSkills(tweyenSkills));
         break;
+      case "Seofon":
+        setCharData(calculateSkills(seofonSkills));
+        break;
     }
   }, [
     selectedCharacter,
@@ -302,6 +438,10 @@ export const SkillsTable = () => {
     arvessFermare,
     butterflies,
     comboActive,
+    artsLevel,
+    isWarpathActive,
+    uniqueSigilActive,
+    isLinkTime,
   ]);
   return (
     <div className="flex flex-col gap-4">

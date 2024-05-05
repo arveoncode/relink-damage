@@ -40,6 +40,12 @@ export const useBuildStore = create(
       rageLevel: 0,
       setRageLevel: (rageLevel: number) =>
         set(() => ({ rageLevel: rageLevel })),
+      avatarActive: false,
+      setAvatarActive: (_avatarActive: boolean) =>
+        set(() => ({ avatarActive: _avatarActive })),
+      uniqueSigilActive: false,
+      setUniqueSigilActive: (_uniqueSigilActive: boolean) =>
+        set(() => ({ uniqueSigilActive: _uniqueSigilActive })),
       setCharacterStates: ({
         selectedCharacter,
         gravityWell,
@@ -48,6 +54,8 @@ export const useBuildStore = create(
         butterflies,
         highestLvlRose,
         rageLevel,
+        avatarActive,
+        uniqueSigilActive,
       }: CharacterStates) =>
         set(() => ({
           selectedCharacter: selectedCharacter,
@@ -57,6 +65,8 @@ export const useBuildStore = create(
           butterflies: butterflies,
           highestLvlRose: highestLvlRose,
           rageLevel: rageLevel,
+          avatarActive: avatarActive,
+          uniqueSigilActive: uniqueSigilActive,
         })),
       // Other Inputs State
       numberOfSkills: 4,
@@ -231,9 +241,6 @@ export const useBuildStore = create(
       isWarpathActive: false,
       setIsWarpathActive: (_isWarpathActive) =>
         set(() => ({ isWarpathActive: _isWarpathActive })),
-      isUniqueSigilActive: false,
-      setIsUniqueSigilActive: (_isUniqueSigilActive: boolean) =>
-        set(() => ({ isUniqueSigilActive: _isUniqueSigilActive })),
     }),
     {
       name: "build",

@@ -11,6 +11,8 @@ export interface CharacterStates {
   butterflies: number;
   highestLvlRose: number;
   rageLevel: number;
+  avatarActive: boolean;
+  uniqueSigilActive: boolean;
 }
 
 export interface CharacterStore extends CharacterStates {
@@ -29,6 +31,11 @@ export interface CharacterStore extends CharacterStates {
   setHighestLvlRose: (highestLvlRose: number) => void;
   // Ghandagoza
   setRageLevel: (rageLevel: number) => void;
+  // Tweyen
+  setUniqueSigilActive: (_uniqueSigilActive: boolean) => void;
+  // Seofon
+  setAvatarActive: (_avatarActive: boolean) => void;
+
   setCharacterStates: ({
     selectedCharacter,
     gravityWell,
@@ -37,6 +44,8 @@ export interface CharacterStore extends CharacterStates {
     butterflies,
     highestLvlRose,
     rageLevel,
+    avatarActive,
+    uniqueSigilActive,
   }: CharacterStates) => void;
 }
 

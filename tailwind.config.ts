@@ -65,6 +65,14 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      gridTemplateColumns: {
+        "auto-fill-xs": "repeat(auto-fill, minmax(144px, 1fr))",
+        "auto-fit-xs": "repeat(auto-fit, minmax(144px, 1fr))",
+        "auto-fill-sm": "repeat(auto-fill, minmax(160px, 1fr))",
+        "auto-fit-sm": "repeat(auto-fit, minmax(160px, 1fr))",
+        "auto-fill-md": "repeat(auto-fill, minmax(180px, 1fr))",
+        "auto-fit-md": "repeat(auto-fit, minmax(180px, 1fr))",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -94,7 +102,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "aurora": "aurora 60s linear infinite",
+        aurora: "aurora 60s linear infinite",
         "meteor-effect": "meteor 5s linear infinite",
       },
     },

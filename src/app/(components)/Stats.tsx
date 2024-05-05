@@ -4,7 +4,11 @@ import { baseStatsAtLvl100, masteryCap } from "@/constants/stats/stats";
 import { useStatsStore } from "@/stores/useStatsStore";
 import { useEffect } from "react";
 import { sigilLevelValues } from "@/constants/gear/sigilLevels";
-import { safeDecimalAdder, safeDecimalMultiplier } from "@/lib/calculators";
+import {
+  numberWithCommas,
+  safeDecimalAdder,
+  safeDecimalMultiplier,
+} from "@/lib/calculators";
 import { CheckCircle, XCircle } from "lucide-react";
 import { useBuildStore } from "@/stores/useBuildStore";
 
@@ -22,35 +26,31 @@ export const Stats = () => {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-2">
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid gap-2 grid-cols-auto-fill-sm">
+            <RawAttackBox />
             <RawPowerBox />
             <RawPowerCritBox />
             <StaminaModBox />
-            {/* <div>Tyranny Mod</div> */}
-          </div>
-          <div className="grid grid-cols-3 gap-2">
-            <WarElementalBox />
-            <AwakeningBox />
-            <FlightOverFightBox />
-          </div>
-          <div className="grid grid-cols-4 gap-2">
             <DamageCapBox />
             <NormalDamageCapBox />
             <SkillDamageCapBox />
             <SbaDamageCapBox />
-          </div>
-          <div className="grid grid-cols-4 gap-2">
             <RangedBonusBox />
             <ChargedBonusBox />
             <SkillBonusBox />
             <SBABonusBox />
-          </div>
-          <div className="grid grid-cols-4 gap-2">
             <WeakpointBox />
             <FinisherBonusBox />
             <ThrowBonusBox />
             <LinkBonusBox />
           </div>
+          <hr />
+          <div className="grid grid-cols-auto-fill-md gap-2">
+            <WarElementalBox />
+            <AwakeningBox />
+            <FlightOverFightBox />
+          </div>
+
           <HiddenStats />
           <StatsDebug />
         </div>
@@ -59,10 +59,65 @@ export const Stats = () => {
   );
 };
 
+const RawAttackBox = () => {
+  // Dependencies for calculation
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+  const isEternal = useStatsStore((state) => state.isEternal);
+  const isTermimus = useBuildStore((state) => state.isTerminus);
+  const setRawAttack = useStatsStore((state) => state.setRawAttack);
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
+  const isBoundary = useStatsStore((state) => state.isBoundary);
+  const rawAttack = useStatsStore((state) => state.rawAttack);
+  const attackOvermastery = useBuildStore((state) => state.attack);
+  useEffect(() => {
+    const sigilsAttack = traitsTable.find(
+      (trait) => trait.traitName === "ATK"
+    )?.value;
+    const sigilsTyranny = traitsTable.find(
+      (trait) => trait.traitName === "Tyranny"
+    )?.value;
+    const sigilsBerserker = traitsTable.find(
+      (trait) => trait.traitName === "Berserker"
+    )?.value;
+    const sigilsGlassCannon = traitsTable.find(
+      (trait) => trait.traitName === "Glass Cannon"
+    )?.value;
+    // FoF doesn't contain any useable values in constants
+    const sigilsFoF = traitsTable.find(
+      (trait) => trait.traitName === "Flight over Fight"
+    )?.actualUseableLevel;
+
+    setRawAttack(
+      safeDecimalMultiplier([
+        baseStatsAtLvl100(selectedCharacter).attack +
+          attackOvermastery +
+          (sigilsAttack !== undefined ? (sigilsAttack as number) : 0),
+        sigilsTyranny ? 1 + sigilsTyranny : 1,
+        // Berserker Modifier
+        sigilsBerserker ? 1 + sigilsBerserker : 1,
+        sigilsGlassCannon ? 1 + sigilsGlassCannon : 1,
+        // Terminus/Boundary Modifier
+        (isEternal && isBoundary) || (!isEternal && isTermimus) ? 1.5 : 1,
+        // Flight over Fight Modifier
+        sigilsFoF ? 0.5 : 1,
+      ])
+    );
+  }, [
+    setRawAttack,
+    traitsTable,
+    selectedCharacter,
+    attackOvermastery,
+    isBoundary,
+    isTermimus,
+    isEternal,
+  ]);
+  return <StatBox title="Attack Power" value={Math.round(rawAttack)} />;
+};
+
 const RawPowerBox = () => {
   // Dependencies for calculation
   const traitsTable = useStatsStore((state) => state.traitsTable);
-  const isTermimus = useBuildStore((state) => state.isTerminus);
+
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
   const artsLevel = useBuildStore((state) => state.artsLevel);
   const highestLvlRose = useBuildStore((state) => state.highestLvlRose);
@@ -77,19 +132,13 @@ const RawPowerBox = () => {
   const isLinkTime = useBuildStore((state) => state.isLinkTime);
   const rageLevel = useBuildStore((state) => state.rageLevel);
   const isEternal = useStatsStore((state) => state.isEternal);
-  const isBoundary = useStatsStore((state) => state.isBoundary);
+  const avatarActive = useBuildStore((state) => state.avatarActive);
+  const rawAttack = useStatsStore((state) => state.rawAttack);
   // Value Read in component
   const rawPower = useStatsStore((state) => state.rawPower);
 
   // Calculator
   useEffect(() => {
-    const sigilsAttack = traitsTable.find(
-      (trait) => trait.traitName === "ATK"
-    )?.value;
-    const sigilsTyranny = traitsTable.find(
-      (trait) => trait.traitName === "Tyranny"
-    )?.value;
-    // TODO: Life on the line
     const sigilsComboBooster = traitsTable.find(
       (trait) => trait.traitName === "Combo Booster"
     )?.value;
@@ -115,17 +164,6 @@ const RawPowerBox = () => {
     const sigilsPowerHungry = traitsTable.find(
       (trait) => trait.traitName === "Power Hungry"
     )?.value;
-    const sigilsGlassCannon = traitsTable.find(
-      (trait) => trait.traitName === "Glass Cannon"
-    )?.value;
-    const sigilsBerserker = traitsTable.find(
-      (trait) => trait.traitName === "Berserker"
-    )?.value;
-
-    // FoF doesn't contain any useable values in constants
-    const sigilsFoF = traitsTable.find(
-      (trait) => trait.traitName === "Flight over Fight"
-    )?.actualUseableLevel;
 
     // as per damage calc 2.6.8
     // raw power =
@@ -172,31 +210,21 @@ const RawPowerBox = () => {
     setRawPower(
       safeDecimalMultiplier([
         // Attack Power Modifier
-        safeDecimalAdder([
-          baseStatsAtLvl100(selectedCharacter).attack,
-          attackOvermastery,
-          sigilsAttack ? sigilsAttack : 0,
-        ]),
+        rawAttack,
         // Stamina Modifier
         staminaMod,
-        // Tyranny Modifier
-        sigilsTyranny ? 1 + sigilsTyranny : 1,
-        // Berserker Modifier
-        sigilsBerserker ? 1 + sigilsBerserker : 1,
+
         // Injury to insult modifier
         sigilsInjury ? 1 + sigilsInjury : 1,
-        // Glass Cannon Modifier
-        sigilsGlassCannon ? 1 + sigilsGlassCannon : 1,
+
         // Dodge Payback Modifier
         sigilsDodgePayback ? 1 + sigilsDodgePayback : 1,
-        // Terminus Modifier
-        isEternal && isBoundary ? 1.5 : isTermimus ? 1.5 : 1,
+
         // Defense Debuffs Modifier
         1 + defDebuffs,
         // Attack buffs Modifier
         1 + attackBuffs,
-        // Flight over Fight Modifier
-        sigilsFoF ? 0.5 : 1,
+
         // Link Time Modifier
         isLinkTime ? 1.2 : 1,
         // Aditive Modifiers
@@ -230,6 +258,9 @@ const RawPowerBox = () => {
           selectedCharacter === "Ghandagoza" && rageLevel >= 1
             ? 1 + Math.min(10, rageLevel) * 0.035
             : 0,
+          selectedCharacter === "Seofon" && avatarActive && isAwakening
+            ? 0.3
+            : 0,
         ]),
       ])
     );
@@ -241,7 +272,6 @@ const RawPowerBox = () => {
     isAwakening,
     traitsTable,
     attackOvermastery,
-    isTermimus,
     selectedCharacter,
     attackBuffs,
     defDebuffs,
@@ -249,8 +279,9 @@ const RawPowerBox = () => {
     comboActive,
     setRawPower,
     rageLevel,
-    isBoundary,
     isEternal,
+    rawAttack,
+    avatarActive,
   ]);
   return <StatBox title="Raw Power" value={rawPower} />;
 };
@@ -287,6 +318,7 @@ const DamageCapBox = () => {
   const setDamageCap = useStatsStore((state) => state.setDamageCap);
   const isEternal = useStatsStore((state) => state.isEternal);
   const isBoundary = useStatsStore((state) => state.isBoundary);
+  const avatarActive = useBuildStore((state) => state.avatarActive);
   // Value Read in component
   const damageCap = useStatsStore((state) => state.damageCap);
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
@@ -309,8 +341,9 @@ const DamageCapBox = () => {
         sigilsDmgCap ? sigilsDmgCap : 0,
         gammaDmgCap ? gammaDmgCap : 0,
         glassCannonDmgCap ? glassCannonDmgCap : 0,
-        isEternal && isBoundary ? 1 : isTermimus ? 1 : 0,
+        (isEternal && isBoundary) || (!isEternal && isTermimus) ? 1 : 0,
         selectedCharacter === "Vaseraga" && isLinkTime ? 0.6 : 0,
+        selectedCharacter === "Seofon" && avatarActive ? 0.15 : 0,
         // selectedCharacter === "Seofon"
       ])
     );
@@ -321,6 +354,7 @@ const DamageCapBox = () => {
     isBoundary,
     isLinkTime,
     selectedCharacter,
+    avatarActive,
     setDamageCap,
   ]);
 
@@ -375,6 +409,7 @@ const NormalDamageCapBox = () => {
   // Dependencies for calculation
   const traitsTable = useStatsStore((state) => state.traitsTable);
   const isTermimus = useBuildStore((state) => state.isTerminus);
+  const isEternal = useStatsStore((state) => state.isEternal);
   const overmasteryNormalCapUp = useBuildStore(
     (state) => state.normalDamageCapUp
   );
@@ -390,12 +425,18 @@ const NormalDamageCapBox = () => {
     setNormalDamageCap(
       safeDecimalAdder([
         alphaDmgCap ? alphaDmgCap : 0,
-        isTermimus ? 0.2 : 0,
+        isEternal || (!isEternal && isTermimus) ? 0.2 : 0,
         overmasteryNormalCapUp,
         masteryCap,
       ])
     );
-  }, [traitsTable, isTermimus, overmasteryNormalCapUp, setNormalDamageCap]);
+  }, [
+    traitsTable,
+    isTermimus,
+    overmasteryNormalCapUp,
+    setNormalDamageCap,
+    isEternal,
+  ]);
   return <StatBox title="Normal DMG Cap" value={normalDamageCap} percentage />;
 };
 
@@ -403,6 +444,7 @@ const SkillDamageCapBox = () => {
   // Dependencies for calculation
   const traitsTable = useStatsStore((state) => state.traitsTable);
   const isTermimus = useBuildStore((state) => state.isTerminus);
+  const isEternal = useStatsStore((state) => state.isEternal);
   const setSkillDamageCap = useStatsStore((state) => state.setSkillDamageCap);
   const overmasterySkillCapUp = useBuildStore(
     (state) => state.skillDamageCapUp
@@ -416,27 +458,38 @@ const SkillDamageCapBox = () => {
     setSkillDamageCap(
       safeDecimalAdder([
         betaDmgCap ? betaDmgCap : 0,
-        isTermimus ? 0.2 : 0,
+        isEternal || (!isEternal && isTermimus) ? 0.2 : 0,
         overmasterySkillCapUp,
         masteryCap,
       ])
     );
-  }, [traitsTable, isTermimus, overmasterySkillCapUp, setSkillDamageCap]);
+  }, [
+    traitsTable,
+    isTermimus,
+    overmasterySkillCapUp,
+    setSkillDamageCap,
+    isEternal,
+  ]);
   return <StatBox title="Skill DMG Cap" value={skillDamageCap} percentage />;
 };
 
 const SbaDamageCapBox = () => {
   // Dependencies for calculation
   const isTermimus = useBuildStore((state) => state.isTerminus);
+  const isEternal = useStatsStore((state) => state.isEternal);
   const setSbaDamageCap = useStatsStore((state) => state.setSbaDamageCap);
   const overmasterySbaCapUp = useBuildStore((state) => state.sbaDamageCapUp);
   // Value Read in component
   const sbaDamageCap = useStatsStore((state) => state.sbaDamageCap);
   useEffect(() => {
     setSbaDamageCap(
-      safeDecimalAdder([isTermimus ? 0.2 : 0, overmasterySbaCapUp, masteryCap])
+      safeDecimalAdder([
+        isEternal || (!isEternal && isTermimus) ? 0.2 : 0,
+        overmasterySbaCapUp,
+        masteryCap,
+      ])
     );
-  }, [isTermimus, overmasterySbaCapUp, setSbaDamageCap]);
+  }, [isTermimus, overmasterySbaCapUp, setSbaDamageCap, isEternal]);
   return <StatBox title="SBA DMG Cap" value={sbaDamageCap} percentage />;
 };
 
@@ -541,6 +594,7 @@ const SBABonusBox = () => {
   const traitsTable = useStatsStore((state) => state.traitsTable);
   const sbaDamageUp = useBuildStore((state) => state.sbaDamageUp);
   const setSbaBonus = useStatsStore((state) => state.setSbaBonus);
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
   // Value Read in component
   const sbaBonus = useStatsStore((state) => state.sbaBonus);
   useEffect(() => {
@@ -557,11 +611,12 @@ const SBABonusBox = () => {
         safeDecimalMultiplier([
           1 + sigilsLTValue,
           safeDecimalAdder([1, sbaDamageUp, 0.2]),
+          selectedCharacter === "Seofon" ? 1.1 : 1,
         ]),
         -1,
       ])
     );
-  }, [traitsTable, sbaDamageUp, setSbaBonus]);
+  }, [traitsTable, sbaDamageUp, setSbaBonus, selectedCharacter]);
 
   return <StatBox title="SBA Bonus" value={sbaBonus} percentage />;
 };
@@ -671,7 +726,7 @@ const TraitBooleanBox = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex gap-2 justify-center text-sm">
+        <CardTitle className="flex flex-wrap gap-2 justify-center align-middle my-auto text-sm">
           {traitTitle}{" "}
           {traitIsActive ? (
             <CheckCircle className="h-4 w-4" />
@@ -699,7 +754,9 @@ const StatBox = ({
         <CardTitle className="text-sm text-center">{title}</CardTitle>
       </CardHeader>
       <CardContent className="text-lg font-bold text-center pb-4">
-        {percentage ? `${Math.round(value * 10000) / 100}%` : value}
+        {percentage
+          ? `${Math.round(value * 10000) / 100}%`
+          : numberWithCommas(Math.round(value * 100) / 100)}
       </CardContent>
     </Card>
   );
@@ -714,7 +771,10 @@ const HiddenStats = () => {
     const sigilsBoundary = traitsTable.find(
       (trait) => trait.traitName === "Boundary"
     )?.actualUseableLevel;
-    const isEternal = selectedCharacter === "Tweyen" ? true : false;
+    const isEternal =
+      selectedCharacter === "Tweyen" || selectedCharacter === "Seofon"
+        ? true
+        : false;
 
     setIsBoundary(sigilsBoundary ? true : false);
     setIsEternal(isEternal);

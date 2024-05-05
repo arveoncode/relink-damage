@@ -14,7 +14,7 @@ import { ColumnDef } from "@tanstack/react-table";
 export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
   {
     id: "calculations",
-    header: () => <div className="px-2">Calculations (2.6.8)</div>,
+    header: () => <div className="px-2">Calculations (2.9.4)</div>,
     columns: [
       // {
       //   id: "select",
@@ -113,6 +113,9 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
             )}
             {row.original.classification.pet && (
               <SkillClassificationBadge abrv="Pe" full="Pet" />
+            )}
+            {row.original.classification.sp2 && (
+              <SkillClassificationBadge abrv="S2" full="Vane Special" />
             )}
           </div>
         ),

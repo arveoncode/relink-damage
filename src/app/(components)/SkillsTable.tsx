@@ -31,6 +31,7 @@ import { useSelectedRowsStore } from "@/stores/useSelectedRowsStore";
 import { ExportDialog } from "@/components/layouts/navbar/ExportDialog";
 import { tweyenSkills } from "@/constants/character/skills/tweyen";
 import { seofonSkills } from "@/constants/character/skills/seofon";
+import { characterConstants } from "@/constants/character/characters";
 
 export const SkillsTable = () => {
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
@@ -65,7 +66,7 @@ export const SkillsTable = () => {
       const warpathEquipped = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Warpath"
       )?.actualUseableLevel;
-      const enhancedDamageModifier: number = safeDecimalAdder([
+      const baseEnhancedDamageModifier: number = safeDecimalAdder([
         selectedCharacter === "Tweyen" && isAwakening && uniqueSigilActive
           ? 0.1
           : 0,
@@ -79,7 +80,56 @@ export const SkillsTable = () => {
         selectedCharacter === "Zeta" && arvessFermare ? 0.0625 : 0,
       ]);
 
+      const charHasWarpathCondition = characterConstants.find(
+        (character) => character.characterName === selectedCharacter
+      )?.warpathCondition
+        ? true
+        : false;
+
       return _skills.map((skill) => {
+        //warpath stuff
+        const warpathModifier = characterConstants.find(
+          (character) => character.characterName === selectedCharacter
+        )?.warpathEnhancement as number;
+        const warpathCondition = ():
+          | string
+          | undefined
+          | keyof typeof skill.classification => {
+          const condition = characterConstants.find(
+            (character) => character.characterName === selectedCharacter
+          )?.warpathCondition;
+          if (skill.skill === condition) {
+            return condition;
+          } else if (condition?.length === 2) {
+            //returns key of skill.classification
+            switch (condition) {
+              case "Sp":
+                return "special";
+              case "S2":
+                return "sp2";
+              case "Ch":
+                return "charged";
+            }
+          } else {
+            return undefined;
+          }
+        };
+
+        const enhancedDamageModifier = safeDecimalAdder([
+          baseEnhancedDamageModifier,
+          charHasWarpathCondition
+            ? skill.skill === warpathCondition() ||
+              (skill.classification[
+                warpathCondition() as keyof typeof skill.classification
+              ] === true &&
+                isWarpathActive)
+              ? warpathModifier
+              : 0
+            : isWarpathActive
+            ? warpathModifier
+            : 0,
+        ]);
+
         const multi = safeDecimalAdder([
           // 1,
           safeDecimalMultiplier([
@@ -128,7 +178,8 @@ export const SkillsTable = () => {
                 ? 0.3
                 : 0)) *
             multi *
-            (statsStore.isWarElemental ? 1.2 : 1)
+            (statsStore.isWarElemental ? 1.2 : 1) *
+            (enhancedDamageModifier + 1)
         );
 
         const crit = Math.floor(
@@ -140,7 +191,8 @@ export const SkillsTable = () => {
                 ? 0.3
                 : 0)) *
             multi *
-            (statsStore.isWarElemental ? 1.2 : 1)
+            (statsStore.isWarElemental ? 1.2 : 1) *
+            (enhancedDamageModifier + 1)
         );
 
         const critChance =
@@ -163,6 +215,7 @@ export const SkillsTable = () => {
           safeDecimalMultiplier([
             skill.dmgCap,
             statsStore.isWarElemental ? 1.2 : 1,
+            enhancedDamageModifier + 1,
             safeDecimalAdder([
               1,
               statsStore.damageCap,
@@ -333,6 +386,10 @@ export const SkillsTable = () => {
     arvessFermare,
     butterflies,
     comboActive,
+    artsLevel,
+    isAwakening,
+    isWarpathActive,
+    uniqueSigilActive,
   ]);
   return (
     <div className="flex flex-col gap-4">

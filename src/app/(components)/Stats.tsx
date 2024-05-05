@@ -132,7 +132,7 @@ const RawPowerBox = () => {
   const isLinkTime = useBuildStore((state) => state.isLinkTime);
   const rageLevel = useBuildStore((state) => state.rageLevel);
   const isEternal = useStatsStore((state) => state.isEternal);
-
+  const avatarActive = useBuildStore((state) => state.avatarActive);
   const rawAttack = useStatsStore((state) => state.rawAttack);
   // Value Read in component
   const rawPower = useStatsStore((state) => state.rawPower);
@@ -258,6 +258,9 @@ const RawPowerBox = () => {
           selectedCharacter === "Ghandagoza" && rageLevel >= 1
             ? 1 + Math.min(10, rageLevel) * 0.035
             : 0,
+          selectedCharacter === "Seofon" && avatarActive && isAwakening
+            ? 0.3
+            : 0,
         ]),
       ])
     );
@@ -278,6 +281,7 @@ const RawPowerBox = () => {
     rageLevel,
     isEternal,
     rawAttack,
+    avatarActive,
   ]);
   return <StatBox title="Raw Power" value={rawPower} />;
 };
@@ -314,6 +318,7 @@ const DamageCapBox = () => {
   const setDamageCap = useStatsStore((state) => state.setDamageCap);
   const isEternal = useStatsStore((state) => state.isEternal);
   const isBoundary = useStatsStore((state) => state.isBoundary);
+  const avatarActive = useBuildStore((state) => state.avatarActive);
   // Value Read in component
   const damageCap = useStatsStore((state) => state.damageCap);
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
@@ -338,6 +343,7 @@ const DamageCapBox = () => {
         glassCannonDmgCap ? glassCannonDmgCap : 0,
         (isEternal && isBoundary) || (!isEternal && isTermimus) ? 1 : 0,
         selectedCharacter === "Vaseraga" && isLinkTime ? 0.6 : 0,
+        selectedCharacter === "Seofon" && avatarActive ? 0.15 : 0,
         // selectedCharacter === "Seofon"
       ])
     );
@@ -348,6 +354,7 @@ const DamageCapBox = () => {
     isBoundary,
     isLinkTime,
     selectedCharacter,
+    avatarActive,
     setDamageCap,
   ]);
 
@@ -764,7 +771,10 @@ const HiddenStats = () => {
     const sigilsBoundary = traitsTable.find(
       (trait) => trait.traitName === "Boundary"
     )?.actualUseableLevel;
-    const isEternal = selectedCharacter === "Tweyen" ? true : false;
+    const isEternal =
+      selectedCharacter === "Tweyen" || selectedCharacter === "Seofon"
+        ? true
+        : false;
 
     setIsBoundary(sigilsBoundary ? true : false);
     setIsEternal(isEternal);

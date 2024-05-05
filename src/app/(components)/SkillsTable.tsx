@@ -42,8 +42,8 @@ export const SkillsTable = () => {
   const uniqueSigilActive = useBuildStore((state) => state.uniqueSigilActive);
   const statsStore = useStatsStore((state) => state);
   const overmasteryCrit = useBuildStore((state) => state.critHitRate);
-  const isAwakening = useStatsStore((state) => state.isAwakening);
   const isWarpathActive = useBuildStore((state) => state.isWarpathActive);
+  const isLinkTime = useBuildStore((state) => state.isLinkTime);
   const [charData, setCharData] = useState<SkillCalculatedTable[]>([]);
   const setSelectedSkills = useSelectedRowsStore(
     (state) => state.setSelectedSkills
@@ -67,10 +67,14 @@ export const SkillsTable = () => {
         (sigil) => sigil.traitName === "Warpath"
       )?.actualUseableLevel;
       const baseEnhancedDamageModifier: number = safeDecimalAdder([
-        selectedCharacter === "Tweyen" && isAwakening && uniqueSigilActive
+        selectedCharacter === "Tweyen" &&
+        statsStore.isAwakening &&
+        uniqueSigilActive
           ? 0.1
           : 0,
-        selectedCharacter === "Captain" && isAwakening && artsLevel >= 2
+        selectedCharacter === "Captain" &&
+        statsStore.isAwakening &&
+        artsLevel >= 2
           ? artsLevel >= 4
             ? 0.1
             : artsLevel === 3
@@ -224,6 +228,54 @@ export const SkillsTable = () => {
                 : 0,
               skill.classification.skill ? statsStore.skillDamageCap : 0,
               skill.classification.skyboundArt ? statsStore.sbaDamageCap : 0,
+              selectedCharacter === "Percival" &&
+              statsStore.isAwakening &&
+              skill.skill === "Schlacht"
+                ? 0.5
+                : 0,
+              selectedCharacter === "Ghandagoza" &&
+              statsStore.isAwakening &&
+              skill.skill === "Raging Fist"
+                ? 0.5
+                : 0,
+              selectedCharacter === "Katalina" &&
+              statsStore.isAwakening &&
+              skill.classification.special
+                ? 0.15
+                : 0,
+              selectedCharacter === "Ferry" &&
+              statsStore.isAwakening &&
+              skill.skill === "Onslaught" &&
+              skill.modifier === "Release"
+                ? 0.45
+                : 0,
+              selectedCharacter === "Id" &&
+              statsStore.isAwakening &&
+              skill.classification.special
+                ? 0.3
+                : 0,
+              selectedCharacter === "Zeta" && skill.classification.special
+                ? 0.18
+                : 0,
+              selectedCharacter === "Siegfried" && skill.modifier === "timed"
+                ? 0.2
+                : 0,
+              selectedCharacter === "Rackam" &&
+              statsStore.isAwakening &&
+              skill.skill === "Bull's Eye Blast"
+                ? 0.25
+                : 0,
+              selectedCharacter === "Io" &&
+              skill.skill === "Stargaze" &&
+              statsStore.isAwakening &&
+              skill.modifier === "I"
+                ? 0.5
+                : 0,
+              selectedCharacter === "Vane" &&
+              isLinkTime &&
+              skill.classification.sp2
+                ? 0.8
+                : 0,
             ]),
           ])
         );
@@ -387,9 +439,9 @@ export const SkillsTable = () => {
     butterflies,
     comboActive,
     artsLevel,
-    isAwakening,
     isWarpathActive,
     uniqueSigilActive,
+    isLinkTime,
   ]);
   return (
     <div className="flex flex-col gap-4">

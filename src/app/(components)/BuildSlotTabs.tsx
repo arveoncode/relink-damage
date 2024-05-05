@@ -46,6 +46,8 @@ export const BuildSlotTabs = () => {
         butterflies: buildState.butterflies,
         highestLvlRose: buildState.highestLvlRose,
         rageLevel: buildState.rageLevel,
+        avatarActive: buildState.avatarActive,
+        uniqueSigilActive: buildState.uniqueSigilActive,
       },
       traits: {
         sigilsEquipped: buildState.sigilsEquipped,
@@ -62,8 +64,7 @@ export const BuildSlotTabs = () => {
         backAttack: buildState.backAttack,
         weakPointAttack: buildState.weakPointAttack,
         isLinkTime: buildState.isLinkTime,
-        isUniqueSigilActive: buildState.isUniqueSigilActive,
-        isWarpathActive: buildState.isUniqueSigilActive,
+        isWarpathActive: buildState.isWarpathActive,
       },
       overmasteries: {
         attack: buildState.attack,
@@ -129,6 +130,8 @@ const LoadSlotAlertDialog = ({ buildSlot }: { buildSlot: BuildSlot }) => {
       butterflies: buildSlot.character.butterflies,
       highestLvlRose: buildSlot.character.highestLvlRose,
       rageLevel: buildSlot.character.rageLevel,
+      avatarActive: buildSlot.character.avatarActive,
+      uniqueSigilActive: buildSlot.character.uniqueSigilActive,
     });
     //sigils && weapons
     buildStore.setTraitsStates({
@@ -221,6 +224,8 @@ const SaveSlotAlertDialog = ({
                     butterflies: buildState.butterflies,
                     highestLvlRose: buildState.highestLvlRose,
                     rageLevel: buildState.rageLevel,
+                    avatarActive: buildState.avatarActive,
+                    uniqueSigilActive: buildState.uniqueSigilActive,
                   },
                   traits: {
                     sigilsEquipped: buildState.sigilsEquipped,
@@ -238,7 +243,6 @@ const SaveSlotAlertDialog = ({
                     weakPointAttack: buildState.weakPointAttack,
                     isLinkTime: buildState.isLinkTime,
                     isWarpathActive: buildState.isWarpathActive,
-                    isUniqueSigilActive: buildState.isUniqueSigilActive,
                   },
                   overmasteries: {
                     attack: buildState.attack,

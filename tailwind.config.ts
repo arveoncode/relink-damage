@@ -70,6 +70,8 @@ const config = {
         "auto-fit-xs": "repeat(auto-fit, minmax(144px, 1fr))",
         "auto-fill-sm": "repeat(auto-fill, minmax(160px, 1fr))",
         "auto-fit-sm": "repeat(auto-fit, minmax(160px, 1fr))",
+        "auto-fill-md": "repeat(auto-fill, minmax(180px, 1fr))",
+        "auto-fit-md": "repeat(auto-fit, minmax(180px, 1fr))",
       },
       keyframes: {
         "accordion-down": {

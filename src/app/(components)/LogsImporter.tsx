@@ -63,6 +63,8 @@ export const LogsImporter = () => {
             butterflies: 6,
             gravityWell: true,
             rageLevel: 0,
+            uniqueSigilActive: true,
+            avatarActive: true,
           });
           setTraitsTBI({
             sigilsEquipped: logsData.sigils.map((ldSigils) => {

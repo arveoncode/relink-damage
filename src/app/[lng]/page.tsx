@@ -19,15 +19,15 @@ export default function Home({ params: { lng } }: { params: { lng: string } }) {
   return (
     <main className="flex flex-col relative">
       <BannerNotif />
-      <div className="px-8 flex justify-between flex-wrap">
+      <div className="px-4 lg:px-8 flex justify-between flex-wrap">
         <BuildSlotTabs />
         <div className="flex gap-4 flex-wrap">
           <ExportDialog defaultTab="link" />
           <ImportDialog />
         </div>
       </div>
-      <div className="flex flex-wrap xl:grid grid-cols-10 gap-4 p-8">
-        <div className="flex flex-col gap-4 col-span-2">
+      <div className="flex flex-wrap lg:grid grid-cols-10 gap-4 px-4 lg:px-8 py-8">
+        <div className="flex flex-col gap-4 col-span-2 flex-1">
           <CharacterPicker />
           <Overmasteries />
           <OtherInputs />
@@ -36,7 +36,7 @@ export default function Home({ params: { lng } }: { params: { lng: string } }) {
           <Sigils />
           <Weapon />
         </div>
-        <div className="col-span-4 flex flex-col gap-4">
+        <div className="flex-1 col-span-4 flex flex-col gap-4 md:min-w-[32rem]">
           <Traits />
           <Stats />
         </div>

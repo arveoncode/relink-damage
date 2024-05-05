@@ -114,7 +114,7 @@ export const Traits = () => {
     isEternal,
   ]);
   return (
-    <Card className="rounded-lg col-span-2 bg-background/50">
+    <Card className="rounded-lg bg-background/50">
       <CardHeader className="">
         <CardTitle className="flex gap-4">
           <hr className="flex-1 my-auto" />

@@ -23,6 +23,12 @@ const changelogs: ChangeLogItem[] = [
       "Removed row selection on skills table. Maybe a future update to optionally include skills on export of image?",
     ],
   },
+  {
+    version: "1.0.2",
+    changelogs: [
+      "Fixed Combo Finisher DMG sigil not providing a finisher bonus.",
+    ],
+  },
 ];
 
 export const BannerNotif = () => {

@@ -541,7 +541,6 @@ const FinisherBonusBox = () => {
     const sigilsFinisher = traitsTable.find(
       (sigil) => sigil.traitName === "Combo Finisher DMG"
     )?.value;
-
     setFinisherBonus(sigilsFinisher ? sigilsFinisher : 0);
   }, [traitsTable, setFinisherBonus]);
 
@@ -783,13 +782,13 @@ const HiddenStats = () => {
 };
 
 const StatsDebug = () => {
-  // for debugging purposes
+  //for debugging purposes
 
-  // const stats = useStatsStore((state) => state);
-  // const build = useBuildStore((state) => state);
-  // useEffect(() => {
-  //   console.log(stats);
-  //   console.log(build);
-  // }, [stats, build]);
+  const stats = useStatsStore((state) => state);
+  const build = useBuildStore((state) => state);
+  useEffect(() => {
+    console.log(stats);
+    console.log(build);
+  }, [stats, build]);
   return <></>;
 };

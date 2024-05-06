@@ -784,11 +784,11 @@ const HiddenStats = () => {
 const StatsDebug = () => {
   //for debugging purposes
 
-  const stats = useStatsStore((state) => state);
-  const build = useBuildStore((state) => state);
-  useEffect(() => {
-    console.log(stats);
-    console.log(build);
-  }, [stats, build]);
+  // const stats = useStatsStore((state) => state);
+  // const build = useBuildStore((state) => state);
+  // useEffect(() => {
+  //   console.log(stats);
+  //   console.log(build);
+  // }, [stats, build]);
   return <></>;
 };

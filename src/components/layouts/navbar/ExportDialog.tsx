@@ -86,7 +86,14 @@ export const ExportDialog = ({
                   <div>
                     <div className="grid grid-cols-5 gap-4 p-4">
                       <div className="col-span-2 flex flex-col gap-4">
-                        <div className=" grid grid-cols-3 gap-4 my-auto">
+                        <div className=" flex flex-col gap-4 my-auto">
+                          <div className="flex gap-2">
+                            <hr className="flex-1 my-auto" />
+                            <p className="font-bold my-auto">
+                              {buildState.selectedCharacter}
+                            </p>
+                            <hr className="flex-1 my-auto" />
+                          </div>
                           <div className="relative aspect-square w-full">
                             <div
                               style={{
@@ -104,13 +111,6 @@ export const ExportDialog = ({
                                 backgroundPosition: "center",
                               }}
                             />
-                          </div>
-                          <div className="flex gap-2 col-span-2">
-                            <hr className="flex-1 my-auto" />
-                            <p className="font-bold my-auto">
-                              {buildState.selectedCharacter}
-                            </p>
-                            <hr className="flex-1 my-auto" />
                           </div>
                         </div>
                         <div className="flex flex-col gap-4">
@@ -188,7 +188,7 @@ export const ExportDialog = ({
                             )}
                           </div>
                         </div>
-                        <div className="flex flex-col gap-4">
+                        {/* <div className="flex flex-col gap-4">
                           <div className="flex gap-4">
                             <hr className="flex-1 my-auto" />
                             <h6>Other Inputs</h6>
@@ -232,7 +232,7 @@ export const ExportDialog = ({
                               value={buildState.isLinkTime}
                             />
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="col-span-3 flex flex-col gap-4">
                         <div className="flex flex-col gap-4">

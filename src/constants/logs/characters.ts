@@ -59,7 +59,7 @@ export function convertLogsToCalculatorCharacter(
     case "Pl2100":
     // for sandalphon
     case "Pl2200":
-    // for seofon
+      return "Seofon" as Character;
     case "Pl2300":
       return "Tweyen" as Character;
     case "Pl2400":

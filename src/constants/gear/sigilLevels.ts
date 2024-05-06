@@ -227,7 +227,7 @@ export const sigilLevelLiteral = [
   "Injury to Insult",
   "Less Is More",
   "Combo Booster",
-  "Combo Finisher",
+  "Combo Finisher DMG",
   "Throw",
   "Head Start",
   "Berserker",

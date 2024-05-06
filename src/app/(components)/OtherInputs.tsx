@@ -39,6 +39,7 @@ export const OtherInputs = () => {
   const setWeakpointAttack = useBuildStore((state) => state.setWeakpointAttack);
   const setIsLinkTime = useBuildStore((state) => state.setIsLinkTime);
   const setIsWarpathActive = useBuildStore((state) => state.setIsWarpathActive);
+
   return (
     <Card>
       <CardHeader>

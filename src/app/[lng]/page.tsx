@@ -19,7 +19,7 @@ export default function Home({ params: { lng } }: { params: { lng: string } }) {
   return (
     <main className="flex flex-col relative">
       <BannerNotif />
-      <div className="px-4 lg:px-8 flex justify-between flex-wrap">
+      <div className="px-4 lg:px-8 flex justify-between flex-wrap gap-4">
         <BuildSlotTabs />
         <div className="flex gap-4 flex-wrap">
           <ExportDialog defaultTab="link" />

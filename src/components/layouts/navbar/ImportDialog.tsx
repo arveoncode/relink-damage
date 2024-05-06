@@ -1,4 +1,5 @@
 "use client";
+import { RecommendedBuilds } from "@/app/(components)/RecommendedBuilds";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,6 +33,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export const ImportDialog = () => {
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
   const setCharacterStates = useBuildStore((state) => state.setCharacterStates);
   const setOvermasteriesStates = useBuildStore(
     (state) => state.setOvermasteriesStates
@@ -171,20 +173,20 @@ export const ImportDialog = () => {
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-3xl">
-        <Tabs defaultValue="from-logs">
+        <Tabs defaultValue="from-app">
           <DialogHeader>
             <div className="flex">
               <TabsList>
-                {/* <TabsTrigger value="from-app">
-                  Import from Calculator
-                </TabsTrigger> */}
+                <TabsTrigger value="from-app">Recommended Builds</TabsTrigger>
                 <TabsTrigger value="from-logs">
                   Import from GBFR-Logs
                 </TabsTrigger>
               </TabsList>
             </div>
           </DialogHeader>
-          <TabsContent value="from-app"></TabsContent>
+          <TabsContent value="from-app">
+            <RecommendedBuilds defaultCharacter={selectedCharacter} />
+          </TabsContent>
           <TabsContent value="from-logs">
             <div className="grid gap-4 grid-cols-2">
               <div className="flex flex-col gap-4 py-4">

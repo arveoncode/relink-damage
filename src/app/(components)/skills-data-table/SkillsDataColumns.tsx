@@ -111,6 +111,12 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
             {row.original.classification.finisher && (
               <SkillClassificationBadge abrv="Fi" full="Combo Finisher" />
             )}
+            {row.original.classification.flat && (
+              <SkillClassificationBadge
+                abrv="Fl"
+                full="Flat Damage: unaffected by caps"
+              />
+            )}
             {row.original.classification.pet && (
               <SkillClassificationBadge abrv="Pe" full="Pet" />
             )}

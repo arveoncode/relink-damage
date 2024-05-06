@@ -2,15 +2,6 @@ import { SkillConstant, SkillJsonRaw } from "@/types/skill.types";
 
 export const convertSkills = (_skillsJson: SkillJsonRaw[]) => {
   const convertedSkills: SkillConstant[] = _skillsJson.map((sk) => {
-    // classification: {
-    //     normal: true,
-    //     ranged: true,
-    //     charged: true,
-    //     skill: false,
-    //     skyboundArt: false,
-    //     linkAttack: false,
-    //     finisher: false,
-    //   },
     const classification: SkillConstant["classification"] = {
       ...(sk.Classification.includes("No") && { normal: true }),
       ...(sk.Classification.includes("Ra") && { ranged: true }),
@@ -23,6 +14,7 @@ export const convertSkills = (_skillsJson: SkillJsonRaw[]) => {
       ...(sk.Classification.includes("Th") && { throw: true }),
       ...(sk.Classification.includes("Sp") && { special: true }),
       ...(sk.Classification.includes("S2") && { sp2: true }),
+      ...(sk.Classification.includes("Fl") && { flat: true }),
     };
     return {
       skill: sk.Skill,

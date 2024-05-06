@@ -12,7 +12,7 @@ export interface SkillConstant {
     skyboundArt?: boolean;
     linkAttack?: boolean;
     finisher?: boolean;
-
+    flat?: boolean;
     //Unique
     //Ferry
     pet?: boolean;

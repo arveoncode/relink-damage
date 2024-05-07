@@ -172,7 +172,7 @@ export const ImportDialog = () => {
           Import Build
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-3xl">
+      <DialogContent className="max-w-5xl">
         <Tabs defaultValue="from-app">
           <DialogHeader>
             <div className="flex">

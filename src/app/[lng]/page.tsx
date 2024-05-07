@@ -41,7 +41,7 @@ export default function Home({ params: { lng } }: { params: { lng: string } }) {
           <Stats />
         </div>
       </div>
-      <div className="p-8 bg-white">
+      <div className="p-8 bg-background">
         <SkillsTable />
       </div>
       <Suspense>

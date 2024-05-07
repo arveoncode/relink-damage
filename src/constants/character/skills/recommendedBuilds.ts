@@ -1,15 +1,13 @@
+import { Equipment } from "@/types/app.types";
 import { Character } from "@/types/character.types";
-import { Overmasteries } from "@/types/overmasteries.types";
-import { SigilSet, Trait } from "@/types/traits.types";
 
 interface RecommendedBuildPage {
   character: Character;
-  builds: {
-    name: string;
-    sigils: SigilSet[];
-    overmasteries: Overmasteries;
-    weaponImbues: Trait[];
-  }[];
+  builds: SampleBuild[];
+}
+
+interface SampleBuild extends Equipment {
+  name: string;
 }
 
 export const recommendedBuilds: RecommendedBuildPage[] = [
@@ -36,7 +34,8 @@ export const recommendedBuilds: RecommendedBuildPage[] = [
     builds: [
       {
         name: "Default Tweyen",
-        sigils: [
+        selectedCharacter: "Tweyen",
+        sigilsEquipped: [
           { sigil1: "Alpha", sigil2: "DMG Cap", level: 15 },
           { sigil1: "Alpha", sigil2: "DMG Cap", level: 15 },
           { sigil1: "Gamma", sigil2: "DMG Cap", level: 15 },
@@ -52,13 +51,13 @@ export const recommendedBuilds: RecommendedBuildPage[] = [
             level: 15,
           },
           {
-            sigil1: "Supplementary DMG",
-            sigil2: "Quick Charge",
+            sigil1: "Quick Charge",
+            sigil2: "Cascade",
             level: 15,
           },
           {
             sigil1: "Critical Hit Rate",
-            sigil2: "Cascade",
+            sigil2: "Stamina",
             level: 15,
           },
           {
@@ -96,6 +95,8 @@ export const recommendedBuilds: RecommendedBuildPage[] = [
           { traitName: "Concentrated Fire", level: 7 },
           { traitName: "Cascade", level: 5 },
         ],
+        isMaxAwakening: true,
+        isTerminus: false,
       },
     ],
   },

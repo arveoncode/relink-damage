@@ -29,6 +29,13 @@ const changelogs: ChangeLogItem[] = [
       "Fixed Combo Finisher DMG sigil not providing a finisher bonus.",
     ],
   },
+  {
+    version: "1.1.0",
+    changelogs: [
+      "Added recommended builds on the Import Build dialog.",
+      "Added Default Tweyen build.",
+    ],
+  },
 ];
 
 export const BannerNotif = () => {

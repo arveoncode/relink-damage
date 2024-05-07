@@ -51,6 +51,7 @@ export const CharacterPicker = () => {
             setCharacterSpecificVariable={setArvessFermare}
             title="Arvess Fermare"
             description=""
+            isCharacterSpecificVariableBoolean
           />
         );
       case "Tweyen":
@@ -60,6 +61,7 @@ export const CharacterPicker = () => {
             setCharacterSpecificVariable={setUniqueSigilActive}
             title="Unique Sigil Active"
             description=""
+            isCharacterSpecificVariableBoolean
           />
         );
       case "Seofon":
@@ -69,6 +71,7 @@ export const CharacterPicker = () => {
             setCharacterSpecificVariable={setAvatarActive}
             title="Avatar Active"
             description=""
+            isCharacterSpecificVariableBoolean
           />
         );
       case "Narmaya":
@@ -156,6 +159,7 @@ export const CharacterPicker = () => {
 
 interface CharacterSpecificInputProps {
   characterSpecificVariable: boolean | number;
+  isCharacterSpecificVariableBoolean?: boolean;
   setCharacterSpecificVariable: (_input: any) => void;
   title: string;
   description?: string;
@@ -166,6 +170,7 @@ const CharacterSpecificInput = ({
   setCharacterSpecificVariable,
   title,
   description,
+  isCharacterSpecificVariableBoolean,
 }: CharacterSpecificInputProps) => {
   return (
     <div className=" flex items-center space-x-4 rounded-md border p-4">
@@ -175,7 +180,7 @@ const CharacterSpecificInput = ({
           <p className="text-sm text-muted-foreground">{description}</p>
         )}
       </div>
-      {typeof characterSpecificVariable === "boolean" ? (
+      {isCharacterSpecificVariableBoolean ? (
         <Switch
           checked={characterSpecificVariable as boolean}
           onCheckedChange={(value) =>

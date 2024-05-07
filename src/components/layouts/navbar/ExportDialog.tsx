@@ -1,5 +1,6 @@
 "use client";
 import { DamagePotentialCell } from "@/app/(components)/skills-data-table/SkillsDataColumns";
+import { useTranslation } from "@/app/(i18n)/client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,13 +21,16 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getCharacterImage } from "@/constants/character/characters";
 import { getSigilImage } from "@/constants/gear/sigils";
+import { convertCalculatorToLogsTrait } from "@/constants/logs/traits";
 import { numberWithCommas, safeDecimalMultiplier } from "@/lib/calculators";
 import { exportScreenshotToClipboard } from "@/lib/utils";
 import { useBuildStore } from "@/stores/useBuildStore";
 import { useSelectedRowsStore } from "@/stores/useSelectedRowsStore";
+import { Equipment } from "@/types/app.types";
 import { Trait, TraitLiterals } from "@/types/traits.types";
 import { Check, ClipboardCopy, FolderOutput, X } from "lucide-react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -84,205 +88,22 @@ export const ExportDialog = ({
               >
                 <GridSmallBackground>
                   <div>
-                    <div className="grid grid-cols-5 gap-4 p-4">
-                      <div className="col-span-2 flex flex-col gap-4">
-                        <div className=" flex flex-col gap-4 my-auto">
-                          <div className="flex gap-2">
-                            <hr className="flex-1 my-auto" />
-                            <p className="font-bold my-auto">
-                              {buildState.selectedCharacter}
-                            </p>
-                            <hr className="flex-1 my-auto" />
-                          </div>
-                          <div className="relative aspect-square w-full">
-                            <div
-                              style={{
-                                objectFit: "cover",
-                                backgroundImage: `url(
-                                  ${
-                                    getCharacterImage(
-                                      buildState.selectedCharacter
-                                    ) as string
-                                  }
-                                )`,
-                                width: "100%",
-                                height: "100%",
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-4">
-                          <div className="flex gap-4">
-                            <hr className="flex-1 my-auto" />
-                            <h6>Overmasteries</h6>
-                            <hr className="flex-1 my-auto" />
-                          </div>
-                          <div>
-                            {buildState.attack !== 0 && (
-                              <StatBox
-                                name="Attack"
-                                value={buildState.attack}
-                              />
-                            )}
-                            {buildState.normalDamageCapUp !== 0 && (
-                              <StatBox
-                                name="Normal Damage Cap Up"
-                                value={safeDecimalMultiplier([
-                                  buildState.normalDamageCapUp,
-                                  100,
-                                ])}
-                                isPercentage
-                              />
-                            )}
-                            {buildState.skillDamageCapUp !== 0 && (
-                              <StatBox
-                                name="Skill Damage Cap Up"
-                                value={safeDecimalMultiplier([
-                                  buildState.skillDamageCapUp,
-                                  100,
-                                ])}
-                                isPercentage
-                              />
-                            )}
-                            {buildState.sbaDamageCapUp !== 0 && (
-                              <StatBox
-                                name="SBA Damage Cap Up"
-                                value={safeDecimalMultiplier([
-                                  buildState.sbaDamageCapUp,
-                                  100,
-                                ])}
-                                isPercentage
-                              />
-                            )}
-                            {buildState.skillDamageUp !== 0 && (
-                              <StatBox
-                                name="Skill Damage Up"
-                                value={safeDecimalMultiplier([
-                                  buildState.skillDamageUp,
-                                  100,
-                                ])}
-                                isPercentage
-                              />
-                            )}
-                            {buildState.sbaDamageUp !== 0 && (
-                              <StatBox
-                                name="SBA Damage Up"
-                                value={safeDecimalMultiplier([
-                                  buildState.sbaDamageUp,
-                                  100,
-                                ])}
-                                isPercentage
-                              />
-                            )}
-                            {buildState.critHitRate !== 0 && (
-                              <StatBox
-                                name="Crit Hit Rate"
-                                value={safeDecimalMultiplier([
-                                  buildState.critHitRate,
-                                  100,
-                                ])}
-                                isPercentage
-                              />
-                            )}
-                          </div>
-                        </div>
-                        {/* <div className="flex flex-col gap-4">
-                          <div className="flex gap-4">
-                            <hr className="flex-1 my-auto" />
-                            <h6>Other Inputs</h6>
-                            <hr className="flex-1 my-auto" />
-                          </div>
-                          <div>
-                            <StatBox
-                              name="Number Of Skills"
-                              value={buildState.numberOfSkills}
-                            />
-                            <StatBox
-                              name="Attack Buffs"
-                              value={safeDecimalMultiplier([
-                                buildState.attackBuffs,
-                                100,
-                              ])}
-                              isPercentage
-                            />
-                            <StatBox
-                              name="Defense Debuffs"
-                              value={safeDecimalMultiplier([
-                                buildState.defDebuffs,
-                                100,
-                              ])}
-                              isPercentage
-                            />
-                            <StatBox
-                              name="Combo Active"
-                              value={buildState.comboActive}
-                            />
-                            <StatBox
-                              name="Back Attack"
-                              value={buildState.backAttack}
-                            />
-                            <StatBox
-                              name="Weak Point Attack"
-                              value={buildState.weakPointAttack}
-                            />
-                            <StatBox
-                              name="Link Time"
-                              value={buildState.isLinkTime}
-                            />
-                          </div>
-                        </div> */}
-                      </div>
-                      <div className="col-span-3 flex flex-col gap-4">
-                        <div className="flex flex-col gap-4">
-                          <div className="flex gap-4">
-                            <hr className="flex-1 my-auto" />
-                            <h6>Weapon</h6>
-                            <hr className="flex-1 my-auto" />
-                          </div>
-                          <div className="grid grid-cols-2 gap-4">
-                            <div>
-                              {buildState.weaponImbues.map((trait, i) => {
-                                return <WeaponImbueBox key={i} trait={trait} />;
-                              })}
-                            </div>
-                            <div>
-                              <StatBox
-                                name="Terminus"
-                                value={buildState.isTerminus}
-                              />
-                              <StatBox
-                                name="Max Awakening"
-                                value={buildState.isMaxAwakening}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex gap-4">
-                          <hr className="flex-1 my-auto" />
-                          <h6>Sigils</h6>
-                          <hr className="flex-1 my-auto" />
-                        </div>
-                        <div>
-                          {buildState.sigilsEquipped.map((sigil, i) => {
-                            return (
-                              <div key={i} className="flex justify-between">
-                                <div className="grid grid-cols-2 flex-1 gap-2">
-                                  <TraitBox
-                                    sigil={sigil.sigil1 as TraitLiterals}
-                                  />
-                                  <TraitBox
-                                    sigil={sigil.sigil2 as TraitLiterals}
-                                  />
-                                </div>
-                                <div className="my-auto">{sigil.level}</div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
+                    <StaticBuildView
+                      selectedCharacter={buildState.selectedCharacter}
+                      sigilsEquipped={buildState.sigilsEquipped}
+                      isTerminus={buildState.isTerminus}
+                      isMaxAwakening={buildState.isMaxAwakening}
+                      weaponImbues={buildState.weaponImbues}
+                      overmasteries={{
+                        attack: buildState.attack,
+                        normalDamageCapUp: buildState.normalDamageCapUp,
+                        skillDamageCapUp: buildState.skillDamageCapUp,
+                        sbaDamageCapUp: buildState.sbaDamageCapUp,
+                        sbaDamageUp: buildState.sbaDamageUp,
+                        skillDamageUp: buildState.skillDamageUp,
+                        critHitRate: buildState.critHitRate,
+                      }}
+                    />
                     {selectedSkills.length !== 0 && (
                       <div className="p-4">
                         {/* selected skills */}
@@ -415,6 +236,9 @@ const StatBox = ({
 };
 
 const WeaponImbueBox = ({ trait }: { trait: Trait }) => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const traitsTranslate = useTranslation(lng, "traits");
   return (
     <div className="flex gap-2">
       <div className="aspect-square h-6 w-6 bg-black rounded-md relative">
@@ -425,12 +249,21 @@ const WeaponImbueBox = ({ trait }: { trait: Trait }) => {
           src={getSigilImage(trait.traitName as TraitLiterals) as string}
         />
       </div>
-      <p className="my-auto text-xs flex-1">{trait.traitName}</p>
+      <p className="my-auto text-xs flex-1">
+        {convertCalculatorToLogsTrait(trait.traitName) === undefined
+          ? trait.traitName
+          : traitsTranslate.t(
+              `${convertCalculatorToLogsTrait(trait.traitName)}.text`
+            )}
+      </p>
     </div>
   );
 };
 
 const TraitBox = ({ sigil }: { sigil: TraitLiterals }) => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const traitsTranslate = useTranslation(lng, "traits");
   return (
     <div className="flex gap-2">
       <div className="aspect-square h-6 w-6 bg-black rounded-md relative">
@@ -441,7 +274,206 @@ const TraitBox = ({ sigil }: { sigil: TraitLiterals }) => {
           src={getSigilImage(sigil as TraitLiterals) as string}
         />
       </div>
-      <p className="my-auto text-xs flex-1">{sigil}</p>
+      <p className="my-auto text-xs flex-1">
+        {convertCalculatorToLogsTrait(sigil) === undefined
+          ? sigil
+          : traitsTranslate.t(`${convertCalculatorToLogsTrait(sigil)}.text`)}
+      </p>
+    </div>
+  );
+};
+
+export const StaticBuildView = ({
+  selectedCharacter,
+  overmasteries,
+  sigilsEquipped,
+  weaponImbues,
+  isTerminus,
+  isMaxAwakening,
+}: Equipment) => {
+  const params = useParams();
+  const lng = params.lng as string;
+  const characterTranslate = useTranslation(lng, "characters");
+  const omTranslate = useTranslation(lng, "overmasteries");
+  return (
+    <div className="grid grid-cols-5 gap-4 p-4">
+      <div className="col-span-2 flex flex-col gap-4">
+        <div className=" flex flex-col gap-4 my-auto">
+          <div className="flex gap-2">
+            <hr className="flex-1 my-auto" />
+            <p className="font-bold my-auto">
+              {characterTranslate.t(selectedCharacter)}
+            </p>
+            <hr className="flex-1 my-auto" />
+          </div>
+          <div className="relative aspect-square w-full">
+            <div
+              style={{
+                objectFit: "cover",
+                backgroundImage: `url(
+              ${getCharacterImage(selectedCharacter) as string}
+            )`,
+                width: "100%",
+                height: "100%",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-4">
+            <hr className="flex-1 my-auto" />
+            <h6>Overmasteries</h6>
+            <hr className="flex-1 my-auto" />
+          </div>
+          <div>
+            {overmasteries.attack !== 0 && (
+              <StatBox
+                name={omTranslate.t("0cf5d0f3.text")}
+                value={overmasteries.attack}
+              />
+            )}
+            {overmasteries.normalDamageCapUp !== 0 && (
+              <StatBox
+                name={omTranslate.t("06595c52.text")}
+                value={safeDecimalMultiplier([
+                  overmasteries.normalDamageCapUp,
+                  100,
+                ])}
+                isPercentage
+              />
+            )}
+            {overmasteries.skillDamageCapUp !== 0 && (
+              <StatBox
+                name={omTranslate.t("0b0e4311.text")}
+                value={safeDecimalMultiplier([
+                  overmasteries.skillDamageCapUp,
+                  100,
+                ])}
+                isPercentage
+              />
+            )}
+            {overmasteries.sbaDamageCapUp !== 0 && (
+              <StatBox
+                name={omTranslate.t("149593b8.text")}
+                value={safeDecimalMultiplier([
+                  overmasteries.sbaDamageCapUp,
+                  100,
+                ])}
+                isPercentage
+              />
+            )}
+            {overmasteries.skillDamageUp !== 0 && (
+              <StatBox
+                name={omTranslate.t("426b370b.text")}
+                value={safeDecimalMultiplier([
+                  overmasteries.skillDamageUp,
+                  100,
+                ])}
+                isPercentage
+              />
+            )}
+            {overmasteries.sbaDamageUp !== 0 && (
+              <StatBox
+                name={omTranslate.t("4e42646b.text")}
+                value={safeDecimalMultiplier([overmasteries.sbaDamageUp, 100])}
+                isPercentage
+              />
+            )}
+            {overmasteries.critHitRate !== 0 && (
+              <StatBox
+                name={omTranslate.t("524492e2.text")}
+                value={safeDecimalMultiplier([overmasteries.critHitRate, 100])}
+                isPercentage
+              />
+            )}
+          </div>
+        </div>
+        {/* <div className="flex flex-col gap-4">
+      <div className="flex gap-4">
+        <hr className="flex-1 my-auto" />
+        <h6>Other Inputs</h6>
+        <hr className="flex-1 my-auto" />
+      </div>
+      <div>
+        <StatBox
+          name="Number Of Skills"
+          value={buildState.numberOfSkills}
+        />
+        <StatBox
+          name="Attack Buffs"
+          value={safeDecimalMultiplier([
+            buildState.attackBuffs,
+            100,
+          ])}
+          isPercentage
+        />
+        <StatBox
+          name="Defense Debuffs"
+          value={safeDecimalMultiplier([
+            buildState.defDebuffs,
+            100,
+          ])}
+          isPercentage
+        />
+        <StatBox
+          name="Combo Active"
+          value={buildState.comboActive}
+        />
+        <StatBox
+          name="Back Attack"
+          value={buildState.backAttack}
+        />
+        <StatBox
+          name="Weak Point Attack"
+          value={buildState.weakPointAttack}
+        />
+        <StatBox
+          name="Link Time"
+          value={buildState.isLinkTime}
+        />
+      </div>
+    </div> */}
+      </div>
+      <div className="col-span-3 flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-4">
+            <hr className="flex-1 my-auto" />
+            <h6>Weapon</h6>
+            <hr className="flex-1 my-auto" />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              {weaponImbues.map((trait, i) => {
+                return <WeaponImbueBox key={i} trait={trait} />;
+              })}
+            </div>
+            <div>
+              <StatBox name="Terminus" value={isTerminus} />
+              <StatBox name="Max Awakening" value={isMaxAwakening} />
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-4">
+          <hr className="flex-1 my-auto" />
+          <h6>Sigils</h6>
+          <hr className="flex-1 my-auto" />
+        </div>
+        <div>
+          {sigilsEquipped.map((sigil, i) => {
+            return (
+              <div key={i} className="flex justify-between">
+                <div className="grid grid-cols-2 flex-1 gap-2">
+                  <TraitBox sigil={sigil.sigil1 as TraitLiterals} />
+                  <TraitBox sigil={sigil.sigil2 as TraitLiterals} />
+                </div>
+                <div className="my-auto">{sigil.level}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

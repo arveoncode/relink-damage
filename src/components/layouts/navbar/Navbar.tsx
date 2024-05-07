@@ -25,17 +25,13 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { languages } from "@/app/(i18n)/settings";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Label } from "@/components/ui/label";
+import { Suspense } from "react";
 
-export const Navbar = ({ lng }: { lng: string }) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+export const Navbar = () => {
   const packageJson = require("@/../../package.json");
-  const build = searchParams.get("build");
-  function handleLocaleChange(lang: string) {
-    router.push(`/${lang}?build=${build}`);
-  }
+
   return (
     <nav className="w-full bg-none flex justify-center">
       <div className="flex flex-wrap justify-between align-middle px-8 flex-1 py-2">
@@ -111,36 +107,9 @@ export const Navbar = ({ lng }: { lng: string }) => {
                 </div> */}
                 <div className="flex gap-4 justify-between align-middle">
                   <Label className="my-auto">Locale</Label>
-                  <Select
-                    value={lng.toString()}
-                    onValueChange={(value) => handleLocaleChange(value)}
-                  >
-                    <SelectTrigger value={lng.toString()}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {languages.map((lang) => {
-                          return (
-                            <SelectItem value={lang} key={lang.toString()}>
-                              <Link passHref href={`/${lang}`}>
-                                {lang === "en" && "EN"}
-                                {lang === "ct" && "繁體中文"}
-                                {lang === "cs" && "简体中文"}
-                                {lang === "ko" && "한국의"}
-                                {lang === "jp" && "日本語"}
-                                {lang === "bp" && "BP"}
-                                {lang === "es" && "ES"}
-                                {lang === "fr" && "FR"}
-                                {lang === "ge" && "GE"}
-                                {lang === "it" && "IT"}
-                              </Link>
-                            </SelectItem>
-                          );
-                        })}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  <Suspense>
+                    <LocaleSwitcher />
+                  </Suspense>
                 </div>
                 <hr />
                 <ImportDialog />
@@ -151,6 +120,49 @@ export const Navbar = ({ lng }: { lng: string }) => {
         </div>
       </div>
     </nav>
+  );
+};
+
+const LocaleSwitcher = () => {
+  const searchParams = useSearchParams();
+  const params = useParams();
+  const lng = params.lng as string;
+  const router = useRouter();
+  const build = searchParams.get("build");
+  function handleLocaleChange(lang: string) {
+    router.push(`/${lang}?build=${build}`);
+  }
+  return (
+    <Select
+      value={lng.toString()}
+      onValueChange={(value) => handleLocaleChange(value)}
+    >
+      <SelectTrigger value={lng.toString()}>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {languages.map((lang) => {
+            return (
+              <SelectItem value={lang} key={lang.toString()}>
+                <Link passHref href={`/${lang}`}>
+                  {lang === "en" && "EN"}
+                  {lang === "ct" && "繁體中文"}
+                  {lang === "cs" && "简体中文"}
+                  {lang === "ko" && "한국의"}
+                  {lang === "jp" && "日本語"}
+                  {lang === "bp" && "BP"}
+                  {lang === "es" && "ES"}
+                  {lang === "fr" && "FR"}
+                  {lang === "ge" && "GE"}
+                  {lang === "it" && "IT"}
+                </Link>
+              </SelectItem>
+            );
+          })}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   );
 };
 

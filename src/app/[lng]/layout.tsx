@@ -8,7 +8,6 @@ import { Navbar } from "@/components/layouts/navbar/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import { languages } from "../(i18n)/settings";
 import { dir } from "i18next";
-import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 export async function generateStaticParams() {
@@ -35,9 +34,7 @@ export default function RootLayout({
         {/* <ThemeProvider attribute="class" defaultTheme="light" enableSystem> */}
         <>
           <AuroraBackground>
-            <Suspense>
-              <Navbar lng={lng} />
-            </Suspense>
+            <Navbar />
 
             {children}
           </AuroraBackground>

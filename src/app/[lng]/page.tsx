@@ -37,8 +37,10 @@ export default function Home({ params: { lng } }: { params: { lng: string } }) {
           <Weapon />
         </div>
         <div className="flex-1 col-span-4 flex flex-col gap-4 md:min-w-[32rem]">
-          <Traits />
-          <Stats />
+          <Suspense>
+            <Traits />
+            <Stats />
+          </Suspense>
         </div>
       </div>
       <div className="p-8 bg-background">

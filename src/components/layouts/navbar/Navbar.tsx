@@ -28,10 +28,17 @@ import { languages } from "@/app/(i18n)/settings";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { Suspense } from "react";
+import { useUserConfigStore } from "@/stores/useUserConfigStore";
+import { Switch } from "@/components/ui/switch";
 
 export const Navbar = () => {
   const packageJson = require("@/../../package.json");
-
+  const setShowAuroraBackground = useUserConfigStore(
+    (state) => state.setShowAuroraBackground
+  );
+  const showAuroraBackground = useUserConfigStore(
+    (state) => state.showAuroraBackground
+  );
   return (
     <nav className="w-full bg-none flex justify-center">
       <div className="flex flex-wrap justify-between align-middle px-8 flex-1 py-2">
@@ -99,6 +106,14 @@ export const Navbar = () => {
               <div className="grid gap-4">
                 <div className="space-y-2">
                   <h4 className="font-medium leading-none">Settings</h4>
+                </div>
+                <hr />
+                <div className="flex justify-between align-middle">
+                  <Label className="my-auto">Background:</Label>
+                  <Switch
+                    checked={showAuroraBackground}
+                    onCheckedChange={(value) => setShowAuroraBackground(value)}
+                  />
                 </div>
                 {/* <hr /> */}
                 {/* <div className="flex justify-between align-middle">

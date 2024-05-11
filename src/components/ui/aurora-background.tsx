@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/lib/cn";
+import { useUserConfigStore } from "@/stores/useUserConfigStore";
 import React, { ReactNode } from "react";
 
 interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
@@ -13,6 +14,9 @@ export const AuroraBackground = ({
   showRadialGradient = true,
   ...props
 }: AuroraBackgroundProps) => {
+  const showAuroraBackground = useUserConfigStore(
+    (state) => state.showAuroraBackground
+  );
   return (
     <main>
       <div
@@ -23,10 +27,11 @@ export const AuroraBackground = ({
         {...props}
       >
         <div className="absolute inset-0 overflow-hidden">
-          <div
-            //   I'm sorry but this is what peak developer performance looks like // trigger warning
-            className={cn(
-              `
+          {showAuroraBackground && (
+            <div
+              //   I'm sorry but this is what peak developer performance looks like // trigger warning
+              className={cn(
+                `
             [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]
             [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)]
             [--aurora:repeating-linear-gradient(100deg,var(--blue-500)_10%,var(--indigo-300)_15%,var(--blue-300)_20%,var(--violet-200)_25%,var(--blue-400)_30%)]
@@ -41,10 +46,11 @@ export const AuroraBackground = ({
             after:animate-aurora after:[background-attachment:fixed] after:mix-blend-difference
             pointer-events-none
             absolute -inset-[10px] opacity-50`,
-              showRadialGradient &&
-                `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
-            )}
-          ></div>
+                showRadialGradient &&
+                  `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
+              )}
+            />
+          )}
         </div>
         {children}
       </div>

@@ -231,7 +231,7 @@ export const sigilLevelLiteral = [
   "Throw",
   "Head Start",
   "Berserker",
-  "Exploiter",
+  "Weak Point DMG",
   "Dodge Payback",
   "Power Hungry",
   "Alpha",

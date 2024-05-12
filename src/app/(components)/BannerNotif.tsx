@@ -36,6 +36,10 @@ const changelogs: ChangeLogItem[] = [
       "Added Default Tweyen build.",
     ],
   },
+  {
+    version: "1.1.1",
+    changelogs: ["Fixed Weakpoint DMG not adding to the weakpoint stat."],
+  },
 ];
 
 export const BannerNotif = () => {

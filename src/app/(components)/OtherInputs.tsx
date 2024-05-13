@@ -30,6 +30,7 @@ export const OtherInputs = () => {
   const weakPointAttack = useBuildStore((state) => state.weakPointAttack);
   const isLinkTime = useBuildStore((state) => state.isLinkTime);
   const isWarpathActive = useBuildStore((state) => state.isWarpathActive);
+  // const enhancedDmgBuff = useBuildStore((state) => state.enhancedDmgBuff);
   const setNumberOfSkills = useBuildStore((state) => state.setNumberOfSkills);
   const setAttackBuffs = useBuildStore((state) => state.setAttackBuffs);
   const setDefDebuffs = useBuildStore((state) => state.setDefDebuffs);
@@ -39,7 +40,7 @@ export const OtherInputs = () => {
   const setWeakpointAttack = useBuildStore((state) => state.setWeakpointAttack);
   const setIsLinkTime = useBuildStore((state) => state.setIsLinkTime);
   const setIsWarpathActive = useBuildStore((state) => state.setIsWarpathActive);
-
+  // const setEnhancedDmgBuff = useBuildStore((state) => state.setEnhancedDmgBuff);
   return (
     <Card>
       <CardHeader>
@@ -80,13 +81,24 @@ export const OtherInputs = () => {
               type="number"
               className=""
               min={0}
-              step={0.01}
               onInput={(e) => {
                 setAttackBuffs(Number(e.currentTarget.value) / 100);
               }}
               value={safeDecimalMultiplier([attackBuffs, 100])}
             />
           </div>
+          {/* <div className="grid grid-cols-2 gap-4">
+            <Label className="my-auto">Enhanced DMG (%)</Label>
+            <Input
+              type="number"
+              className=""
+              min={0}
+              onInput={(e) => {
+                setEnhancedDmgBuff(Number(e.currentTarget.value) / 100);
+              }}
+              value={safeDecimalMultiplier([enhancedDmgBuff, 100])}
+            />
+          </div> */}
           <div className="grid grid-cols-2 gap-4">
             <Label className="my-auto">Defense Debuffs (%)</Label>
             <Input

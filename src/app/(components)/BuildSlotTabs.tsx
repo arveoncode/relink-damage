@@ -65,6 +65,7 @@ export const BuildSlotTabs = () => {
         weakPointAttack: buildState.weakPointAttack,
         isLinkTime: buildState.isLinkTime,
         isWarpathActive: buildState.isWarpathActive,
+        enhancedDmgBuff: buildState.enhancedDmgBuff,
       },
       overmasteries: {
         attack: buildState.attack,
@@ -243,6 +244,7 @@ const SaveSlotAlertDialog = ({
                     weakPointAttack: buildState.weakPointAttack,
                     isLinkTime: buildState.isLinkTime,
                     isWarpathActive: buildState.isWarpathActive,
+                    enhancedDmgBuff: buildState.enhancedDmgBuff,
                   },
                   overmasteries: {
                     attack: buildState.attack,

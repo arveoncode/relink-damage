@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { Circle, SquareArrowOutUpRight } from "lucide-react";
+import { useParams } from "next/navigation";
 
 const changelogs: ChangeLogItem[] = [
   {
@@ -39,6 +40,12 @@ const changelogs: ChangeLogItem[] = [
   {
     version: "1.1.1",
     changelogs: ["Fixed Weakpoint DMG not adding to the weakpoint stat."],
+  },
+  {
+    version: "1.1.2",
+    changelogs: [
+      "Fixed Charlotta's warpath not being added to skills calculations.",
+    ],
   },
 ];
 
@@ -125,6 +132,7 @@ export const BannerNotif = () => {
           </Button>
         </div>
       </div>
+      <LanguageEasterEgg />
     </div>
   );
 };
@@ -171,5 +179,27 @@ const ChangeLogItem = ({
         </ul>
       </CardContent>
     </Card>
+  );
+};
+
+const LanguageEasterEgg = () => {
+  const params = useParams();
+  const lng = params.lng as string;
+  return (
+    <div>
+      {lng === "jp" && (
+        <p>
+          多くの日本のユーザーがこの電卓を使用していることに気づきました。さらに翻訳を追加するには、Github
+          でご連絡いただくか、twitter
+          <Button variant="link" asChild>
+            <a href="https://twitter.com/arveon_uwu" target="_blank">
+              @arveon_uwu
+            </a>
+          </Button>
+          でメッセージをお送りください。 Google
+          を使用して翻訳したため、申し訳ありません 😅
+        </p>
+      )}
+    </div>
   );
 };

@@ -91,6 +91,9 @@ export const useBuildStore = create(
       isLinkTime: false,
       setIsLinkTime: (_isLinkTime: boolean) =>
         set(() => ({ isLinkTime: _isLinkTime })),
+      enhancedDmgBuff: 0,
+      setEnhancedDmgBuff: (_enhancedDmgBuff: number) =>
+        set(() => ({ enhancedDmgBuff: _enhancedDmgBuff })),
       // Overmasteries State
       attack: 0,
       setAttack: (attack: number) => set(() => ({ attack: attack })),

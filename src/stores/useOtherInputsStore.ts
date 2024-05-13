@@ -11,6 +11,7 @@ export interface OtherInputsStates {
   weakPointAttack: boolean;
   isLinkTime: boolean;
   isWarpathActive: boolean;
+  enhancedDmgBuff: number;
 }
 
 export interface OtherInputsStore extends OtherInputsStates {
@@ -23,6 +24,7 @@ export interface OtherInputsStore extends OtherInputsStates {
   setWeakpointAttack: (_weakPointAttack: boolean) => void;
   setIsLinkTime: (_isLinkTime: boolean) => void;
   setIsWarpathActive: (_isWarpathActive: boolean) => void;
+  setEnhancedDmgBuff: (_enhancedDmgBuff: number) => void;
 }
 
 // export const useOtherInputsStore = create<OtherInputsStore>()(

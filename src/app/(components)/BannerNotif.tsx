@@ -200,6 +200,19 @@ const LanguageEasterEgg = () => {
           を使用して翻訳したため、申し訳ありません 😅
         </p>
       )}
+      {lng === "ko" && (
+        <p>
+          나는 많은 한국 사용자들이 이 계산기를 사용한다는 것을 알았습니다. 더
+          많은 번역을 추가하려면 Github에 문의하거나 Twitter{" "}
+          <Button variant="link" asChild>
+            <a href="https://twitter.com/arveon_uwu" target="_blank">
+              @arveon_uwu
+            </a>
+          </Button>
+          로 메시지를 보내주세요. Google을 사용하여 번역되었으므로 사과드립니다
+          😅
+        </p>
+      )}
     </div>
   );
 };

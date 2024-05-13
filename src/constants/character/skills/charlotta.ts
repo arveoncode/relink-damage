@@ -1,438 +1,358 @@
-import { SkillConstant } from "@/types/skill.types";
+import { SkillJsonRaw } from "@/types/skill.types";
+import { convertSkills } from "./skillConverter";
 
-export const charlottaSkills: SkillConstant[] = 
-[
-    {
-      skill: "Basic Attack",
-      modifier: "1st Attack",
-      skillRatio: 1,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "2nd Attack",
-      skillRatio: 1.40,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "3rd Attack",
-      skillRatio: 1.30,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "4th Attack",
-      skillRatio: 1.30,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "Continuous Attacks",
-      skillRatio: 1.15,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true
-      }
-    },
-    {
-      skill: "Noble Strategy",
-      modifier: "1st Attack",
-      skillRatio: 0.88,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        normal: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "2nd Attack",
-      skillRatio: 1.12,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        normal: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "3rd Attack",
-      skillRatio: 1.43,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        normal: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "1st Attack (In Noble Stance)",
-      skillRatio: 3.58,
-      dmgCap: 39999,
-      cd: 0,
-      classification: {
-        normal: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "2nd Attack (In Noble Stance)",
-      skillRatio: 4.44,
-      dmgCap: 39999,
-      cd: 0,
-      classification: {
-        normal: true,
-        finisher: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "3rd Attack (In Noble Stance)",
-      skillRatio: 5.81,
-      dmgCap: 39999,
-      cd: 0,
-      classification: {
-        normal: true,
-        finisher: true
-      }
-    },
-    {
-      skill: "Power Strike (Lunge)",
-      modifier: "1st-5th Attacks",
-      skillRatio: 1.11,
-      dmgCap: 74995,
-      cd: 0,
-      classification: {
-        normal: true,
-      }
-    },
-    {
-      skill: "",
-      modifier: "6th Attack (Finisher)",
-      skillRatio: 1.22,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        normal: true,
-      }
-    },
-    {
-      skill: "",
-      modifier: "1st-5th Attacks (In Noble Stance)",
-      skillRatio: 3.60,
-      dmgCap: 199995,
-      cd: 0,
-      classification: {
-        normal: true,
-        finisher: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "6th Attack (Finisher In Noble Stance)",
-      skillRatio: 5.04,
-      dmgCap: 39999,
-      cd: 0,
-      classification: {
-        normal: true,
-        finisher: true
-      }
-    },
-    {
-      skill: "Power Strike (Dive)",
-      modifier: "",
-      skillRatio: 2.50,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        normal: true,
-      }
-    },
-    {
-      skill: "",
-      modifier: "(In Noble Stance)",
-      skillRatio: 10.50,
-      dmgCap: 39999,
-      cd: 0,
-      classification: {
-        normal: true,
-        finisher: true
-      }
-    },
-    {
-      skill: "Launch",
-      modifier: "",
-      skillRatio: 1,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true,
-      }
-    },
-    {
-      skill: "Air Combo",
-      modifier: "1st Attack",
-      skillRatio: 1.30,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true,
-      }
-    },
-    {
-      skill: "",
-      modifier: "2nd Attack",
-      skillRatio: 1.50,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true,
-      }
-    },
-    {
-      skill: "",
-      modifier: "3rd Attack",
-      skillRatio: 0.80,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true,
-        finisher: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "4th Attack",
-      skillRatio: 1.30,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true,
-        finisher: true
-      }
-    },
-    {
-      skill: "Aerial Barrage",
-      modifier: "",
-      skillRatio: 1.50,
-      dmgCap: 6999,
-      cd: 0,
-      classification: {
-        normal: true,
-      }
-    },
-    {
-      skill: "Link Attack",
-      modifier: "",
-      skillRatio: 6.02,
-      dmgCap: 99999,
-      cd: 0,
-      classification: {
-        linkAttack: true
-      }
-    },
-    {
-      skill: "SBA",
-      modifier: "Initiate Attack",
-      skillRatio: 1.0083333,
-      dmgCap: 99999,
-      cd: 0,
-      classification: {
-        ranged: true,
-        skyboundArt: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "Slash Attack",
-      skillRatio: 4.98,
-      dmgCap: 129999,
-      cd: 0,
-      classification: {
-        skyboundArt: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "Explosion Attack",
-      skillRatio: 6.56,
-      dmgCap: 129999,
-      cd: 0,
-      classification: {
-        skyboundArt: true
-      }
-    },
-    {
-      skill: "Holy Ladder",
-      modifier: "1st Attack",
-      skillRatio: 1.98,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        ranged: true,
-        skill: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "2nd Attack",
-      skillRatio: 1.98,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        ranged: true,
-        skill: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "3rd Attack",
-      skillRatio: 1.98,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        ranged: true,
-        skill: true
-      }
-    },
-    {
-      skill: "Rising Cut",
-      modifier: "1st Attack",
-      skillRatio: 2.40,
-      dmgCap: 34999,
-      cd: 0,
-      classification: {
-        skill: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "2nd Attack",
-      skillRatio: 1.44,
-      dmgCap: 34999,
-      cd: 0,
-      classification: {
-        skill: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "3rd Attack",
-      skillRatio: 4.20,
-      dmgCap: 34999,
-      cd: 0,
-      classification: {
-        skill: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "1st Attack (Failed Parry)",
-      skillRatio: 4.22,
-      dmgCap: 34999,
-      cd: 0,
-      classification: {
-        skill: true
-      }
-    },
-    {
-      skill: "Shining Onslaught",
-      modifier: "1st-4th Attacks",
-      skillRatio: 2.01,
-      dmgCap: 79996,
-      cd: 0,
-      classification: {
-        skill: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "5th Attack (Finisher)",
-      skillRatio: 4.01,
-      dmgCap: 19999,
-      cd: 0,
-      classification: {
-        skill: true
-      }
-    },
-    {
-      skill: "Sword of Lumiel",
-      modifier: "Continuous Attacks",
-      skillRatio: 1.15,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        skill: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "Uppercut Attack",
-      skillRatio: 3.24,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        skill: true
-      }
-    },
-    {
-      skill: "",
-      modifier: "Finisher Attack",
-      skillRatio: 3.33,
-      dmgCap: 14999,
-      cd: 0,
-      classification: {
-        skill: true
-      }
-    },
-    {
-      skill: "Invincible",
-      modifier: "",
-      skillRatio: 0,
-      dmgCap: 0,
-      cd: 0,
-      classification: {}
-    },
-    {
-      skill: "Konigsschild",
-      modifier: "",
-      skillRatio: 0,
-      dmgCap: 0,
-      cd: 0,
-      classification: {}
-    },
-    {
-      skill: "Sacred Charge",
-      modifier: "",
-      skillRatio: 0,
-      dmgCap: 0,
-      cd: 0,
-      classification: {}
-    },
-    {
-      skill: "Valiant Stance",
-      modifier: "",
-      skillRatio: 0,
-      dmgCap: 0,
-      cd: 0,
-      classification: {}
-    }
-  ]
+const charlottaSkillsJson: SkillJsonRaw[] = [
+  {
+    Skill: "Basic Attack",
+    Modifier: "1st Attack",
+    "Skill Ratio": 1,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.50%",
+  },
+  {
+    Skill: "",
+    Modifier: "2nd Attack",
+    "Skill Ratio": 1.4,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.60%",
+  },
+  {
+    Skill: "",
+    Modifier: "3rd Attack",
+    "Skill Ratio": 1.3,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "No",
+    Contribution: "1.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "4th Attack",
+    "Skill Ratio": 1.3,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.60%",
+  },
+  {
+    Skill: "",
+    Modifier: "Continuous Attacks",
+    "Skill Ratio": 1.15,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "NoSp",
+    Contribution: "5.20%",
+  },
+  {
+    Skill: "Noble Strategy",
+    Modifier: "1st Attack",
+    "Skill Ratio": 0.88,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "2nd Attack",
+    "Skill Ratio": 1.12,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "3rd Attack",
+    "Skill Ratio": 1.43,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "1st Attack (In Noble Stance)",
+    "Skill Ratio": 3.58,
+    "DMG Cap": 39999,
+    CD: "",
+    Classification: "NoSp",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "2nd Attack (In Noble Stance)",
+    "Skill Ratio": 4.44,
+    "DMG Cap": 39999,
+    CD: "",
+    Classification: "NoFiSp",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "3rd Attack (In Noble Stance)",
+    "Skill Ratio": 5.81,
+    "DMG Cap": 39999,
+    CD: "",
+    Classification: "NoFiSp",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "Power Strike (Lunge)",
+    Modifier: "1st-5th Attacks",
+    "Skill Ratio": 1.11,
+    "DMG Cap": 74995,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "6th Attack (Finisher)",
+    "Skill Ratio": 1.22,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "1st-5th Attacks (In Noble Stance)",
+    "Skill Ratio": 3.6,
+    "DMG Cap": 199995,
+    CD: "",
+    Classification: "NoFiSp",
+    Contribution: "43.67%",
+  },
+  {
+    Skill: "",
+    Modifier: "6th Attack (Finisher In Noble Stance)",
+    "Skill Ratio": 5.04,
+    "DMG Cap": 39999,
+    CD: "",
+    Classification: "NoFiSp",
+    Contribution: "8.73%",
+  },
+  {
+    Skill: "Power Strike (Dive)",
+    Modifier: "",
+    "Skill Ratio": 2.5,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "(In Noble Stance)",
+    "Skill Ratio": 10.5,
+    "DMG Cap": 39999,
+    CD: "",
+    Classification: "NoFiSp",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "Launch",
+    Modifier: "",
+    "Skill Ratio": 1,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "Air Combo",
+    Modifier: "1st Attack",
+    "Skill Ratio": 1.3,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "2nd Attack",
+    "Skill Ratio": 1.5,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "3rd Attack",
+    "Skill Ratio": 0.8,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "NoFi",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "4th Attack",
+    "Skill Ratio": 1.3,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "NoFi",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "Aerial Barrage",
+    Modifier: "",
+    "Skill Ratio": 1.5,
+    "DMG Cap": 6999,
+    CD: "",
+    Classification: "No",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "Link Attack",
+    Modifier: "",
+    "Skill Ratio": 6.02,
+    "DMG Cap": 99999,
+    CD: "",
+    Classification: "Li",
+    Contribution: "1.60%",
+  },
+  {
+    Skill: "SBA",
+    Modifier: "Initiate Attack",
+    "Skill Ratio": 1.0083,
+    "DMG Cap": 99999,
+    CD: "",
+    Classification: "RaSb",
+    Contribution: "0.81%",
+  },
+  {
+    Skill: "",
+    Modifier: "Slash Attack",
+    "Skill Ratio": 4.9833,
+    "DMG Cap": 129999,
+    CD: "",
+    Classification: "Sb",
+    Contribution: "1.05%",
+  },
+  {
+    Skill: "",
+    Modifier: "Explosion Attack",
+    "Skill Ratio": 6.5583,
+    "DMG Cap": 129999,
+    CD: "",
+    Classification: "Sb",
+    Contribution: "1.05%",
+  },
+  {
+    Skill: "Holy Ladder",
+    Modifier: "1st Attack",
+    "Skill Ratio": 1.9833,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "RaSk",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "2nd Attack",
+    "Skill Ratio": 1.9833,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "RaSk",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "3rd Attack",
+    "Skill Ratio": 1.9833,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "RaSk",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "Rising Cut",
+    Modifier: "1st Attack",
+    "Skill Ratio": 2.4,
+    "DMG Cap": 34999,
+    CD: "",
+    Classification: "Sk",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "2nd Attack",
+    "Skill Ratio": 1.4417,
+    "DMG Cap": 34999,
+    CD: "",
+    Classification: "Sk",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "3rd Attack",
+    "Skill Ratio": 4.2,
+    "DMG Cap": 34999,
+    CD: "",
+    Classification: "Sk",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "",
+    Modifier: "1st Attack (Failed Parry)",
+    "Skill Ratio": 4.2167,
+    "DMG Cap": 34999,
+    CD: "",
+    Classification: "Sk",
+    Contribution: "0.00%",
+  },
+  {
+    Skill: "Shining Onslaught",
+    Modifier: "1st-4th Attacks",
+    "Skill Ratio": 2.0083,
+    "DMG Cap": 79996,
+    CD: "",
+    Classification: "Sk",
+    Contribution: "4.72%",
+  },
+  {
+    Skill: "",
+    Modifier: "5th Attack (Finisher)",
+    "Skill Ratio": 4.0083,
+    "DMG Cap": 19999,
+    CD: "",
+    Classification: "Sk",
+    Contribution: "1.18%",
+  },
+  {
+    Skill: "Sword of Lumiel",
+    Modifier: "Continuous Attacks",
+    "Skill Ratio": 1.15,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "Sk",
+    Contribution: "11.90%",
+  },
+  {
+    Skill: "",
+    Modifier: "Uppercut Attack",
+    "Skill Ratio": 3.2417,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "Sk",
+    Contribution: "0.80%",
+  },
+  {
+    Skill: "",
+    Modifier: "Finisher Attack",
+    "Skill Ratio": 3.3333,
+    "DMG Cap": 14999,
+    CD: "",
+    Classification: "Sk",
+    Contribution: "0.80%",
+  },
+];
+
+export const charlottaSkills = convertSkills(charlottaSkillsJson);

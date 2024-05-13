@@ -123,6 +123,9 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
             {row.original.classification.sp2 && (
               <SkillClassificationBadge abrv="S2" full="Vane Special" />
             )}
+            {row.original.classification.special && (
+              <SkillClassificationBadge abrv="Sp" full="Special" />
+            )}
           </div>
         ),
       },

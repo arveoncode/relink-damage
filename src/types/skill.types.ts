@@ -45,4 +45,5 @@ export interface SkillJsonRaw {
   "DMG Cap": number;
   CD: string | number;
   Classification: string;
+  Contribution?: string;
 }

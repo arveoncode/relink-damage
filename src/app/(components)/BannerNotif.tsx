@@ -45,6 +45,7 @@ const changelogs: ChangeLogItem[] = [
     version: "1.1.2",
     changelogs: [
       "Fixed Charlotta's warpath not being added to skills calculations.",
+      `Fixed skills table not showing "Special".`,
     ],
   },
 ];

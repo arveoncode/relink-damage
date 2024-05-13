@@ -136,11 +136,12 @@ export const SkillsTable = () => {
             ? warpathModifier
             : 0,
           // special case for charlotta
-          skill.modifier.includes("In Noble Stance") &&
-          isWarpathActive &&
-          warpathEquipped
-            ? 0.1
-            : 0,
+          // skill.modifier.includes("In Noble Stance") ||
+          // (skill.modifier.includes("Continuous Attacks") &&
+          //   isWarpathActive &&
+          //   warpathEquipped)
+          //   ? 0.1
+          //   : 0,
         ]);
 
         const multi = safeDecimalAdder([

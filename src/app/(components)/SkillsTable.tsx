@@ -44,6 +44,7 @@ export const SkillsTable = () => {
   const overmasteryCrit = useBuildStore((state) => state.critHitRate);
   const isWarpathActive = useBuildStore((state) => state.isWarpathActive);
   const isLinkTime = useBuildStore((state) => state.isLinkTime);
+  const enhancedDmgBuff = useBuildStore((state) => state.enhancedDmgBuff);
   const [charData, setCharData] = useState<SkillCalculatedTable[]>([]);
   const setSelectedSkills = useSelectedRowsStore(
     (state) => state.setSelectedSkills
@@ -66,7 +67,9 @@ export const SkillsTable = () => {
       const warpathEquipped = statsStore.traitsTable.find(
         (sigil) => sigil.traitName === "Warpath"
       )?.actualUseableLevel;
+
       const baseEnhancedDamageModifier: number = safeDecimalAdder([
+        enhancedDmgBuff,
         selectedCharacter === "Tweyen" &&
         statsStore.isAwakening &&
         uniqueSigilActive
@@ -131,6 +134,12 @@ export const SkillsTable = () => {
               : 0
             : isWarpathActive
             ? warpathModifier
+            : 0,
+          // special case for charlotta
+          skill.modifier.includes("In Noble Stance") &&
+          isWarpathActive &&
+          warpathEquipped
+            ? 0.1
             : 0,
         ]);
 
@@ -442,6 +451,7 @@ export const SkillsTable = () => {
     isWarpathActive,
     uniqueSigilActive,
     isLinkTime,
+    enhancedDmgBuff,
   ]);
   return (
     <div className="flex flex-col gap-4">

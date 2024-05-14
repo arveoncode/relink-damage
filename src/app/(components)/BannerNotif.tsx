@@ -48,6 +48,7 @@ const changelogs: ChangeLogItem[] = [
       "Fixed Charlotta's warpath not being added to skills calculations.",
       `Fixed skills table not showing "Special".`,
       `Fixed export image not showing weapon imbues.`,
+      "Added enhanced DMG Buff on other inputs.",
     ],
   },
 ];

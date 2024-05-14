@@ -16,6 +16,13 @@ import { safeDecimalMultiplier } from "@/lib/calculators";
 import { useBuildStore } from "@/stores/useBuildStore";
 import { useTranslation } from "../(i18n)/client";
 import { useParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Circle } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export const OtherInputs = () => {
   const params = useParams();
@@ -30,7 +37,7 @@ export const OtherInputs = () => {
   const weakPointAttack = useBuildStore((state) => state.weakPointAttack);
   const isLinkTime = useBuildStore((state) => state.isLinkTime);
   const isWarpathActive = useBuildStore((state) => state.isWarpathActive);
-  // const enhancedDmgBuff = useBuildStore((state) => state.enhancedDmgBuff);
+
   const setNumberOfSkills = useBuildStore((state) => state.setNumberOfSkills);
   const setAttackBuffs = useBuildStore((state) => state.setAttackBuffs);
   const setDefDebuffs = useBuildStore((state) => state.setDefDebuffs);
@@ -40,7 +47,7 @@ export const OtherInputs = () => {
   const setWeakpointAttack = useBuildStore((state) => state.setWeakpointAttack);
   const setIsLinkTime = useBuildStore((state) => state.setIsLinkTime);
   const setIsWarpathActive = useBuildStore((state) => state.setIsWarpathActive);
-  // const setEnhancedDmgBuff = useBuildStore((state) => state.setEnhancedDmgBuff);
+
   return (
     <Card>
       <CardHeader>
@@ -87,18 +94,7 @@ export const OtherInputs = () => {
               value={safeDecimalMultiplier([attackBuffs, 100])}
             />
           </div>
-          {/* <div className="grid grid-cols-2 gap-4">
-            <Label className="my-auto">Enhanced DMG (%)</Label>
-            <Input
-              type="number"
-              className=""
-              min={0}
-              onInput={(e) => {
-                setEnhancedDmgBuff(Number(e.currentTarget.value) / 100);
-              }}
-              value={safeDecimalMultiplier([enhancedDmgBuff, 100])}
-            />
-          </div> */}
+          <EnhancedDmgInput />
           <div className="grid grid-cols-2 gap-4">
             <Label className="my-auto">Defense Debuffs (%)</Label>
             <Input
@@ -164,5 +160,79 @@ export const OtherInputs = () => {
         </div>
       </CardContent>
     </Card>
+  );
+};
+
+const EnhancedDmgInput = () => {
+  const enhancedDmgBuff = useBuildStore((state) => state.enhancedDmgBuff);
+  const setEnhancedDmgBuff = useBuildStore((state) => state.setEnhancedDmgBuff);
+  const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
+  function toggleKatalinaPartyBuff() {
+    switch (selectedCharacter) {
+      case "Captain":
+      case "Eugen":
+      case "Rosetta":
+      case "Charlotta":
+      case "Ghandagoza":
+      case "Vane":
+      case "Percival":
+      case "Siegfried":
+      case "Yodarha":
+      case "Zeta":
+      case "Katalina":
+        setEnhancedDmgBuff(0.25);
+        break;
+      case "Lancelot":
+      case "Cagliostro":
+      case "Id":
+      case "Tweyen":
+        setEnhancedDmgBuff(0.15);
+        break;
+      case "Io":
+      case "Seofon":
+      case "Narmaya":
+      case "Ferry":
+        setEnhancedDmgBuff(0.1);
+        break;
+      case "Rackam":
+        setEnhancedDmgBuff(0.05);
+        break;
+      case "Vaseraga":
+        setEnhancedDmgBuff(0);
+        break;
+    }
+  }
+
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="link" className="px-0">
+            <div className="flex gap-2">
+              <Circle className="h-1 w-1 my-auto" />
+              <p>Enhanced DMG (%)</p>
+            </div>
+          </Button>
+        </PopoverTrigger>
+
+        <PopoverContent>
+          <div className="text-xs flex justify-between gap-4">
+            <p className="my-auto">Katalina SBA Enhanced DMG</p>
+            <Button variant="outline" onClick={() => toggleKatalinaPartyBuff()}>
+              Buff
+            </Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+      <Input
+        type="number"
+        className=""
+        min={0}
+        onInput={(e) => {
+          setEnhancedDmgBuff(Number(e.currentTarget.value) / 100);
+        }}
+        value={safeDecimalMultiplier([enhancedDmgBuff, 100])}
+      />
+    </div>
   );
 };

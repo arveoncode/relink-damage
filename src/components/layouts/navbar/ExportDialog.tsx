@@ -2,6 +2,7 @@
 import { DamagePotentialCell } from "@/app/(components)/skills-data-table/SkillsDataColumns";
 import { useTranslation } from "@/app/(i18n)/client";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -55,7 +56,7 @@ export const ExportDialog = ({
           Export Build
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[48rem]">
+      <DialogContent className="max-w-[56rem]">
         <Tabs defaultValue={defaultTab}>
           <DialogHeader>
             <div className="flex">
@@ -321,7 +322,7 @@ export const StaticBuildView = ({
             />
           </div>
         </div>
-        <div className="flex flex-col gap-4">
+        <Card className="flex flex-col gap-4 p-4">
           <div className="flex gap-4">
             <hr className="flex-1 my-auto" />
             <h6>Overmasteries</h6>
@@ -389,7 +390,7 @@ export const StaticBuildView = ({
               />
             )}
           </div>
-        </div>
+        </Card>
         {/* <div className="flex flex-col gap-4">
       <div className="flex gap-4">
         <hr className="flex-1 my-auto" />
@@ -437,42 +438,52 @@ export const StaticBuildView = ({
     </div> */}
       </div>
       <div className="col-span-3 flex flex-col gap-4">
-        <div className="flex flex-col gap-4">
+        <Card className="p-4">
+          <div className="flex flex-col gap-4">
+            <div className="flex gap-4">
+              <hr className="flex-1 my-auto" />
+              <h6>Weapon</h6>
+              <hr className="flex-1 my-auto" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                {weaponImbues.map((trait, i) => {
+                  return (
+                    <div key={i} className="flex gap-4 justify-between">
+                      <WeaponImbueBox trait={trait} />
+                      <div className="my-auto">{trait.level}</div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div>
+                <StatBox name="Terminus" value={isTerminus} />
+                <StatBox name="Max Awakening" value={isMaxAwakening} />
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-4">
           <div className="flex gap-4">
             <hr className="flex-1 my-auto" />
-            <h6>Weapon</h6>
+            <h6>Sigils</h6>
             <hr className="flex-1 my-auto" />
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              {weaponImbues.map((trait, i) => {
-                return <WeaponImbueBox key={i} trait={trait} />;
-              })}
-            </div>
-            <div>
-              <StatBox name="Terminus" value={isTerminus} />
-              <StatBox name="Max Awakening" value={isMaxAwakening} />
-            </div>
-          </div>
-        </div>
-        <div className="flex gap-4">
-          <hr className="flex-1 my-auto" />
-          <h6>Sigils</h6>
-          <hr className="flex-1 my-auto" />
-        </div>
-        <div>
-          {sigilsEquipped.map((sigil, i) => {
-            return (
-              <div key={i} className="flex justify-between">
-                <div className="grid grid-cols-2 flex-1 gap-2">
-                  <TraitBox sigil={sigil.sigil1 as TraitLiterals} />
-                  <TraitBox sigil={sigil.sigil2 as TraitLiterals} />
+          <div>
+            {sigilsEquipped.map((sigil, i) => {
+              return (
+                <div key={i} className="flex justify-between">
+                  <div className="grid grid-cols-2 flex-1 gap-2">
+                    <TraitBox sigil={sigil.sigil1 as TraitLiterals} />
+                    <TraitBox sigil={sigil.sigil2 as TraitLiterals} />
+                  </div>
+                  <div className="my-auto">{sigil.level}</div>
                 </div>
-                <div className="my-auto">{sigil.level}</div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </Card>
       </div>
     </div>
   );

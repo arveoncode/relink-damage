@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { Circle, SquareArrowOutUpRight } from "lucide-react";
@@ -46,6 +47,7 @@ const changelogs: ChangeLogItem[] = [
     changelogs: [
       "Fixed Charlotta's warpath not being added to skills calculations.",
       `Fixed skills table not showing "Special".`,
+      `Fixed export image not showing weapon imbues.`,
     ],
   },
 ];
@@ -78,18 +80,20 @@ export const BannerNotif = () => {
 
                   <hr />
                   <TabsContent value="changelog">
-                    <div className="flex flex-col-reverse gap-2">
-                      {changelogs.map((log, i) => {
-                        return (
-                          <ChangeLogItem
-                            key={log.version}
-                            version={log.version}
-                            changelogs={log.changelogs}
-                            isCurrent={i === changelogs.length - 1}
-                          />
-                        );
-                      })}
-                    </div>
+                    <ScrollArea className="h-full">
+                      <div className="flex flex-col-reverse gap-2">
+                        {changelogs.map((log, i) => {
+                          return (
+                            <ChangeLogItem
+                              key={log.version}
+                              version={log.version}
+                              changelogs={log.changelogs}
+                              isCurrent={i === changelogs.length - 1}
+                            />
+                          );
+                        })}
+                      </div>
+                    </ScrollArea>
                   </TabsContent>
                   <TabsContent value="announcements">
                     <Card>

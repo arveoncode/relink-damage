@@ -51,6 +51,10 @@ const changelogs: ChangeLogItem[] = [
       "Added enhanced DMG Buff on other inputs.",
     ],
   },
+  {
+    version: "1.1.3",
+    changelogs: ["Changed Weapon Imbue level limit from 10 -> 20."],
+  },
 ];
 
 export const BannerNotif = () => {

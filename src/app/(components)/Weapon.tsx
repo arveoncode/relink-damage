@@ -102,8 +102,8 @@ export const Weapon = () => {
                       })
                     }
                     min={0}
-                    max={10}
-                  ></Input>
+                    max={20}
+                  />
                 </div>
               </div>
             );

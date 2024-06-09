@@ -22,6 +22,7 @@ export const characters = [
   "Yodarha",
   "Tweyen",
   "Seofon",
+  // "Sandalphon",
 ] as const;
 
 export const characterConstants = [
@@ -139,7 +140,14 @@ export const characterConstants = [
     imageLink: "https://i.imgur.com/evkM9BQ.png",
     warpathEnhancement: 0.2,
   },
+  // {
+  //   characterName: "Sandalphon",
+  //   imageLink: "https://i.imgur.com/ymvvOeh.png",
+  //   warpathEnhancement: 0,
+  // },
 ];
+
+export const specialCharacters = ["Tweyen", "Seofon", "Sandalphon"];
 
 export function getCharacterImage(name: Character) {
   return characterConstants.find(

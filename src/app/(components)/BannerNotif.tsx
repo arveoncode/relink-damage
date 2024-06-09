@@ -55,6 +55,12 @@ const changelogs: ChangeLogItem[] = [
     version: "1.1.3",
     changelogs: ["Changed Weapon Imbue level limit from 10 -> 20."],
   },
+  {
+    version: "1.1.4",
+    changelogs: [
+      "Fixed Rosetta's Lost Love damage caps as per game update 1.2.X.",
+    ],
+  },
 ];
 
 export const BannerNotif = () => {

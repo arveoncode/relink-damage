@@ -52,7 +52,8 @@ export const traitLiterals = [
   "Flight over Fight",
   "Critical Hit Rate",
   "Warpath",
-  "Boundary",
+  "Boundary/Ain+",
+  "Berserker Echo",
 ] as const;
 
 // export const singleSigilsObject = singleSigils.map((sigil) => {
@@ -559,12 +560,19 @@ export const sigilConstants: {
     sigilMaxLevel: 15,
   },
   {
-    sigilName: "Boundary",
+    sigilName: "Boundary/Ain+",
     sigilImage: "https://i.imgur.com/jnMUx4D.png",
     sigilColor: "Unique_New",
     sigilSeconds: "None",
     sigilMaxLevel: 15,
   },
+  // {
+  //   sigilName: "Berserker Echo",
+  //   sigilImage: "https://i.imgur.com/3lmC4aG.png",
+  //   sigilColor: "Orange",
+  //   sigilSeconds: "GrayRedPurpleBlueNone",
+  //   sigilMaxLevel: 15,
+  // },
 ];
 
 export function getSigilImage(_sigil: TraitLiterals) {

@@ -76,7 +76,7 @@ export const recommendedBuilds: RecommendedBuildPage[] = [
             level: 15,
           },
           {
-            sigil1: "Boundary",
+            sigil1: "Boundary/Ain+",
             sigil2: "None",
             level: 15,
           },

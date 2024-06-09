@@ -1,9 +1,9 @@
 import { Character } from "@/types/character.types";
+import { specialCharacters } from "../character/characters";
 
 //
 export const baseStatsAtLvl100 = (selectedCharacter?: Character) => {
-  const isEternal =
-    selectedCharacter === "Tweyen" || selectedCharacter === "Seofon";
+  const isEternal = specialCharacters.includes(selectedCharacter as string);
   /* Your total base attack.
     Characters at lv100 have 12396 base attack with a
     +99 Terminus weapon (note that Terminus weapon applies a final +50%,

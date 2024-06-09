@@ -276,7 +276,7 @@ export function convertLogsToCalculatorTrait(
     case "0f026cf0":
       return "Warpath";
     case "281214ab":
-      return "Boundary";
+      return "Boundary/Ain+";
     case "48a95b8d":
       //this is greater aegis
       return "None";
@@ -326,7 +326,7 @@ export function convertLogsToCalculatorTrait(
     case "e85ff8e0":
       return "Awakening";
     case "ef05ec4d":
-      return "Boundary";
+      return "Boundary/Ain+";
     case "f71f8997":
       return "None";
     case "fdd1ad24":

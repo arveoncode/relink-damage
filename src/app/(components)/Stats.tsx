@@ -11,6 +11,7 @@ import {
 } from "@/lib/calculators";
 import { CheckCircle, XCircle } from "lucide-react";
 import { useBuildStore } from "@/stores/useBuildStore";
+import { specialCharacters } from "@/constants/character/characters";
 
 // You've heard of monorepos, get ready for the monofile OwO
 
@@ -768,12 +769,11 @@ const HiddenStats = () => {
   const setIsEternal = useStatsStore((state) => state.setIsEternal);
   useEffect(() => {
     const sigilsBoundary = traitsTable.find(
-      (trait) => trait.traitName === "Boundary"
+      (trait) => trait.traitName === "Boundary/Ain+"
     )?.actualUseableLevel;
-    const isEternal =
-      selectedCharacter === "Tweyen" || selectedCharacter === "Seofon"
-        ? true
-        : false;
+    const isEternal = specialCharacters.includes(selectedCharacter)
+      ? true
+      : false;
 
     setIsBoundary(sigilsBoundary ? true : false);
     setIsEternal(isEternal);

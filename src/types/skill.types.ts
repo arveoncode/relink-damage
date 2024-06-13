@@ -22,6 +22,8 @@ export interface SkillConstant {
     special?: boolean;
     //vane:
     sp2?: boolean;
+    //only crit
+    oc?: boolean;
   };
 }
 

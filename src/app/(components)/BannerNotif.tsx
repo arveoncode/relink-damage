@@ -61,6 +61,16 @@ const changelogs: ChangeLogItem[] = [
       "Fixed Rosetta's Lost Love damage caps as per game update 1.2.X.",
     ],
   },
+  {
+    version: "1.1.5",
+    changelogs: [
+      "Fixed Io's Flowery Seven DMG caps as per game update 1.2.X.",
+      "Fixed Charged Bonus not implemented correctly.",
+      "Fixed Throw Bonus not implemented correctly.",
+      "Fixed some of Eugen's skills not properly being tagged as a Throw attack.",
+      "Added 1.3.X sigils to sigil selection but calculations will come soon™",
+    ],
+  },
 ];
 
 export const BannerNotif = () => {

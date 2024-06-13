@@ -7,7 +7,12 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-//hard copied from https://github.com/false-spring/gbfr-logs/blob/main/src/utils.ts
+/**
+ * @param selector Class or ID of element that is being targetted
+ * hard copied from
+ * @link https://github.com/false-spring/gbfr-logs/blob/main/src/utils.ts
+ * @returns void
+ */
 export const exportScreenshotToClipboard = (selector = "#build") => {
   const build = document.querySelector(selector) as HTMLElement;
 

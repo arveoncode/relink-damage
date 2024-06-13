@@ -126,6 +126,12 @@ export const skillsDataColumns: ColumnDef<SkillCalculatedTable>[] = [
             {row.original.classification.special && (
               <SkillClassificationBadge abrv="Sp" full="Special" />
             )}
+            {row.original.classification.oc && (
+              <SkillClassificationBadge abrv="Oc" full="Only Crit" />
+            )}
+            {row.original.classification.throw && (
+              <SkillClassificationBadge abrv="Th" full="Throw" />
+            )}
           </div>
         ),
       },

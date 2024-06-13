@@ -54,6 +54,8 @@ export const traitLiterals = [
   "Warpath",
   "Boundary/Ain+",
   "Berserker Echo",
+  "Spartan Echo",
+  "Super Ultimate Perfect Dodge",
 ] as const;
 
 // export const singleSigilsObject = singleSigils.map((sigil) => {
@@ -182,7 +184,7 @@ export const sigilConstants: {
     sigilMaxLevel: 0,
   },
   {
-    sigilName: "DMG Cap",
+    sigilName: "DMG Cap" satisfies TraitLiterals,
     sigilImage: "https://i.imgur.com/3lmC4aG.png",
     sigilColor: "Orange",
     sigilSeconds: "GrayRedPurpleBlueNone",
@@ -566,13 +568,27 @@ export const sigilConstants: {
     sigilSeconds: "None",
     sigilMaxLevel: 15,
   },
-  // {
-  //   sigilName: "Berserker Echo",
-  //   sigilImage: "https://i.imgur.com/3lmC4aG.png",
-  //   sigilColor: "Orange",
-  //   sigilSeconds: "GrayRedPurpleBlueNone",
-  //   sigilMaxLevel: 15,
-  // },
+  {
+    sigilName: "Berserker Echo",
+    sigilImage: "https://i.imgur.com/3lmC4aG.png",
+    sigilColor: "Orange",
+    sigilSeconds: "GrayRedPurpleBlueNone",
+    sigilMaxLevel: 15,
+  },
+  {
+    sigilName: "Spartan Echo",
+    sigilImage: "https://i.imgur.com/3lmC4aG.png",
+    sigilColor: "Orange",
+    sigilSeconds: "GrayRedPurpleBlueNone",
+    sigilMaxLevel: 15,
+  },
+  {
+    sigilName: "Super Ultimate Perfect Dodge",
+    sigilImage: "https://i.imgur.com/3lmC4aG.png",
+    sigilColor: "Orange",
+    sigilSeconds: "GrayRedPurpleBlueNone",
+    sigilMaxLevel: 15,
+  },
 ];
 
 export function getSigilImage(_sigil: TraitLiterals) {

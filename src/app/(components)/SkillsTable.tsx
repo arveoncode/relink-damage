@@ -135,17 +135,9 @@ export const SkillsTable = () => {
             : isWarpathActive
             ? warpathModifier
             : 0,
-          // special case for charlotta
-          // skill.modifier.includes("In Noble Stance") ||
-          // (skill.modifier.includes("Continuous Attacks") &&
-          //   isWarpathActive &&
-          //   warpathEquipped)
-          //   ? 0.1
-          //   : 0,
         ]);
 
         const multi = safeDecimalAdder([
-          // 1,
           safeDecimalMultiplier([
             skill.classification.linkAttack ? statsStore.linkBonus + 1 : 1,
             skill.classification.skyboundArt
@@ -156,6 +148,7 @@ export const SkillsTable = () => {
             skill.classification.skill ? statsStore.skillBonus + 1 : 1,
             skill.classification.finisher ? statsStore.finisherBonus + 1 : 1,
             !skill.classification.skyboundArt ? statsStore.weakPoint + 1 : 1,
+            skill.classification.throw ? statsStore.throwBonus + 1 : 1,
             //Character specific multipliers
             selectedCharacter === "Ferry" &&
             statsStore.isAwakening &&
@@ -210,9 +203,10 @@ export const SkillsTable = () => {
         );
 
         const critChance =
-          selectedCharacter === "Zeta" &&
-          warpathEquipped &&
-          (arvessFermare || isWarpathActive)
+          (selectedCharacter === "Zeta" &&
+            warpathEquipped &&
+            (arvessFermare || isWarpathActive)) ||
+          skill.classification.oc
             ? 1
             : safeDecimalAdder([
                 baseStatsAtLvl100(selectedCharacter).critHitRate,

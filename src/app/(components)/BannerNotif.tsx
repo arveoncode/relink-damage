@@ -62,7 +62,7 @@ const changelogs: ChangeLogItem[] = [
     ],
   },
   {
-    version: "1.1.5",
+    version: "1.2.0",
     changelogs: [
       "Fixed Io's Flowery Seven DMG caps as per game update 1.2.X.",
       "Fixed Charged Bonus not implemented correctly.",

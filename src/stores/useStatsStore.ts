@@ -48,6 +48,12 @@ interface StatsStore {
   setIsEternal: (_isEternal: boolean) => void;
   isBoundary: boolean;
   setIsBoundary: (_isBoundary: boolean) => void;
+
+  /**
+   * patch 1.3.x
+   */
+  echoDmg: number;
+  setEchoDmg: (_echoDmg: number) => void;
 }
 
 export const useStatsStore = create<StatsStore>()((set) => ({
@@ -103,4 +109,6 @@ export const useStatsStore = create<StatsStore>()((set) => ({
   isBoundary: false,
   setIsBoundary: (_isBoundary: boolean) =>
     set(() => ({ isBoundary: _isBoundary })),
+  echoDmg: 0,
+  setEchoDmg: (_echoDmg: number) => set(() => ({ echoDmg: _echoDmg })),
 }));

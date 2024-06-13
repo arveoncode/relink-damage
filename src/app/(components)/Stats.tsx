@@ -27,15 +27,18 @@ export const Stats = () => {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-2">
-          <div className="grid gap-2 grid-cols-auto-fill-sm">
+          <div className="grid grid-cols-auto-fill-md gap-2">
             <RawAttackBox />
             <RawPowerBox />
             <RawPowerCritBox />
+            <EchoBox />
             <StaminaModBox />
             <DamageCapBox />
             <NormalDamageCapBox />
             <SkillDamageCapBox />
             <SbaDamageCapBox />
+          </div>
+          <div className="grid gap-2 grid-cols-auto-fill-sm">
             <RangedBonusBox />
             <ChargedBonusBox />
             <SkillBonusBox />
@@ -310,6 +313,25 @@ const RawPowerCritBox = () => {
     );
   }, [rawPower, traitsTable, setRawPowerCrit]);
   return <StatBox title="Raw Power Crit" value={rawPowerCrit} />;
+};
+
+const EchoBox = () => {
+  const rawAttack = useStatsStore((state) => state.rawAttack);
+  const echoDmg = useStatsStore((state) => state.echoDmg);
+  const setEchoDmg = useStatsStore((state) => state.setEchoDmg);
+  const traitsTable = useStatsStore((state) => state.traitsTable);
+
+  useEffect(() => {
+    const sigilsBerserkerEcho = traitsTable.find(
+      (trait) => trait.traitName === "Berserker Echo"
+    )?.actualUseableLevel;
+    setEchoDmg(
+      sigilsBerserkerEcho && rawAttack > 20000
+        ? Math.min(1, (rawAttack - 20000) / 5000)
+        : 0
+    );
+  }, [setEchoDmg, traitsTable, rawAttack]);
+  return <StatBox title="Echo" value={echoDmg} />;
 };
 
 const DamageCapBox = () => {

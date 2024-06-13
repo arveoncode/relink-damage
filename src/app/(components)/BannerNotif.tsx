@@ -69,6 +69,7 @@ const changelogs: ChangeLogItem[] = [
       "Fixed Throw Bonus not implemented correctly.",
       "Fixed some of Eugen's skills not properly being tagged as a Throw attack.",
       "Added 1.3.X sigils to sigil selection but calculations will come soon™",
+      "Added Berserker Echo calculations.",
     ],
   },
 ];

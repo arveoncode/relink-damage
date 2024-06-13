@@ -46,6 +46,7 @@ export const SkillsTable = () => {
   const isLinkTime = useBuildStore((state) => state.isLinkTime);
   const enhancedDmgBuff = useBuildStore((state) => state.enhancedDmgBuff);
   const [charData, setCharData] = useState<SkillCalculatedTable[]>([]);
+  const echoDmg = useStatsStore((state) => state.echoDmg);
   const setSelectedSkills = useSelectedRowsStore(
     (state) => state.setSelectedSkills
   );
@@ -340,7 +341,10 @@ export const SkillsTable = () => {
                               (sigilsCrit ? sigilsCrit : 0)
                           )),
                     0.2,
-                    Math.min(1, 0.12 + sigilsSupplementary * 0.2),
+                    echoDmg +
+                      (sigilsSupplementary > 0
+                        ? Math.min(1, 0.12 + sigilsSupplementary * 0.2)
+                        : 0),
                   ])
                 )
               : 0
@@ -447,6 +451,7 @@ export const SkillsTable = () => {
     uniqueSigilActive,
     isLinkTime,
     enhancedDmgBuff,
+    echoDmg,
   ]);
   return (
     <div className="flex flex-col gap-4">

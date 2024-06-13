@@ -340,11 +340,11 @@ export const SkillsTable = () => {
                               overmasteryCrit +
                               (sigilsCrit ? sigilsCrit : 0)
                           )),
-                    0.2,
-                    echoDmg +
-                      (sigilsSupplementary > 0
-                        ? Math.min(1, 0.12 + sigilsSupplementary * 0.2)
-                        : 0),
+                    0.2 *
+                      (echoDmg +
+                        (sigilsSupplementary > 0
+                          ? Math.min(1, 0.12 + sigilsSupplementary * 0.2)
+                          : 0)),
                   ])
                 )
               : 0

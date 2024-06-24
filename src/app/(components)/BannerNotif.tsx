@@ -99,11 +99,12 @@ export const BannerNotif = () => {
                       </TabsTrigger>
                     </TabsList>
                   </div>
-
-                  <hr />
                   <TabsContent value="changelog">
-                    <ScrollArea className="h-full">
-                      <div className="flex flex-col-reverse gap-2">
+                    <ScrollArea
+                      className={`h-[calc(100vh-96px)]`}
+                      id="changelogScrollArea"
+                    >
+                      <div className="flex flex-col-reverse gap-2 pb-4 h-full">
                         {changelogs.map((log, i) => {
                           return (
                             <ChangeLogItem

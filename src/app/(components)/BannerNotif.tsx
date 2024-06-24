@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { Circle, SquareArrowOutUpRight } from "lucide-react";
 import { useParams } from "next/navigation";
+import { Icon } from "@iconify/react";
 
 const changelogs: ChangeLogItem[] = [
   {
@@ -119,23 +120,108 @@ export const BannerNotif = () => {
                     </ScrollArea>
                   </TabsContent>
                   <TabsContent value="announcements">
-                    <Card>
-                      <CardHeader className="p-4">
-                        <CardTitle className="text-left text-sm">
-                          Thank you for ~1,400 visitors! 🎉
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="px-4 pb-4">
-                        <p className="text-xs">
-                          Thank you so much to the ~1,400 Granblue Fantasy:
-                          Relink players who accessed the site since it was
-                          integrated to GBFR-logs. This application has garnered
-                          over ~3600 page views from over 40 countries. If you
-                          wish to contribute to translations, please reach out
-                          on Github (link on navbar) or on discord: @arveonuwu!
-                        </p>
-                      </CardContent>
-                    </Card>
+                    <ScrollArea
+                      className={`h-[calc(100vh-96px)]`}
+                      id="changelogScrollArea"
+                    >
+                      <div className="flex flex-col gap-4">
+                        <Card>
+                          <CardHeader className="p-4">
+                            <CardTitle className="text-left text-sm">
+                              OVER 9000 PAGE VIEWS! 🎉
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="px-4 pb-4">
+                            <div>
+                              <p className="text-xs">
+                                Glad this application is of use to so many
+                                people around the world!
+                              </p>
+                              <div className="flex flex-col gap-2">
+                                <p className="text-xs font-bold">
+                                  Some fun stats as of 06.24.2024
+                                </p>
+                                <InternationalStats
+                                  countryCode="jp"
+                                  pageViews={2000}
+                                />
+                                <InternationalStats
+                                  countryCode="us"
+                                  pageViews={1600}
+                                />
+                                <InternationalStats
+                                  countryCode="th"
+                                  pageViews={921}
+                                />
+                                <InternationalStats
+                                  countryCode="kr"
+                                  pageViews={859}
+                                />
+                                <InternationalStats
+                                  countryCode="hk"
+                                  pageViews={529}
+                                />
+                                <InternationalStats
+                                  countryCode="tw"
+                                  pageViews={451}
+                                />
+                                <InternationalStats
+                                  countryCode="ph"
+                                  pageViews={448}
+                                />
+                                <InternationalStats
+                                  countryCode="sg"
+                                  pageViews={335}
+                                />
+                                <InternationalStats
+                                  countryCode="id"
+                                  pageViews={297}
+                                />
+                                <InternationalStats
+                                  countryCode="au"
+                                  pageViews={238}
+                                />
+                                <InternationalStats
+                                  countryCode="de"
+                                  pageViews={232}
+                                />
+                                <InternationalStats
+                                  countryCode="br"
+                                  pageViews={231}
+                                />
+                                <InternationalStats
+                                  countryCode="fr"
+                                  pageViews={225}
+                                />
+                                <InternationalStats
+                                  countryCode="my"
+                                  pageViews={187}
+                                />
+                                ...
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                        <Card>
+                          <CardHeader className="p-4">
+                            <CardTitle className="text-left text-sm">
+                              Thank you for ~1,400 visitors! 🎉
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="px-4 pb-4">
+                            <p className="text-xs">
+                              Thank you so much to the ~1,400 Granblue Fantasy:
+                              Relink players who accessed the site since it was
+                              integrated to GBFR-logs. This application has
+                              garnered over ~3600 page views from over 40
+                              countries. If you wish to contribute to
+                              translations, please reach out on Github (link on
+                              navbar) or on discord: @arveonuwu!
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </ScrollArea>
                   </TabsContent>
                 </div>
               </Tabs>
@@ -241,6 +327,21 @@ const LanguageEasterEgg = () => {
           😅
         </p>
       )}
+    </div>
+  );
+};
+
+const InternationalStats = ({
+  countryCode,
+  pageViews,
+}: {
+  countryCode: string;
+  pageViews: number;
+}) => {
+  return (
+    <div className="flex gap-2">
+      <Icon icon={`flag:${countryCode}-1x1`} className="h-4 w-4 border" />
+      <p className="text-xs">~{pageViews} page views</p>
     </div>
   );
 };

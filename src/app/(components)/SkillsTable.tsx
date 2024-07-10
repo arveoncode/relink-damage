@@ -467,6 +467,11 @@ export const SkillsTable = () => {
         columns={skillsDataColumns}
         setRowSelectionsForExport={setSelectedSkills}
       />
+      {selectedCharacter === "Sandalphon" && (
+        <div>
+          I&apos;m sorry but this is what peak Sandalphon gameplay looks like.
+        </div>
+      )}
     </div>
   );
 };

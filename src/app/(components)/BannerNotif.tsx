@@ -73,6 +73,12 @@ const changelogs: ChangeLogItem[] = [
       "Added Berserker Echo calculations.",
     ],
   },
+  {
+    version: "1.2.1",
+    changelogs: [
+      `Added Sandalphon's "entire kit" LMAOOOO (thx @Silver from GBFR discord for the numbers)`,
+    ],
+  },
 ];
 
 export const BannerNotif = () => {

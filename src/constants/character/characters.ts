@@ -22,7 +22,7 @@ export const characters = [
   "Yodarha",
   "Tweyen",
   "Seofon",
-  // "Sandalphon",
+  "Sandalphon",
 ] as const;
 
 export const characterConstants = [
@@ -140,11 +140,11 @@ export const characterConstants = [
     imageLink: "https://i.imgur.com/evkM9BQ.png",
     warpathEnhancement: 0.2,
   },
-  // {
-  //   characterName: "Sandalphon",
-  //   imageLink: "https://i.imgur.com/ymvvOeh.png",
-  //   warpathEnhancement: 0,
-  // },
+  {
+    characterName: "Sandalphon",
+    imageLink: "https://i.imgur.com/ymvvOeh.png",
+    warpathEnhancement: 0,
+  },
 ];
 
 export const specialCharacters = ["Tweyen", "Seofon", "Sandalphon"];

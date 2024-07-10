@@ -32,6 +32,7 @@ import { ExportDialog } from "@/components/layouts/navbar/ExportDialog";
 import { tweyenSkills } from "@/constants/character/skills/tweyen";
 import { seofonSkills } from "@/constants/character/skills/seofon";
 import { characterConstants } from "@/constants/character/characters";
+import { sandalphonSkills } from "@/constants/character/skills/sandalphon";
 
 export const SkillsTable = () => {
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
@@ -437,6 +438,9 @@ export const SkillsTable = () => {
         break;
       case "Seofon":
         setCharData(calculateSkills(seofonSkills));
+        break;
+      case "Sandalphon":
+        setCharData(calculateSkills(sandalphonSkills));
         break;
     }
   }, [

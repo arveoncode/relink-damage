@@ -8,7 +8,7 @@ import { convertCalculatorToLogsTrait } from "@/constants/logs/traits";
 import { useBuildStore } from "@/stores/useBuildStore";
 import { TraitLiterals } from "@/types/traits.types";
 import Image from "next/image";
-import { useTranslation } from "../(i18n)/client";
+import { useTranslation, useTranslationEz } from "../(i18n)/client";
 import { useParams } from "next/navigation";
 import { useStatsStore } from "@/stores/useStatsStore";
 import { useEffect } from "react";
@@ -17,6 +17,7 @@ export const Weapon = () => {
   const params = useParams();
   const lng = params.lng as string;
   const traitsTranslate = useTranslation(lng, "traits");
+  const t = useTranslationEz("ui/weapon");
   const isTerminus = useBuildStore((state) => state.isTerminus);
   const isMaxAwakening = useBuildStore((state) => state.isMaxAwakening);
   const setIsTerminus = useBuildStore((state) => state.setIsTerminus);
@@ -50,7 +51,7 @@ export const Weapon = () => {
       <CardHeader>
         <CardTitle className="flex gap-4">
           <hr className="flex-1 my-auto" />
-          <div>Weapon</div>
+          <div>{t("Weapon")}</div>
           <hr className="flex-1 my-auto" />
         </CardTitle>
       </CardHeader>
@@ -111,9 +112,9 @@ export const Weapon = () => {
 
           <div className=" flex items-center space-x-4 rounded-md border p-4">
             <div className="flex-1 space-y-1">
-              <p className="text-sm font-medium leading-none">Terminus</p>
+              <p className="text-sm font-medium leading-none">{t("Terminus")}</p>
               <p className="text-sm text-muted-foreground">
-                Adds 100% Damage Cap and 50% Attack.
+                {t("TerminusDesc")}
               </p>
             </div>
             <Switch
@@ -125,11 +126,10 @@ export const Weapon = () => {
           <div className=" flex items-center space-x-4 rounded-md border p-4">
             <div className="flex-1 space-y-1">
               <p className="text-sm font-medium leading-none">
-                Max Awakening Level
+                {t("Max Awakening Level")}
               </p>
               <p className="text-sm text-muted-foreground">
-                A fully awakened weapon has the &quot;Sigil Booster&quot;
-                effect, on top of providing 5 levels of DMG Cap.
+                {t("MALDesc")}
               </p>
             </div>
             <Switch

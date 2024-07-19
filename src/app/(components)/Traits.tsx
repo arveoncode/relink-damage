@@ -43,7 +43,7 @@ export const Traits = () => {
   const isEternal = useStatsStore((state) => state.isEternal);
 
   const [showZeroLvlTraits, setShowZeroLvlTraits] = useState(false);
-  const uiTranslate = useTranslationEz("ui");
+  const t = useTranslationEz("ui/traits");
 
   useEffect(() => {
     //Need to make this sooper dooper faster >W< *starts twerking*
@@ -119,7 +119,7 @@ export const Traits = () => {
       <CardHeader className="">
         <CardTitle className="flex gap-4">
           <hr className="flex-1 my-auto" />
-          <div className="my-auto">{uiTranslate("Traits")}</div>
+          <div className="my-auto">{t("Traits")}</div>
           <hr className="flex-1 my-auto" />
           <ShowButton
             isShowing={showZeroLvlTraits}
@@ -129,7 +129,7 @@ export const Traits = () => {
       </CardHeader>
       <CardContent className="grid md:grid-cols-2 gap-4">
         <div>
-          <h6 className="font-bold">{uiTranslate("Damage Sigils")}</h6>
+          <h6 className="font-bold">{t("Damage Sigils")}</h6>
           <TraitsTable
             // slice operation because traitsTable is based on var sigilConstants. Starts at 1 because index 0 is "None"
             traitsTable={traitsTable.slice(1, 29)}
@@ -137,7 +137,7 @@ export const Traits = () => {
           />
         </div>
         <div>
-          <h6 className="font-bold">{uiTranslate("Utility/Other Sigils")}</h6>
+          <h6 className="font-bold">{t("Utility/Other Sigils")}</h6>
           <TraitsTable
             // Starts at 29 to split attack from other utility sigils"
             traitsTable={traitsTable.slice(29, sigilConstants.length)}
@@ -182,14 +182,14 @@ const TraitsTable = ({
   const params = useParams();
   const lng = params.lng as string;
   const traitsTranslate = useTranslation(lng, "traits");
-  const uiTranslate = useTranslationEz("ui");
+  const t = useTranslationEz("ui/traits");
   return (
     <Table>
       <TableHeader>
         <TableRow>
           <TableHead></TableHead>
-          <TableHead>{uiTranslate("Trait")}</TableHead>
-          <TableHead className="text-center">{uiTranslate("Lvl / Max Lvl")}</TableHead>
+          <TableHead>{t("Trait")}</TableHead>
+          <TableHead className="text-center">{t("Lvl / Max Lvl")}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

@@ -2,6 +2,7 @@
 
 import i18next from "i18next";
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import {
   initReactI18next,
   useTranslation as useTranslationOrg,
@@ -61,4 +62,11 @@ export function useTranslation(lng: string, ns: string, options = {}) {
     }, [lng, cookies.i18next]);
   }
   return ret;
+}
+
+export function useTranslationEz(ns: string, options = {}) {
+  const params = useParams();
+  const lng = params.lng as string;
+  const translate = useTranslation(lng, ns, options);
+  return translate.t.bind(translate)
 }

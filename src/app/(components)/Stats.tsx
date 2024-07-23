@@ -12,16 +12,19 @@ import {
 import { CheckCircle, XCircle } from "lucide-react";
 import { useBuildStore } from "@/stores/useBuildStore";
 import { specialCharacters } from "@/constants/character/characters";
+import { useTranslationEz } from "@/app/(i18n)/client";
 
 // You've heard of monorepos, get ready for the monofile OwO
 
 export const Stats = () => {
+  const t = useTranslationEz("ui/stats");
+
   return (
     <Card className="rounded-lg col-span-2 bg-background/50">
       <CardHeader>
         <CardTitle className="flex gap-4">
           <hr className="flex-1 my-auto" />
-          <div>Stats</div>
+          <div>{t("Stats")}</div>
           <hr className="flex-1 my-auto" />
         </CardTitle>
       </CardHeader>
@@ -745,11 +748,13 @@ const TraitBooleanBox = ({
   traitTitle: string;
   traitIsActive: boolean;
 }) => {
+  const t = useTranslationEz("ui/stats");
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex flex-wrap gap-2 justify-center align-middle my-auto text-sm">
-          {traitTitle}{" "}
+          {t(traitTitle)}{" "}
           {traitIsActive ? (
             <CheckCircle className="h-4 w-4" />
           ) : (
@@ -770,10 +775,12 @@ const StatBox = ({
   value: number;
   percentage?: boolean;
 }) => {
+  const t = useTranslationEz("ui/stats");
+
   return (
     <Card>
       <CardHeader className="p-4">
-        <CardTitle className="text-sm text-center">{title}</CardTitle>
+        <CardTitle className="text-sm text-center">{t(title)}</CardTitle>
       </CardHeader>
       <CardContent className="text-lg font-bold text-center pb-4">
         {percentage

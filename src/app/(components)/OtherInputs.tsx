@@ -14,8 +14,7 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { safeDecimalMultiplier } from "@/lib/calculators";
 import { useBuildStore } from "@/stores/useBuildStore";
-import { useTranslation } from "../(i18n)/client";
-import { useParams } from "next/navigation";
+import { useTranslationEz } from "../(i18n)/client";
 import { Button } from "@/components/ui/button";
 import { Circle } from "lucide-react";
 import {
@@ -25,9 +24,7 @@ import {
 } from "@/components/ui/popover";
 
 export const OtherInputs = () => {
-  const params = useParams();
-  const lng = params.lng as string;
-  const uiTranslate = useTranslation(lng, "ui");
+  const t = useTranslationEz("ui/other-inputs");
   const numberOfSkills = useBuildStore((state) => state.numberOfSkills);
   const attackBuffs = useBuildStore((state) => state.attackBuffs);
   const defDebuffs = useBuildStore((state) => state.defDebuffs);
@@ -53,14 +50,14 @@ export const OtherInputs = () => {
       <CardHeader>
         <CardTitle className="flex gap-4">
           <hr className="flex-1 my-auto" />
-          <div>{uiTranslate.t("Other Inputs")}</div>
+          <div>{t("Other Inputs")}</div>
           <hr className="flex-1 my-auto" />
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-2">
           <div className="grid grid-cols-2 gap-4">
-            <Label className="my-auto">Number of Skills</Label>
+            <Label className="my-auto">{t("Number of Skills")}</Label>
             <Select
               onValueChange={(value) => {
                 // setFirstSigil(value);
@@ -83,7 +80,7 @@ export const OtherInputs = () => {
             </Select>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <Label className="my-auto">Attack Buffs (%)</Label>
+            <Label className="my-auto">{t("Attack Buffs (%)")}</Label>
             <Input
               type="number"
               className=""
@@ -96,7 +93,7 @@ export const OtherInputs = () => {
           </div>
           <EnhancedDmgInput />
           <div className="grid grid-cols-2 gap-4">
-            <Label className="my-auto">Defense Debuffs (%)</Label>
+            <Label className="my-auto">{t("Defense Debuffs (%)")}</Label>
             <Input
               type="number"
               className=""
@@ -108,35 +105,35 @@ export const OtherInputs = () => {
             />
           </div>
           <div className="flex justify-between">
-            <Label className="my-auto">Combo Active?</Label>
+            <Label className="my-auto">{t("Combo Active?")}</Label>
             <Switch
               checked={comboActive}
               onCheckedChange={(value) => setComboActive(value)}
             />
           </div>
           <div className="flex justify-between">
-            <Label className="my-auto">Back Attack?</Label>
+            <Label className="my-auto">{t("Back Attack?")}</Label>
             <Switch
               checked={backAttack}
               onCheckedChange={(value) => setBackAttack(value)}
             />
           </div>
           <div className="flex justify-between">
-            <Label className="my-auto">Weak Point Attack?</Label>
+            <Label className="my-auto">{t("Weak Point Attack?")}</Label>
             <Switch
               checked={weakPointAttack}
               onCheckedChange={(value) => setWeakpointAttack(value)}
             />
           </div>
           <div className="flex justify-between">
-            <Label className="my-auto">Link Time?</Label>
+            <Label className="my-auto">{t("Link Time?")}</Label>
             <Switch
               checked={isLinkTime}
               onCheckedChange={(value) => setIsLinkTime(value)}
             />
           </div>
           <div className="flex justify-between">
-            <Label className="my-auto">Warpath Active?</Label>
+            <Label className="my-auto">{t("Warpath Active?")}</Label>
             <Switch
               checked={isWarpathActive}
               onCheckedChange={(value) => setIsWarpathActive(value)}
@@ -145,7 +142,7 @@ export const OtherInputs = () => {
           <hr />
           <div className="flex flex-col gap-2">
             <div className="flex justify-between align-middle h-8">
-              <Label className="my-auto">Current HP</Label>
+              <Label className="my-auto">{t("Current HP")}</Label>
               <Label className="my-auto">
                 {safeDecimalMultiplier([currentHp, 100]).toFixed(2)}%
               </Label>
@@ -164,6 +161,7 @@ export const OtherInputs = () => {
 };
 
 const EnhancedDmgInput = () => {
+  const t = useTranslationEz("ui/other-inputs");
   const enhancedDmgBuff = useBuildStore((state) => state.enhancedDmgBuff);
   const setEnhancedDmgBuff = useBuildStore((state) => state.setEnhancedDmgBuff);
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
@@ -210,16 +208,16 @@ const EnhancedDmgInput = () => {
           <Button variant="link" className="px-0">
             <div className="flex gap-2">
               <Circle className="h-1 w-1 my-auto" />
-              <p>Enhanced DMG (%)</p>
+              <p>{t("Enhanced DMG (%)")}</p>
             </div>
           </Button>
         </PopoverTrigger>
 
         <PopoverContent>
           <div className="text-xs flex justify-between gap-4">
-            <p className="my-auto">Katalina SBA Enhanced DMG</p>
+            <p className="my-auto">{t("Katalina SBA Enhanced DMG")}</p>
             <Button variant="outline" onClick={() => toggleKatalinaPartyBuff()}>
-              Buff
+              {t("Buff")}
             </Button>
           </div>
         </PopoverContent>

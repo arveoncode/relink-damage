@@ -1,0 +1,13 @@
+{
+  "Load Slot": "加载档位",
+  "Do you want to load build slot:": "你确定要加载这个档位吗：",
+  "Save Build": "保存构筑",
+  "Overwrite Slot": "覆写档位",
+  "Do you wish to overwrite this slot with the current build?": "你确定要用当前构筑覆写这个档位吗？",
+  "Cancel": "取消",
+  "Save Slot": "保存至档位",
+  "Rename Slot": "重命名档位",
+  "Slot Name": "档位名称",
+  "Are you sure you want to delete this slot?": "你确定要删除这个档位吗？",
+  "Delete Slot": "删除档位"
+}

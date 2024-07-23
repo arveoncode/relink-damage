@@ -1,4 +1,5 @@
 "use client";
+import { useTranslationEz } from "@/app/(i18n)/client";
 import { RecommendedBuilds } from "@/app/(components)/RecommendedBuilds";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export const ImportDialog = () => {
+  const t = useTranslationEz("ui/import")
   const selectedCharacter = useBuildStore((state) => state.selectedCharacter);
   const setCharacterStates = useBuildStore((state) => state.setCharacterStates);
   const setOvermasteriesStates = useBuildStore(
@@ -169,7 +171,7 @@ export const ImportDialog = () => {
       <DialogTrigger asChild>
         <Button variant="outline">
           <Import className="mr-2 h-4 w-4" />
-          Import Build
+          {t("Import Build")}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-5xl">
@@ -177,9 +179,9 @@ export const ImportDialog = () => {
           <DialogHeader>
             <div className="flex">
               <TabsList>
-                <TabsTrigger value="from-app">Recommended Builds</TabsTrigger>
+                <TabsTrigger value="from-app">{t("Recommended Builds")}</TabsTrigger>
                 <TabsTrigger value="from-logs">
-                  Import from GBFR-Logs
+                  {t("Import from GBFR-Logs")}
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -191,12 +193,13 @@ export const ImportDialog = () => {
             <div className="grid gap-4 grid-cols-2">
               <div className="flex flex-col gap-4 py-4">
                 <div className="text-xs ">
-                  Import character, sigils, and overmasteries from logs. Note
-                  that not all sigils and overmasteries will be imported.
+                  {
+                    t("Import character, sigils, and overmasteries from logs. Note that not all sigils and overmasteries will be imported.")
+                  }
                 </div>
                 <Textarea
                   className="resize-none flex-1"
-                  placeholder="Paste character data from GBFR-Logs"
+                  placeholder={t("Paste character data from GBFR-Logs")}
                   onChange={(e) => setLogsInput(e.currentTarget.value)}
                   value={logsInput}
                 />
@@ -204,13 +207,12 @@ export const ImportDialog = () => {
                   <Alert variant="destructive">Error parsing JSON</Alert>
                 )}
                 <Button onClick={() => validateFromLogs()}>
-                  Validate Data
+                  {t("Validate Data")}
                 </Button>
               </div>
               <div className="py-4 flex flex-col gap-4">
                 <div className="text-xs ">
-                  If the correct character image appears here, it means the data
-                  has been validated lol.
+                  {t("If the correct character image appears here, it means the data has been validated lol.")}
                 </div>
                 {characterTBI ? (
                   <div className="relative aspect-square">
@@ -232,7 +234,7 @@ export const ImportDialog = () => {
                   disabled={!characterTBI || !overmasteriesTBI || !traitsTBI}
                   onClick={() => importData()}
                 >
-                  Import
+                  {t("Import")}
                 </Button>
               </div>
             </div>

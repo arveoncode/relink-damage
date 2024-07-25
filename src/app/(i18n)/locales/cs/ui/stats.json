@@ -1,0 +1,23 @@
+{
+  "Attack Power": "面板攻击力",
+  "Raw Power": "基准伤害",
+  "Raw Power Crit": "基准暴击伤害",
+  "Stamina Mod": "热血系数",
+  "DMG Cap": "伤害上限",
+  "Normal DMG Cap": "普通攻击伤害上限",
+  "Skill DMG Cap": "能力伤害上限",
+  "SBA DMG Cap": "奥义伤害上限",
+  "Ranged Bonus": "远程伤害加成",
+  "Charged Bonus": "蓄力伤害加成",
+  "Skill Bonus": "技能伤害加成",
+  "SBA Bonus": "奥义伤害加成",
+  "Weakpoint": "弱点伤害加成",
+  "Finisher Bonus": "收招加成",
+  "Throw Bonus": "投掷加成",
+  "Link Bonus": "连锁攻击加成",
+  "War Elemental": "属性克制转换",
+  "Awakening": "觉醒技能",
+  "Flight Over Fight": "摇曳步",
+  "Echo": "狂战士",
+  "Stats": "数据"
+}

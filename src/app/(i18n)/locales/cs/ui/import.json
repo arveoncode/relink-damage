@@ -1,0 +1,10 @@
+{
+  "Recommended Builds": "推荐的构筑",
+  "Import from GBFR-Logs": "从 GBFR Logs 导入",
+  "Import character, sigils, and overmasteries from logs. Note that not all sigils and overmasteries will be imported.": "从 Logs 导入角色，因子与上限突破。注意：部分因子与上限突破数据无法导入。",
+  "If the correct character image appears here, it means the data has been validated lol.": "如果下方显示了正确的角色图片，说明数据验证成功了。",
+  "Paste character data from GBFR-Logs": "将复制自 GBFR Logs 的构筑数据粘贴在这里",
+  "Validate Data": "验证数据",
+  "Import":"导入",
+  "Import Build":"导入构筑"
+}

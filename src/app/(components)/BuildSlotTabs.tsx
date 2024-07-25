@@ -26,6 +26,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useBuildStore } from "@/stores/useBuildStore";
+import { useTranslationEz } from "@/app/(i18n)/client";
 var hash = require("object-hash");
 export const BuildSlotTabs = () => {
   const slots = useBuildSlotsStore((state) => state.slots);
@@ -121,6 +122,8 @@ const BuildSlotTab = ({
 
 const LoadSlotAlertDialog = ({ buildSlot }: { buildSlot: BuildSlot }) => {
   const buildStore = useBuildStore((state) => state);
+  const t = useTranslationEz("ui/slot");
+
   function loadSlot() {
     //slected character
     buildStore.setCharacterStates({
@@ -160,6 +163,7 @@ const LoadSlotAlertDialog = ({ buildSlot }: { buildSlot: BuildSlot }) => {
       critHitRate: buildSlot.overmasteries.critHitRate,
     });
   }
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -168,14 +172,14 @@ const LoadSlotAlertDialog = ({ buildSlot }: { buildSlot: BuildSlot }) => {
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertDialogHeader>Load Slot</AlertDialogHeader>
+        <AlertDialogHeader>{t("Load Slot")}</AlertDialogHeader>
         <AlertDialogDescription>
-          Do you want to load build slot: {buildSlot.name}?
+          {t("Do you want to load build slot:")} {buildSlot.name}?
         </AlertDialogDescription>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{t("Cancel")}</AlertDialogCancel>
           <AlertDialogAction onClick={() => loadSlot()}>
-            Load Slot
+            {t("Load Slot")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -192,24 +196,25 @@ const SaveSlotAlertDialog = ({
 }) => {
   const updateSlot = useBuildSlotsStore((state) => state.updateSlot);
   const buildState = useBuildStore((state) => state);
+  const t = useTranslationEz("ui/slot");
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="default" className="flex gap-2">
           <Save className="my-auto h-4 w-4" />
-          <div>Save Build</div>
+          <div>{t("Save Build")}</div>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Overwrite Slot</AlertDialogTitle>
+          <AlertDialogTitle>{t("Overwrite Slot")}</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogDescription>
-          Do you wish to overwrite this slot with the current build?
+          {t("Do you wish to overwrite this slot with the current build?")}
         </AlertDialogDescription>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{t("Cancel")}</AlertDialogCancel>
           <AlertDialogAction asChild>
             <Button
               variant="destructive"
@@ -259,7 +264,7 @@ const SaveSlotAlertDialog = ({
               }
             >
               <Save className="my-auto h-4 w-4" />
-              Save Slot
+              {t("Save Slot")}
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>
@@ -276,25 +281,27 @@ const RenameSlotDialog = ({
   slot: BuildSlot;
 }) => {
   const updateSlot = useBuildSlotsStore((state) => state.updateSlot);
+  const t = useTranslationEz("ui/slot");
   const [newName, setNewName] = useState(slot.name);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline" className="flex gap-2">
           <PencilIcon className="my-auto h-4 w-4" />
-          Rename Slot
+          {t("Rename Slot")}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            Rename Slot {`"`}
+            {t("Rename Slot")} {`"`}
             {slot.name}
             {`"`}
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-2">
-          <Label>Slot Name</Label>
+          <Label>{t("Slot Name")}</Label>
           <Input
             type="text"
             value={newName}
@@ -306,7 +313,7 @@ const RenameSlotDialog = ({
             variant="default"
             onClick={() => updateSlot(index, { ...slot, name: newName })}
           >
-            Rename Slot
+            {t("Rename Slot")}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -316,23 +323,25 @@ const RenameSlotDialog = ({
 
 const DeleteSlotAlertDialog = ({ index }: { index: number }) => {
   const deleteSlot = useBuildSlotsStore((state) => state.deleteSlot);
+  const t = useTranslationEz("ui/slot");
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="destructive" className="flex gap-2">
           <Trash className="my-auto h-4 w-4" />
-          Delete Slot
+          {t("Delete Slot")}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete Slot</AlertDialogTitle>
+          <AlertDialogTitle>{t("Delete Slot")}</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogDescription>
-          Are you sure you want to delete this slot?
+          {t("Are you sure you want to delete this slot?")}
         </AlertDialogDescription>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{t("Cancel")}</AlertDialogCancel>
           <AlertDialogAction asChild>
             <Button
               variant="destructive"
@@ -340,7 +349,7 @@ const DeleteSlotAlertDialog = ({ index }: { index: number }) => {
               onClick={() => deleteSlot(index)}
             >
               <Trash className="my-auto h-4 w-4" />
-              Delete Slot
+              {t("Delete Slot")}
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>

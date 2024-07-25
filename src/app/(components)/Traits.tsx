@@ -156,6 +156,7 @@ const ShowButton = ({
   isShowing: boolean;
   setIsShowing: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const t = useTranslationEz("ui/traits");
   return (
     <TooltipProvider>
       <Tooltip>
@@ -165,7 +166,7 @@ const ShowButton = ({
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Show/hide level 0 traits</p>
+          <p>{t("Show/hide level 0 traits")}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

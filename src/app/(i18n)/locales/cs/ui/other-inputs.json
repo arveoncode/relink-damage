@@ -1,0 +1,15 @@
+{
+  "Number of Skills": "技能数量",
+  "Attack Buffs (%)": "攻击加成 (%)",
+  "Enhanced DMG (%)": "造成伤害增加 (%)",
+  "Katalina SBA Enhanced DMG": "卡塔莉娜奥义 + 战气带来的伤害增加",
+  "Buff": "使其生效",
+  "Defense Debuffs (%)": "目标防御降低 (%)",
+  "Combo Active?": "连击加成最大？",
+  "Back Attack?": "命中背后？",
+  "Weak Point Attack?": "命中弱点？",
+  "Link Time?": "处于连锁时域？",
+  "Warpath Active?": "战气生效？",
+  "Current HP": "当前血量",
+  "Other Inputs":"其他"
+}

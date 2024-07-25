@@ -1,6 +1,6 @@
 "use client";
 import { DamagePotentialCell } from "@/app/(components)/skills-data-table/SkillsDataColumns";
-import { useTranslation } from "@/app/(i18n)/client";
+import { useTranslation, useTranslationEz } from "@/app/(i18n)/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -43,6 +43,7 @@ export const ExportDialog = ({
   const buildState = useBuildStore((state) => state);
   const [url, setUrl] = useState("");
   const selectedSkills = useSelectedRowsStore((state) => state.selectedSkills);
+  const t = useTranslationEz("ui/export")
 
   useEffect(() => {
     setUrl(window.location.href);
@@ -53,7 +54,7 @@ export const ExportDialog = ({
       <DialogTrigger asChild>
         <Button variant="outline">
           <FolderOutput className="mr-2 h-4 w-4" />
-          Export Build
+          {t("Export Build")}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[56rem]">
@@ -61,8 +62,8 @@ export const ExportDialog = ({
           <DialogHeader>
             <div className="flex">
               <TabsList>
-                <TabsTrigger value="link">Link</TabsTrigger>
-                <TabsTrigger value="image">Image</TabsTrigger>
+                <TabsTrigger value="link">{t("Link")}</TabsTrigger>
+                <TabsTrigger value="image">{t("Image")}</TabsTrigger>
               </TabsList>
             </div>
           </DialogHeader>
@@ -74,7 +75,7 @@ export const ExportDialog = ({
                 size="icon"
                 onClick={() => {
                   navigator.clipboard.writeText(url);
-                  toast("Link has been copied.");
+                  toast(t("Link has been copied."));
                 }}
               >
                 <ClipboardCopy className="h-4 w-4" />
@@ -190,6 +191,7 @@ const ExportImageButton = ({
   targetElement?: string;
   text?: string;
 }) => {
+  const t = useTranslationEz("ui/export")
   return (
     <Button
       onClick={() => {
@@ -200,7 +202,7 @@ const ExportImageButton = ({
         }
       }}
     >
-      {text ? text : "Copy Image To Clipboard"}
+      {text ? text : t("Copy Image To Clipboard")}
     </Button>
   );
 };
@@ -296,6 +298,8 @@ export const StaticBuildView = ({
   const lng = params.lng as string;
   const characterTranslate = useTranslation(lng, "characters");
   const omTranslate = useTranslation(lng, "overmasteries");
+  const weaponTranslate = useTranslationEz("ui/weapon")
+  const t = useTranslationEz("ui")
   return (
     <div className="grid grid-cols-5 gap-4 p-4">
       <div className="col-span-2 flex flex-col gap-4">
@@ -325,7 +329,7 @@ export const StaticBuildView = ({
         <Card className="flex flex-col gap-4 p-4">
           <div className="flex gap-4">
             <hr className="flex-1 my-auto" />
-            <h6>Overmasteries</h6>
+            <h6>{t("Overmasteries")}</h6>
             <hr className="flex-1 my-auto" />
           </div>
           <div>
@@ -442,7 +446,7 @@ export const StaticBuildView = ({
           <div className="flex flex-col gap-4">
             <div className="flex gap-4">
               <hr className="flex-1 my-auto" />
-              <h6>Weapon</h6>
+              <h6>{weaponTranslate("Weapon")}</h6>
               <hr className="flex-1 my-auto" />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -457,8 +461,8 @@ export const StaticBuildView = ({
                 })}
               </div>
               <div>
-                <StatBox name="Terminus" value={isTerminus} />
-                <StatBox name="Max Awakening" value={isMaxAwakening} />
+                <StatBox name={weaponTranslate("Terminus")} value={isTerminus} />
+                <StatBox name={weaponTranslate("Max Awakening")} value={isMaxAwakening} />
               </div>
             </div>
           </div>
@@ -467,7 +471,7 @@ export const StaticBuildView = ({
         <Card className="p-4">
           <div className="flex gap-4">
             <hr className="flex-1 my-auto" />
-            <h6>Sigils</h6>
+            <h6>{t("Sigils")}</h6>
             <hr className="flex-1 my-auto" />
           </div>
           <div>

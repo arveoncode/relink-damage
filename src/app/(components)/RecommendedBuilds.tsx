@@ -4,7 +4,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { characters } from "@/constants/character/characters";
 import { Character } from "@/types/character.types";
 import { TabsContent } from "@radix-ui/react-tabs";
-import { useTranslation } from "../(i18n)/client";
+import { useTranslation, useTranslationEz } from "../(i18n)/client";
 import { useParams } from "next/navigation";
 import { recommendedBuilds } from "@/constants/character/skills/recommendedBuilds";
 import { StaticBuildView } from "@/components/layouts/navbar/ExportDialog";
@@ -21,6 +21,7 @@ export const RecommendedBuilds = ({
   const params = useParams();
   const lng = params.lng as string;
   const characterTranslate = useTranslation(lng, "characters");
+  const t = useTranslationEz("ui/rec-build");
   const setSelectedCharacter = useBuildStore(
     (state) => state.setSelectedCharacter
   );
@@ -38,7 +39,7 @@ export const RecommendedBuilds = ({
       isMaxAwakening: _equipment.isMaxAwakening,
       weaponImbues: _equipment.weaponImbues,
     });
-    toast("Build loaded.");
+    toast(t("Build loaded."));
   }
   return (
     <div>
@@ -111,7 +112,7 @@ export const RecommendedBuilds = ({
                                   variant="default"
                                   onClick={() => importData(buildState)}
                                 >
-                                  Load Build
+                                  {t("Load Build")}
                                 </Button>
                               </div>
                             </TabsContent>
@@ -125,11 +126,10 @@ export const RecommendedBuilds = ({
                 <div className="px-4 h-full flex flex-col justify-center gap-4">
                   <div className="text-center my-auto flex flex-col gap-2">
                     <p className="font-bold">
-                      No recommended builds for now aside from Tweyen 😢
+                      {t("No recommended builds for now aside from Tweyen 😢")}
                     </p>
                     <p>
-                      Feel free to reach out on Github or on Discord if you want
-                      to recommend some builds 🤞
+                      {t("Feel free to reach out on Github or on Discord if you want to recommend some builds 🤞")}
                     </p>
                   </div>
                 </div>
